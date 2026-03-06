@@ -1,0 +1,14 @@
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json()); // Gelen JSON verilerini anlaması için şart!
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("🚀 MongoDB bağlantısı başarılı!"))
+    .catch(err => console.log("❌ Hata:", err));
+
+app.listen(5000, () => console.log("Backend 5000 portunda hazır!"));

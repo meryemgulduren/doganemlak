@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* Renk Yerleşim Planı - doganemlak */
+  --color-background: #fcfaf6;
+  --color-text-dark: #30230d;
+  --color-primary: #b4812e;
+  --color-secondary: #cba24b;
+  --color-accent: #f1d882;
+  /* Yazı stili: temiz, modern sans-serif (resimdeki gibi) */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    @apply font-sans antialiased;
+  }
+  body {
+    @apply bg-background text-text-dark font-sans antialiased;
+  }
+  input,
+  button,
+  select,
+  textarea,
+  a {
+    @apply font-sans;
+  }
+}

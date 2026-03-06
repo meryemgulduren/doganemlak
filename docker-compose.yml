@@ -1,0 +1,14 @@
+services:
+  veritabanim:           # Bu bizim servisimizin adı
+    image: mongo         # Docker'a "MongoDB imajını getir" diyoruz
+    container_name: meryem_mongo # Konteynere verdiğimiz özel isim
+    ports:
+      - "27017:27017"    # Bilgisayarın 27017 kapısını, Docker'ın içine bağla
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin       # Kullanıcı adın
+      - MONGO_INITDB_ROOT_PASSWORD=sifre123    # Şifren
+    volumes:
+      - mongo_data:/data/db # Verilerin bilgisayarında kalıcı olsun (silinmesin)
+
+volumes:
+  mongo_data:            # Docker'ın veri saklayacağı gizli kutu

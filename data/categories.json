@@ -1,0 +1,28 @@
+{
+  "mainCategories": [
+    { "id": "KONUT", "label": "Konut" },
+    { "id": "IS_YERI", "label": "İş Yeri" },
+    { "id": "ARSA", "label": "Arsa" },
+    { "id": "BINA", "label": "Bina" }
+  ],
+  "listingTypes": [
+    { "id": "SATILIK", "label": "Satılık" },
+    { "id": "KIRALIK", "label": "Kiralık" }
+  ],
+  "subTypes": {
+    "KONUT": [
+      { "id": "DAIRE", "label": "Daire" },
+      { "id": "MUSTAKIL_VILLA", "label": "Müstakil Ev/Villa" },
+      { "id": "REZIDANS", "label": "Rezidans" },
+      { "id": "YAZLIK", "label": "Yazlık" }
+    ],
+    "IS_YERI": [
+      { "id": "BURO_OFIS", "label": "Büro & Ofis" },
+      { "id": "DUKKAN_MAGAZA", "label": "Dükkan & Mağaza" },
+      { "id": "DEPO_ANTREPO", "label": "Depo & Antrepo" },
+      { "id": "KOMPLE_BINA", "label": "Komple Bina" }
+    ],
+    "ARSA": [],
+    "BINA": []
+  }
+}
