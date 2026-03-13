@@ -16,6 +16,22 @@ export async function uploadImage(file) {
   return data.url;
 }
 
+/**
+ * PC'den seçilen video dosyasını sunucuya yükler.
+ */
+export async function uploadVideo(file) {
+  const formData = new FormData();
+  formData.append('video', file);
+  const res = await fetch(`${API_BASE}/api/admin/upload/video`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${getToken()}` },
+    body: formData,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || 'Video yükleme başarısız.');
+  return data.url;
+}
+
 export async function fetchFeatureDefinitions() {
   return apiRequest('/api/feature-definitions');
 }
@@ -39,6 +55,7 @@ export async function fetchAdminListings(params = {}) {
   if (params.status) search.set('status', params.status);
   if (params.listing_type) search.set('listing_type', params.listing_type);
   if (params.city) search.set('city', params.city);
+  if (params.search) search.set('search', params.search);
   const qs = search.toString();
   return apiRequest(`/api/admin/listings${qs ? `?${qs}` : ''}`);
 }
@@ -59,4 +76,28 @@ export async function updateAdminListing(id, body) {
 
 export async function deleteAdminListing(id) {
   return apiRequest(`/api/admin/listings/${id}`, { method: 'DELETE' });
+}
+
+/**
+ * Kategori, şehir ve fiyat dağılımlarını içeren gelişmiş analitik özeti döndürür.
+ */
+export async function fetchAdminAnalytics() {
+  return apiRequest('/api/admin/analytics/summary');
+}
+
+// ── Admin kullanıcı yönetimi ────────────────────────────────────────────────────
+
+export async function fetchAdminAdmins() {
+  return apiRequest('/api/admin/admins');
+}
+
+export async function createAdminUser(body) {
+  return apiRequest('/api/admin/admins', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteAdminUser(id) {
+  return apiRequest(`/api/admin/admins/${id}`, { method: 'DELETE' });
 }

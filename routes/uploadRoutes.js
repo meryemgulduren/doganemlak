@@ -27,6 +27,16 @@ const upload = multer({
   },
 });
 
+const uploadVideo = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max for video
+  fileFilter: (req, file, cb) => {
+    const allowed = /\.(mp4|avi|mkv|webm|mov)$/i.test(file.originalname) || file.mimetype?.startsWith('video/');
+    if (allowed) cb(null, true);
+    else cb(new Error('Sadece video dosyaları (mp4, avi, mkv, webm, mov) yüklenebilir.'));
+  },
+});
+
 router.use(authenticate);
 router.use(requireAdmin);
 
@@ -40,6 +50,25 @@ router.post('/image', (req, res, next) => {
 }, (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'Dosya seçilmedi.' });
+  }
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const url = `${baseUrl}/uploads/${req.file.filename}`;
+  res.json({ success: true, url });
+});
+
+router.post('/video', (req, res, next) => {
+  uploadVideo.single('video')(req, res, (err) => {
+    if (err) {
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ success: false, message: 'Dosya boyutu çok büyük. Maksimum 50MB yükleyebilirsiniz.' });
+      }
+      return res.status(400).json({ success: false, message: err.message || 'Yükleme hatası.' });
+    }
+    next();
+  });
+}, (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: false, message: 'Video dosyası seçilmedi.' });
   }
   const baseUrl = `${req.protocol}://${req.get('host')}`;
   const url = `${baseUrl}/uploads/${req.file.filename}`;

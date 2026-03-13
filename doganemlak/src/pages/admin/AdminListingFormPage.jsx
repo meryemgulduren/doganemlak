@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchListingById } from "../../api/listings";
-import { createAdminListing, updateAdminListing, fetchFeatureDefinitions, uploadImage } from "../../api/admin";
+import { createAdminListing, updateAdminListing, fetchFeatureDefinitions, fetchAdminAdmins } from "../../api/admin";
 import CategoryStepper from "../../components/CategoryStepper";
 import DynamicListingForm from "../../components/forms/DynamicListingForm";
 
@@ -22,8 +22,8 @@ export default function AdminListingFormPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [featureDefinitions, setFeatureDefinitions] = useState([]);
-  const [imageUploading, setImageUploading] = useState(false);
-  const [imageUploadError, setImageUploadError] = useState(null);
+  const [admins, setAdmins] = useState([]);
+  const [adminId, setAdminId] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -49,7 +49,7 @@ export default function AdminListingFormPage() {
     credit_eligible: false,
     dues: "",
     status: "ACTIVE",
-    location: { city: "", district: "", neighborhood: "" },
+    location: { city: "", district: "", neighborhood: "", address_details: "" },
     media: { images: [], videos: [] },
     features: [],
   });
@@ -61,6 +61,7 @@ export default function AdminListingFormPage() {
       .then((res) => {
         if (cancelled || !res.success) return;
         const d = res.data;
+        setAdminId(d.admin_id?._id || d.admin_id || "");
         setForm({
           title: d.title ?? "",
           description: d.description ?? "",
@@ -86,7 +87,12 @@ export default function AdminListingFormPage() {
           credit_eligible: !!d.credit_eligible,
           dues: d.dues ?? "",
           status: d.status ?? "ACTIVE",
-          location: d.location || { city: "", district: "", neighborhood: "" },
+          location: {
+            city: d.location?.city || "",
+            district: d.location?.district || "",
+            neighborhood: d.location?.neighborhood || "",
+            address_details: d.location?.address_details || "",
+          },
           media: {
             images: d.media?.images ?? [],
             videos: d.media?.videos ?? [],
@@ -115,6 +121,17 @@ export default function AdminListingFormPage() {
           setFeatureDefinitions(res.data);
         }
       })
+      .catch(() => { });
+    return () => { cancelled = true; };
+  }, []);
+
+  // Admin listesini yükle (danışman seçimi için)
+  useEffect(() => {
+    let cancelled = false;
+    fetchAdminAdmins()
+      .then((res) => {
+        if (!cancelled && res.success) setAdmins(res.data);
+      })
       .catch(() => {});
     return () => { cancelled = true; };
   }, []);
@@ -127,44 +144,6 @@ export default function AdminListingFormPage() {
       ...prev,
       location: { ...prev.location, [key]: value },
     }));
-  };
-  const updateMediaImages = (str) => {
-    const arr = str.trim() ? str.split("\n").map((s) => s.trim()).filter(Boolean) : [];
-    setForm((prev) => ({
-      ...prev,
-      media: { ...prev.media, images: arr },
-    }));
-  };
-  const addUploadedImageUrl = (url) => {
-    setForm((prev) => ({
-      ...prev,
-      media: { ...prev.media, images: [...(prev.media?.images || []), url] },
-    }));
-  };
-  const handleImageFileSelect = async (e) => {
-    const files = e.target.files;
-    if (!files?.length) return;
-    setImageUploadError(null);
-    setImageUploading(true);
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (!file.type.startsWith("image/")) continue;
-      try {
-        const url = await uploadImage(file);
-        addUploadedImageUrl(url);
-      } catch (err) {
-        setImageUploadError(err.message || "Yükleme başarısız.");
-      }
-    }
-    setImageUploading(false);
-    e.target.value = "";
-  };
-  const removeImageByIndex = (index) => {
-    setForm((prev) => {
-      const images = [...(prev.media?.images || [])];
-      images.splice(index, 1);
-      return { ...prev, media: { ...prev.media, images } };
-    });
   };
   const toggleFeature = (featureId) => {
     setForm((prev) => {
@@ -257,7 +236,7 @@ export default function AdminListingFormPage() {
   if (loading) return <p className="text-text-dark/70">Yükleniyor...</p>;
 
   return (
-    <div className="max-w-3xl">
+    <div className="w-full">
       {formStep === FORM_STEP_CATEGORY && !isEdit ? (
         <>
           <h2 className="text-xl font-bold text-text-dark mb-4">Yeni İlan</h2>
@@ -287,8 +266,28 @@ export default function AdminListingFormPage() {
             </p>
           )}
           {error && (
-            <p className="mb-4 text-red-600 text-sm">{error}</p>
+            <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm">{error}</div>
           )}
+          {/* Danışman seçici */}
+          <div className="mb-4 rounded-xl border border-border bg-surface shadow-sm px-4 py-3">
+            <header className="flex items-center gap-2 mb-2">
+              <span className="w-1 h-4 rounded-full bg-success flex-shrink-0" />
+              <h3 className="text-sm font-semibold text-slate-600">✓ Yetkili Danışman</h3>
+            </header>
+            <select
+              value={adminId}
+              onChange={(e) => setAdminId(e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm text-text-dark bg-surface focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+            >
+              <option value="">— Danışman seçin (opsiyonel) —</option>
+              {admins.map((a) => (
+                <option key={a._id} value={a._id}>
+                  {[a.first_name, a.last_name].filter(Boolean).join(" ") || a.username}
+                  {a.phone ? ` · ${a.phone}` : ""}
+                </option>
+              ))}
+            </select>
+          </div>
           {/* Dinamik form */}
           <DynamicListingForm
             category={form.category}
@@ -297,16 +296,20 @@ export default function AdminListingFormPage() {
             initialValues={form}
             featureDefinitions={featureDefinitions}
             saving={saving}
-            onSubmit={async ({ core, specifications, features, category, listingType, subType }) => {
+            onSubmit={async ({ core, specifications, features, media, category, listingType, subType }) => {
               setSaving(true);
               setError(null);
               const payload = {
                 ...core,
                 category,
                 listingType,
+                listing_type: listingType || core.listing_type || "SATILIK",
                 subType,
                 specifications,
                 features,
+                media,
+                // admin_id: boş string gönderme, undefined olarak bırak ki DB'ye null yazmasın
+                ...(adminId ? { admin_id: adminId } : {}),
               };
               try {
                 if (isEdit) {

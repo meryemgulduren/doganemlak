@@ -1,14 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
-  /* Renk Yerleşim Planı - doganemlak */
-  --color-background: #fcfaf6;
-  --color-text-dark: #30230d;
-  --color-primary: #b4812e;
-  --color-secondary: #cba24b;
-  --color-accent: #f1d882;
-  /* Yazı stili: temiz, modern sans-serif (resimdeki gibi) */
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  /* ── Temel Palet (Doğal ve Sıcak Renkler) ────────────────────── */
+  --color-background: #F2F4F3;
+  --color-text-dark:  #0A0908;
+  --color-primary:    #49111C;
+  --color-secondary:  #5E503F;
+  --color-accent:     #E5DDD5;
+
+  /* ── Canlı Vurgu Renkleri ─────────────────────────────────────────── */
+  --color-danger:    #E53E3E;
+  --color-success:   #2F855A;
+  --color-warning:   #C05621;
+  --color-highlight: #A9927D;
+
+  /* ── Nötr Tonlar ──────────────────────────────────────────────────── */
+  --color-surface:   #FFFFFF;
+  --color-border:    #D5CFC9;
+  --color-muted:     #7A7169;
+
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 @layer base {
@@ -18,11 +30,20 @@
   body {
     @apply bg-background text-text-dark font-sans antialiased;
   }
-  input,
-  button,
-  select,
-  textarea,
-  a {
+  input, button, select, textarea, a {
     @apply font-sans;
   }
+  a {
+    transition: color 0.15s ease;
+  }
+  button {
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+
+  /* Scrollbar stillleri */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #F2F4F3; }
+  ::-webkit-scrollbar-thumb { background: #A9927D; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #5E503F; }
 }
+

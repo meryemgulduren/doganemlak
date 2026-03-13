@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const { SPEC_TO_FIELD_MAP } = require('../utils/listingUtils');
 
 const locationSchema = new mongoose.Schema({
   city: { type: String, default: null },
   district: { type: String, default: null },
   neighborhood: { type: String, default: null },
+  address_details: { type: String, default: null },
   coordinates: {
     lat: { type: Number, default: null },
     lng: { type: Number, default: null },
@@ -32,8 +34,11 @@ const listingSchema = new mongoose.Schema(
     category: { type: String, default: null },
     listingType: { type: String, enum: ['SATILIK', 'KIRALIK'], default: null },
     subType: { type: String, default: null },
+
+    // ── Flat kolonlar — specifications pre-save hook tarafından otomatik doldurulur ──
     m2_brut: { type: Number, default: null },
     m2_net: { type: Number, default: null },
+    open_area_m2: { type: Number, default: null },
     room_count: { type: String, default: null },
     floor_number: { type: Number, default: null },
     total_floors: { type: Number, default: null },
@@ -46,11 +51,20 @@ const listingSchema = new mongoose.Schema(
     in_site: { type: Boolean, default: false },
     credit_eligible: { type: Boolean, default: false },
     dues: { type: Number, default: null },
+    property_condition: { type: String, default: null },
+    has_tenant: { type: String, default: null },
+    commercial_features: { type: [String], default: [] },
+
+    /**
+     * Kategori-özgü tüm ek alanlar bu esnek Map'te tutulur.
+     * SPEC_TO_FIELD_MAP'teki alanlar pre('save') hook'u ile flat kolonlara senkronize edilir.
+     */
     specifications: {
       type: Map,
       of: mongoose.Schema.Types.Mixed,
       default: () => ({}),
     },
+
     facade: [{ type: String }],
     location: { type: locationSchema, default: () => ({}) },
     media: { type: mediaSchema, default: () => ({ images: [], videos: [] }) },
@@ -63,9 +77,45 @@ const listingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ── Index'ler ─────────────────────────────────────────────────────────────────
 listingSchema.index({ listing_type: 1, status: 1 });
-listingSchema.index({ 'location.city': 1, 'location.district': 1 });
+listingSchema.index({ property_type: 1, status: 1 });
 listingSchema.index({ price: 1 });
 listingSchema.index({ listing_date: -1 });
+// Text index: şehir araması RegExp yerine $text sorgusu ile yapılır
+listingSchema.index({ 'location.city': 'text', 'location.district': 'text' });
+// Konum compound index (non-text filtreler için)
+listingSchema.index({ 'location.city': 1, 'location.district': 1 });
+
+// ── Pre-save hook: specifications → flat alan senkronizasyonu ─────────────────
+/**
+ * specifications Map değiştiğinde ilgili flat kolonları otomatik günceller.
+ * Controller'da her alanı tek tek yazmak zorunda kalmayız (DRY).
+ *
+ * async function olarak tanımlandı: Mongoose 6+ modern yaklaşımı, next() gerekmez.
+ */
+listingSchema.pre('save', async function syncSpecificationsToFields() {
+  const specs = this.specifications;
+  if (!specs) return;
+
+  // Mongoose Map ya da plain object — her ikisini de destekle
+  const getValue = (key) =>
+    specs instanceof Map ? specs.get(key) : specs[key];
+
+  const BOOLEAN_FIELDS = new Set(['balcony', 'furnished', 'in_site', 'credit_eligible']);
+
+  for (const [specKey, fieldKey] of Object.entries(SPEC_TO_FIELD_MAP)) {
+    const value = getValue(specKey);
+    if (value === undefined) continue;
+
+    if (fieldKey === 'commercial_features') {
+      this[fieldKey] = Array.isArray(value) ? value : [];
+    } else if (BOOLEAN_FIELDS.has(fieldKey)) {
+      this[fieldKey] = Boolean(value);
+    } else {
+      this[fieldKey] = value ?? null;
+    }
+  }
+});
 
 module.exports = mongoose.model('Listing', listingSchema);

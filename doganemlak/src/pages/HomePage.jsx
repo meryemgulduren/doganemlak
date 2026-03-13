@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Filter } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
@@ -10,11 +10,24 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
 
+  const [searchParams] = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  const listingTypeParam = searchParams.get("listing_type");
+  const subTypeParam = searchParams.get("sub_type");
+  const searchParamStr = searchParams.get("search");
+
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetchListings({ page: 1, limit: 24 })
+    fetchListings({ 
+        page: 1, 
+        limit: 24,
+        category: categoryParam || undefined,
+        listing_type: listingTypeParam || undefined,
+        sub_type: subTypeParam || undefined,
+        search: searchParamStr || undefined
+    })
       .then((res) => {
         if (!cancelled && res.success) {
           setListings(res.data || []);
@@ -28,12 +41,12 @@ export default function HomePage() {
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, []);
+  }, [categoryParam, listingTypeParam, subTypeParam, searchParamStr]);
 
   return (
     <div className="w-full px-3 sm:px-4 lg:px-6 xl:px-8 py-10 font-sans">
       <div className="max-w-[1600px] mx-auto flex gap-6">
-        <aside className="hidden md:block w-64 flex-shrink-0 bg-white/80 border border-accent/40 rounded-xl p-4 shadow-sm">
+        <aside className="hidden md:block w-64 flex-shrink-0 bg-surface border border-border rounded-xl p-4 shadow-sm">
           <nav className="space-y-6 text-sm text-text-dark">
             <div>
               <h3 className="text-xs font-semibold tracking-wide text-text-dark/70 mb-2">
@@ -41,20 +54,20 @@ export default function HomePage() {
               </h3>
               <ul className="space-y-1">
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Mesajlar</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Sorularım Ve Cevaplarım</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Bilgilendirmeler</span>
                   </button>
                 </li>
@@ -68,21 +81,21 @@ export default function HomePage() {
                 <li>
                   <Link
                     to="/favorilerim"
-                    className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2 block"
+                    className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 block group transition-colors"
                   >
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Favori İlanlar</span>
                   </Link>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Favori Aramalar</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Favori Satıcılar</span>
                   </button>
                 </li>
@@ -94,8 +107,8 @@ export default function HomePage() {
               </h3>
               <ul className="space-y-1">
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Hesap Bilgilerim</span>
                   </button>
                 </li>
@@ -107,26 +120,26 @@ export default function HomePage() {
               </h3>
               <ul className="space-y-1">
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Ayarlar</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Sorun/Öneri Bildirimi</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Hakkında</span>
                   </button>
                 </li>
                 <li>
-                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-accent/40 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full border border-text-dark" />
+                  <button className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-brand/10 hover:text-brand flex items-center gap-2 group transition-colors">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: "#F3C35C" }} />
                     <span>Kişisel Verilerin Korunması</span>
                   </button>
                 </li>
@@ -136,13 +149,13 @@ export default function HomePage() {
         </aside>
 
         <section className="flex-1">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b-2 border-accent">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b-2 border-[#F3C35C]">
             <h2 className="text-2xl font-extrabold text-text-dark font-sans">
               Öne Çıkan İlanlar
             </h2>
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg border border-text-dark text-text-dark font-sans font-medium hover:bg-text-dark hover:text-background focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-border text-text-dark font-medium hover:bg-primary hover:text-white hover:border-primary focus:outline-none transition-colors text-sm"
             >
               <Filter className="w-5 h-5" />
               Filtre Seç
@@ -150,7 +163,7 @@ export default function HomePage() {
           </div>
 
           {error && (
-            <div className="mb-4 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-700 text-sm">
+            <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm">
               {error}
             </div>
           )}

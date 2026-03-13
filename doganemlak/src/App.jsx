@@ -13,6 +13,7 @@ import AdminLayout from "./components/AdminLayout";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminListingsPage from "./pages/admin/AdminListingsPage";
 import AdminListingFormPage from "./pages/admin/AdminListingFormPage";
+import AdminAddAdminPage from "./pages/admin/AdminAddAdminPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/ilan/:id" element={<AdDetail />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
+            <Route path="ilanlar" element={<HomePage />} />
             <Route
               path="favorilerim"
               element={
@@ -53,6 +55,7 @@ function App() {
             <Route path="ilanlar" element={<AdminListingsPage />} />
             <Route path="ilan-yeni" element={<AdminListingFormPage />} />
             <Route path="ilan-duzenle/:id" element={<AdminListingFormPage />} />
+            <Route path="adminler" element={<AdminAddAdminPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

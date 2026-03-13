@@ -48,6 +48,13 @@ export const fieldDefinitions = {
     type: "number",
     section: "price_area",
   },
+  open_area_m2: {
+    id: "open_area_m2",
+    label: "Açık Alan m²",
+    type: "number",
+    section: "price_area",
+    placeholder: "Bahçe / açık alan m²",
+  },
   room_count: {
     id: "room_count",
     label: "Oda Sayısı",
@@ -111,9 +118,8 @@ export const fieldDefinitions = {
   balcony: {
     id: "balcony",
     label: "Balkon",
-    type: "select",
-    section: "property_details",
-    options: ["Var", "Yok"],
+    type: "checkbox",
+    section: "extra",
   },
   furnished: {
     id: "furnished",
@@ -166,6 +172,20 @@ export const fieldDefinitions = {
     section: "extra",
     options: ["Evet", "Hayır"],
   },
+  property_condition: {
+    id: "property_condition",
+    label: "Durumu",
+    type: "select",
+    section: "extra",
+    options: ["Sıfır", "İkinci El"],
+  },
+  has_tenant: {
+    id: "has_tenant",
+    label: "Kiralık",
+    type: "select",
+    section: "extra",
+    options: ["Evet", "Hayır"],
+  },
   city: {
     id: "city",
     label: "İl",
@@ -184,10 +204,17 @@ export const fieldDefinitions = {
     type: "text",
     section: "address",
   },
+  address_details: {
+    id: "address_details",
+    label: "Açık Adres",
+    type: "textarea",
+    section: "address",
+    rows: 3,
+    placeholder: "Örn: Cumhuriyet Mah. Vatan Cad. No: 12",
+  },
 };
 
 // Kategori kombinasyonuna göre alan setleri.
-// Şimdilik sadece KONUT.SATILIK.DAIRE detaylı tanımlı.
 export const categoryLayouts = {
   "KONUT.SATILIK.DAIRE": {
     requiredFields: [
@@ -221,10 +248,122 @@ export const categoryLayouts = {
       "neighborhood",
     ],
   },
-  // Diğer kombinasyonlar için genel bir fallback
+  // Müstakil Villa / Yazlık — asansör yok, açık alan m² var
+  "KONUT.SATILIK.MUSTAKIL_VILLA": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_brut",
+      "m2_net",
+      "open_area_m2",
+      "room_count",
+      "building_age",
+      "total_floors",
+      "heating_type",
+      "bathroom_count",
+      "kitchen_type",
+      "parking",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "balcony",
+      "furnished",
+      "in_site",
+      "credit_eligible",
+      "using_status",
+      "dues",
+      "registry_number",
+      "title_deed_status",
+      "neighborhood",
+    ],
+  },
+  "KONUT.KIRALIK.MUSTAKIL_VILLA": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_brut",
+      "m2_net",
+      "open_area_m2",
+      "room_count",
+      "building_age",
+      "total_floors",
+      "heating_type",
+      "bathroom_count",
+      "kitchen_type",
+      "parking",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "balcony",
+      "furnished",
+      "in_site",
+      "using_status",
+      "dues",
+      "neighborhood",
+    ],
+  },
+  // İş Yeri — Büro & Ofis (hem Satılık hem Kiralık bu layoutu kullanır)
+  "IS_YERI.BURO_OFIS": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_net",
+      "room_count",
+      "building_age",
+      "heating_type",
+      "using_status",
+      "property_condition",
+      "has_tenant",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "dues",
+      "floor_number",
+      "credit_eligible",
+      "registry_number",
+      "neighborhood",
+      "address_details",
+    ],
+  },
+  // İş Yeri — Dükkan & Mağaza (Büro Ofis gibi ama Kiralık alanı yok)
+  "IS_YERI.DUKKAN_MAGAZA": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_net",
+      "room_count",
+      "building_age",
+      "heating_type",
+      "using_status",
+      "property_condition",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "dues",
+      "floor_number",
+      "credit_eligible",
+      "registry_number",
+      "neighborhood",
+      "address_details",
+    ],
+  },
+  // Diğer kombinasyonlar için genel fallback
   default: {
     requiredFields: ["title", "description", "price", "city", "district"],
-    optionalFields: ["m2_brut", "m2_net", "room_count", "building_age", "floor_number", "total_floors"],
+    optionalFields: ["m2_brut", "m2_net", "open_area_m2", "room_count", "building_age", "floor_number", "total_floors", "address_details"],
   },
 };
 
@@ -236,12 +375,33 @@ export const featureGroups = {
   ULASIM: { id: "ULASIM", label: "Ulaşım" },
   MANZARA: { id: "MANZARA", label: "Manzara" },
   KONUT_TIPI: { id: "KONUT_TIPI", label: "Konut Tipi" },
-  ENGELLI_UYGUNLUK: { id: "ENGELLI_UYGUNLUK", label: "Engelliye Uygunluk" },
+  ENGELLI_UYGUNLUK: { id: "ENGELLI_UYGUNLUK", label: "Engelliye ve Yaşlıya Uygun" },
 };
 
 export function resolveCategoryLayout(category, listingType, subType) {
+  // Tam eşleşme varsa onu kullan
   const key = [category, listingType, subType].filter(Boolean).join(".");
   if (categoryLayouts[key]) return { key, ...categoryLayouts[key] };
+
+  // KONUT kategorisi: Müstakil Villa → villa layoutu, geri kalan → Daire formu
+  if (category === "KONUT") {
+    if (subType === "MUSTAKIL_VILLA") {
+      const villaKey = `KONUT.${listingType}.MUSTAKIL_VILLA`;
+      if (categoryLayouts[villaKey]) return { key: villaKey, ...categoryLayouts[villaKey] };
+      return { key: "KONUT.SATILIK.MUSTAKIL_VILLA", ...categoryLayouts["KONUT.SATILIK.MUSTAKIL_VILLA"] };
+    }
+    return { key: "KONUT.SATILIK.DAIRE", ...categoryLayouts["KONUT.SATILIK.DAIRE"] };
+  }
+
+  // İş Yeri kategorisi: subType'a göre layout seç
+  if (category === "IS_YERI") {
+    if (subType === "DUKKAN_MAGAZA") {
+      return { key: "IS_YERI.DUKKAN_MAGAZA", ...categoryLayouts["IS_YERI.DUKKAN_MAGAZA"] };
+    }
+    // BURO_OFIS ve diğerleri
+    return { key: "IS_YERI.BURO_OFIS", ...categoryLayouts["IS_YERI.BURO_OFIS"] };
+  }
+
   return { key: "default", ...categoryLayouts.default };
 }
 

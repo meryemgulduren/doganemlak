@@ -13,6 +13,9 @@ async function validateListing(req, res, next) {
   try {
     // Base alanlar için validasyon (coerce destekli)
     const parsedBase = await baseSchema.parseAsync(req.body);
+    // Kritik: parsedBase bilinmeyen alanları strip eder (Zod default davranışı).
+    // Orijinal body korunarak sadece parse edilmiş alanlar güncellenir;
+    // admin_id gibi ekstra alanlar kaybolmaz.
     req.body = { ...req.body, ...parsedBase };
 
     // Kategori path'ini hesapla
