@@ -12,6 +12,7 @@ const analyticsRoutes           = require('./routes/analyticsRoutes');
 const categoryRoutes            = require('./routes/categoryRoutes');
 const featureDefinitionRoutes   = require('./routes/featureDefinitionRoutes');
 const uploadRoutes              = require('./routes/uploadRoutes');
+const cityRoutes                = require('./routes/cityRoutes');
 const viewCountBuffer           = require('./utils/viewCountBuffer');
 
 // DB bağlantısı kurulduktan sonra view_count buffer'ını başlat
@@ -42,6 +43,7 @@ app.use('/api/admin/analytics',     analyticsRoutes);
 app.use('/api/admin',               adminRoutes);
 app.use('/api/categories',          categoryRoutes);
 app.use('/api/feature-definitions', featureDefinitionRoutes);
+app.use('/api/cities',              cityRoutes);
 
 const server = app.listen(PORT, () => {
   console.log(`Sunucu http://localhost:${PORT} üzerinde çalışıyor.`);

@@ -36,7 +36,13 @@ export default function DynamicListingForm({
       description: initialValues?.description ?? "",
       price: initialValues?.price ?? "",
       currency: initialValues?.currency ?? "TRY",
-      location: initialValues?.location || { city: "", district: "", neighborhood: "", address_details: "" },
+      location: initialValues?.location || { 
+        city: "", 
+        district: "", 
+        neighborhood: "", 
+        address_details: "",
+        coordinates: initialValues?.location?.coordinates || { lat: null, lng: null }
+      },
       media: initialValues?.media || { images: [], videos: [] },
       features: initialValues?.features ?? [],
       facade: initialValues?.facade ?? [],

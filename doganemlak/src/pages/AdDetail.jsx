@@ -1,6 +1,21 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Image as ImageIcon, Video, Check, Home, Heart, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Image as ImageIcon, Video, Check, Home, Heart, X, MapPin } from "lucide-react";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+// Leaflet marker simgesi için düzeltme
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 import logoImg from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -86,9 +101,16 @@ export default function AdDetail() {
     return () => { cancelled = true; };
   }, [isLoggedIn, id]);
 
-  const images = listing?.media?.images?.length
-    ? listing.media.images
-    : ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&h=600&fit=crop"];
+  const mediaList = useMemo(() => {
+    const list = [
+      ...(listing?.media?.images || []).map(url => ({ type: 'image', url })),
+      ...(listing?.media?.videos || []).map(url => ({ type: 'video', url }))
+    ];
+    if (list.length === 0) {
+      list.push({ type: 'image', url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&h=600&fit=crop" });
+    }
+    return list;
+  }, [listing]);
 
   // Lightbox Handlers
   const openLightbox = (index = 0) => {
@@ -103,13 +125,13 @@ export default function AdDetail() {
   };
 
   const nextLightboxImage = (e) => {
-    e.stopPropagation(); // prevent modal click
-    setLightboxIndex((prev) => (prev + 1) % images.length);
+    e?.stopPropagation(); // prevent modal click
+    setLightboxIndex((prev) => (prev + 1) % mediaList.length);
   };
 
   const prevLightboxImage = (e) => {
-    e.stopPropagation();
-    setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
+    e?.stopPropagation();
+    setLightboxIndex((prev) => (prev - 1 + mediaList.length) % mediaList.length);
   };
 
   // Keyboard navigation for lightbox
@@ -117,12 +139,12 @@ export default function AdDetail() {
     const handleKeyDown = (e) => {
       if (!isLightboxOpen) return;
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") setLightboxIndex((prev) => (prev + 1) % images.length);
-      if (e.key === "ArrowLeft") setLightboxIndex((prev) => (prev - 1 + images.length) % images.length);
+      if (e.key === "ArrowRight") setLightboxIndex((prev) => (prev + 1) % mediaList.length);
+      if (e.key === "ArrowLeft") setLightboxIndex((prev) => (prev - 1 + mediaList.length) % mediaList.length);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen, images.length]);
+  }, [isLightboxOpen, mediaList.length]);
 
   const isFavorite = favoriteIds.has(id);
 
@@ -195,10 +217,10 @@ export default function AdDetail() {
   }
 
   const handlePrev = () => {
-    setActiveImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setActiveImageIndex((prev) => (prev === 0 ? mediaList.length - 1 : prev - 1));
   };
   const handleNext = () => {
-    setActiveImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setActiveImageIndex((prev) => (prev === mediaList.length - 1 ? 0 : prev + 1));
   };
 
 
@@ -208,6 +230,8 @@ export default function AdDetail() {
     acc[cat].push(f);
     return acc;
   }, {});
+
+  const currentMedia = mediaList[activeImageIndex];
 
   return (
     <div className="min-h-screen bg-background pt-6 pb-10 font-sans">
@@ -240,34 +264,52 @@ export default function AdDetail() {
 
         <section className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-6">
           <div className="lg:w-3/5 bg-white rounded-2xl border border-accent/60 shadow-sm p-3 sm:p-4">
-            <div className="relative bg-secondary/10 rounded-xl overflow-hidden mb-3">
-              <img
-                src={images[activeImageIndex]}
-                alt={listing.title}
-                className="w-full max-h-[380px] object-cover"
-              />
-              {images.length > 1 && (
+            <div className="relative bg-secondary/10 rounded-xl overflow-hidden mb-3 group cursor-pointer" onClick={() => openLightbox(activeImageIndex)}>
+              {currentMedia.type === 'video' ? (
+                <div className="relative w-full aspect-video max-h-[380px] bg-black flex items-center justify-center">
+                  <video
+                    src={currentMedia.url}
+                    className="w-full h-full object-contain"
+                    muted
+                    playsInline
+                  />
+                  {/* Play Icon Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                    <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center border border-white/40 shadow-xl">
+                      <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-2" />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <img
+                  src={currentMedia.url}
+                  alt={listing.title}
+                  className="w-full max-h-[380px] object-cover"
+                />
+              )}
+              
+              {mediaList.length > 1 && (
                 <>
                   <button
                     type="button"
-                    onClick={handlePrev}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-text-dark/70 text-white rounded-full p-1.5 hover:bg-text-dark transition-colors"
-                    aria-label="Önceki fotoğraf"
+                    onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-text-dark/70 text-white rounded-full p-1.5 hover:bg-text-dark transition-colors z-10"
+                    aria-label="Önceki"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     type="button"
-                    onClick={handleNext}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-text-dark/70 text-white rounded-full p-1.5 hover:bg-text-dark transition-colors"
-                    aria-label="Sonraki fotoğraf"
+                    onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-text-dark/70 text-white rounded-full p-1.5 hover:bg-text-dark transition-colors z-10"
+                    aria-label="Sonraki"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </>
               )}
-              <span className="absolute bottom-2 right-2 px-2.5 py-1 rounded-full bg-text-dark/80 text-background text-xs font-medium">
-                {activeImageIndex + 1} / {images.length}
+              <span className="absolute bottom-2 right-2 px-2.5 py-1 rounded-full bg-text-dark/80 text-background text-xs font-medium z-10">
+                {activeImageIndex + 1} / {mediaList.length}
               </span>
             </div>
             <div className="flex flex-wrap gap-2 text-xs sm:text-sm mb-4">
@@ -276,18 +318,9 @@ export default function AdDetail() {
                 onClick={() => openLightbox(activeImageIndex)}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-text-dark/70 text-background font-medium hover:bg-text-dark"
               >
-                <ImageIcon className="w-4 h-4" />
-                Büyük Fotoğraf
+                {currentMedia.type === 'video' ? <Video className="w-4 h-4" /> : <ImageIcon className="w-4 h-4" />}
+                {currentMedia.type === 'video' ? "Videoyu Oynat" : "Büyük Fotoğraf"}
               </button>
-              {listing.media?.videos?.length > 0 && (
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-text-dark/70 text-background font-medium hover:bg-text-dark"
-                >
-                  <Video className="w-4 h-4" />
-                  Video
-                </button>
-              )}
             </div>
             <div className="border-t border-accent/40 pt-3 mt-1">
               <p className="text-xs sm:text-sm leading-relaxed text-text-dark uppercase tracking-wide whitespace-pre-line">
@@ -481,61 +514,98 @@ export default function AdDetail() {
             </div>
           </section>
         )}
+
+        {/* ── Harita Konumu ── */}
+        {listing.location?.coordinates?.lat && listing.location?.coordinates?.lng && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5 mt-6 overflow-hidden">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-4 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-primary" />
+              Konum
+            </h2>
+            <div className="h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-border shadow-inner z-0">
+              <MapContainer 
+                center={[listing.location.coordinates.lat, listing.location.coordinates.lng]} 
+                zoom={15} 
+                className="h-full w-full"
+                scrollWheelZoom={false}
+              >
+                <TileLayer 
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
+                />
+                <Marker position={[listing.location.coordinates.lat, listing.location.coordinates.lng]} />
+              </MapContainer>
+            </div>
+            <div className="mt-3 text-xs text-muted flex justify-between items-center px-1">
+              <span>{locationString(listing.location)}</span>
+              <span className="font-mono">{listing.location.coordinates.lat.toFixed(6)}, {listing.location.coordinates.lng.toFixed(6)}</span>
+            </div>
+          </section>
+        )}
       </div>
 
       {/* --- Lightbox Modal --- */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center animate-fade-in"
+          className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center animate-fade-in"
           onClick={closeLightbox}
         >
           {/* Close Button */}
           <button
             type="button"
             onClick={closeLightbox}
-            className="absolute top-5 right-5 text-white/70 hover:text-white p-2 transition-colors z-[1000]"
+            className="absolute top-5 right-5 text-white/70 hover:text-white p-2 transition-colors z-[1000] bg-black/50 rounded-full"
             aria-label="Kapat"
           >
             <X className="w-8 h-8" />
           </button>
 
-          {/* Current Image */}
-          <div className="relative w-full max-w-5xl h-full max-h-screen p-4 flex items-center justify-center">
-            <img
-              src={images[lightboxIndex]}
-              alt={`${listing.title} Fotoğraf ${lightboxIndex + 1}`}
-              className="max-w-full max-h-full object-contain select-none"
-              onClick={(e) => e.stopPropagation()}
-            />
+          {/* Current Media */}
+          <div className="relative w-full max-w-5xl h-full max-h-screen p-4 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            {mediaList[lightboxIndex].type === 'video' ? (
+              <video
+                src={mediaList[lightboxIndex].url}
+                className="max-w-full max-h-full rounded-lg shadow-2xl"
+                controls
+                autoPlay
+                playsInline
+              />
+            ) : (
+              <img
+                src={mediaList[lightboxIndex].url}
+                alt={`${listing.title} Fotoğraf ${lightboxIndex + 1}`}
+                className="max-w-full max-h-full object-contain select-none rounded-lg shadow-2xl"
+              />
+            )}
           </div>
 
           {/* Left Arrow */}
-          {images.length > 1 && (
+          {mediaList.length > 1 && (
             <button
               type="button"
               onClick={prevLightboxImage}
-              className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 px-4 py-8 text-white/50 hover:text-white transition-colors z-[1000]"
+              className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
               aria-label="Önceki"
             >
-              <ChevronLeft className="w-12 h-12 sm:w-16 sm:h-16" />
+              <ChevronLeft className="w-10 h-10 sm:w-16 sm:h-16" />
             </button>
           )}
 
           {/* Right Arrow */}
-          {images.length > 1 && (
+          {mediaList.length > 1 && (
             <button
               type="button"
               onClick={nextLightboxImage}
-              className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 px-4 py-8 text-white/50 hover:text-white transition-colors z-[1000]"
+              className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
               aria-label="Sonraki"
             >
-              <ChevronRight className="w-12 h-12 sm:w-16 sm:h-16" />
+              <ChevronRight className="w-10 h-10 sm:w-16 sm:h-16" />
             </button>
           )}
 
           {/* Counter */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium tracking-widest z-[1000]">
-            {lightboxIndex + 1} / {images.length}
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md px-4 py-1.5 rounded-full text-white/90 text-sm font-medium tracking-widest z-[1000] border border-white/10">
+            {lightboxIndex + 1} / {mediaList.length}
           </div>
         </div>
       )}

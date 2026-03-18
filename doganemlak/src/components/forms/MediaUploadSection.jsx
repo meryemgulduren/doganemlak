@@ -56,7 +56,7 @@ export default function MediaUploadSection({ media, onChange }) {
         const url = await uploadVideo(file);
         newVideos.push(url);
       } catch (err) {
-        setError(err.message || "Video yükleme başarısız. Maksimum 50MB sınırını kontrol edin.");
+        setError(err.message || "Video yükleme başarısız. Maksimum 100MB sınırını kontrol edin.");
       }
     }
 
@@ -153,6 +153,12 @@ export default function MediaUploadSection({ media, onChange }) {
               videos.map((url, idx) => (
                 <div key={idx} className="relative group w-32 h-20 rounded-md overflow-hidden border border-gray-200 bg-black">
                   <video src={url} className="w-full h-full object-contain" muted />
+                  {/* Play Icon Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
+                      <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1" />
+                    </div>
+                  </div>
                   <button
                     type="button"
                     onClick={() => removeVideo(idx)}

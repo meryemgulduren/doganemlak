@@ -29,7 +29,7 @@ const upload = multer({
 
 const uploadVideo = multer({
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max for video
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB max for video
   fileFilter: (req, file, cb) => {
     const allowed = /\.(mp4|avi|mkv|webm|mov)$/i.test(file.originalname) || file.mimetype?.startsWith('video/');
     if (allowed) cb(null, true);
@@ -60,7 +60,7 @@ router.post('/video', (req, res, next) => {
   uploadVideo.single('video')(req, res, (err) => {
     if (err) {
       if (err.code === 'LIMIT_FILE_SIZE') {
-        return res.status(400).json({ success: false, message: 'Dosya boyutu çok büyük. Maksimum 50MB yükleyebilirsiniz.' });
+        return res.status(400).json({ success: false, message: 'Dosya boyutu çok büyük. Maksimum 100MB yükleyebilirsiniz.' });
       }
       return res.status(400).json({ success: false, message: err.message || 'Yükleme hatası.' });
     }
