@@ -205,23 +205,48 @@ export default function LocationSelector({ value, onChange }) {
     );
   }, [current.coordinates?.lat, current.coordinates?.lng]);
 
+  const getCoordsSync = (distName, neighName) => {
+    if (!distName) return null;
+    const dist = districts.find((d) => d.name === distName);
+    if (!dist) return null;
+    if (neighName) {
+      const nb = dist.neighborhoods?.find(
+        (n) => (typeof n === "object" ? n.name : n) === neighName
+      );
+      if (nb && typeof nb === "object" && nb.coordinates) {
+        return nb.coordinates;
+      }
+    }
+    return dist.coordinates || SAMSUN_CENTER;
+  };
+
   const updateField = (key, val) => {
     const next = { ...current, city: "Samsun" };
+    
+    const parseCoords = (c) => {
+      if (!c) return { lat: null, lng: null };
+      if (Array.isArray(c)) return { lat: c[0], lng: c[1] };
+      if (typeof c === 'object' && 'lat' in c) return { lat: c.lat, lng: c.lng };
+      return { lat: null, lng: null };
+    };
+
     if (key === "district") {
       setSuggestedAddressText("");
+      const coords = parseCoords(getCoordsSync(val, null));
       onChange({
         ...next,
         district: val,
         neighborhood: "",
-        coordinates: { lat: null, lng: null },
+        coordinates: coords,
         map_selection_confirmed: false,
       });
     } else if (key === "neighborhood") {
       setSuggestedAddressText("");
+      const coords = parseCoords(getCoordsSync(current.district, val));
       onChange({
         ...next,
         neighborhood: val,
-        coordinates: { lat: null, lng: null },
+        coordinates: coords,
         map_selection_confirmed: false,
       });
     } else {
@@ -293,6 +318,17 @@ export default function LocationSelector({ value, onChange }) {
     const center = await fetchNeighborhoodCenter();
     setMapTargetCenter(center);
     setMapTargetZoom(15);
+    
+    // Auto-set the coordinates so they are never null after map is toggled for a neighborhood
+    if (center[0] !== null && center[1] !== null && (!current.coordinates || !current.coordinates.lat)) {
+       onChange({
+         ...current,
+         city: "Samsun",
+         coordinates: { lat: center[0], lng: center[1] },
+         map_selection_confirmed: true,
+       });
+    }
+    
     setTimeout(() => setIsMapLoading(false), 250);
   };
 

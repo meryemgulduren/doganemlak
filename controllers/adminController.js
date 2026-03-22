@@ -189,36 +189,55 @@ async function updateListing(req, res) {
     const { id } = req.params;
     const { body } = req;
 
-    const listing = await Listing.findById(id);
-    if (!listing) {
+    const existing = await Listing.findById(id);
+    if (!existing) {
       return res.status(404).json({ success: false, message: 'İlan bulunamadı.' });
     }
+
+    // ── $set objesi oluştur (doğrudan MongoDB'ye gidecek) ──────────────────
+    const $set = {};
 
     // ── Kategori alanları ────────────────────────────────────────────────────
     const listingType = body.listingType ?? body.listing_type;
     if (listingType !== undefined) {
-      listing.listing_type = listingType;
-      listing.listingType = listingType;
+      $set.listing_type = listingType;
+      $set.listingType = listingType;
     }
-    if (body.category !== undefined) listing.category = body.category;
-    if (body.subType !== undefined) listing.subType = body.subType;
+    if (body.category !== undefined) $set.category = body.category;
+    if (body.subType !== undefined) $set.subType = body.subType;
 
     if (body.property_type !== undefined) {
-      listing.property_type = body.property_type;
+      $set.property_type = body.property_type;
     } else if (body.category != null && body.subType != null) {
-      listing.property_type = mapCategoryToPropertyType(body.category, body.subType);
+      $set.property_type = mapCategoryToPropertyType(body.category, body.subType);
     }
 
+    // ── specifications (mevcut değerleri koruyarak birleştir) ───────────────
     const toPlainSpecs = (specValue) => {
       if (!specValue) return {};
       if (specValue instanceof Map) return Object.fromEntries(specValue);
       return { ...specValue };
     };
 
-    // ── specifications (mevcut değerleri koruyarak birleştir) ───────────────
     if (body.specifications && typeof body.specifications === 'object') {
-      const currentSpecs = toPlainSpecs(listing.specifications);
-      listing.specifications = { ...currentSpecs, ...body.specifications };
+      const currentSpecs = toPlainSpecs(existing.specifications);
+      const mergedSpecs = { ...currentSpecs, ...body.specifications };
+      $set.specifications = mergedSpecs;
+
+      // Flat alan senkronizasyonu (pre-save hook yerine burada yapıyoruz)
+      const { SPEC_TO_FIELD_MAP } = require('../utils/listingUtils');
+      const BOOLEAN_FIELDS = new Set(['balcony', 'furnished', 'in_site', 'credit_eligible']);
+      for (const [specKey, fieldKey] of Object.entries(SPEC_TO_FIELD_MAP)) {
+        const value = mergedSpecs[specKey];
+        if (value === undefined) continue;
+        if (fieldKey === 'commercial_features') {
+          $set[fieldKey] = Array.isArray(value) ? value : [];
+        } else if (BOOLEAN_FIELDS.has(fieldKey)) {
+          $set[fieldKey] = Boolean(value);
+        } else {
+          $set[fieldKey] = value ?? null;
+        }
+      }
     }
 
     // ── Beyaz listedeki top-level alanlar ────────────────────────────────────
@@ -226,22 +245,38 @@ async function updateListing(req, res) {
       if (body[key] === undefined) continue;
 
       if (key === 'location' && typeof body[key] === 'object') {
-        listing.location = body[key];
+        // Location'ı doğrudan dot-notation ile set et
+        if (body.location.city !== undefined) $set['location.city'] = body.location.city;
+        if (body.location.district !== undefined) $set['location.district'] = body.location.district;
+        if (body.location.neighborhood !== undefined) $set['location.neighborhood'] = body.location.neighborhood;
+        if (body.location.address_details !== undefined) $set['location.address_details'] = body.location.address_details;
+        if (body.location.coordinates) {
+          $set['location.coordinates.lat'] = body.location.coordinates.lat;
+          $set['location.coordinates.lng'] = body.location.coordinates.lng;
+        }
+
+        // geo senkronizasyonu (pre-save hook yerine burada)
+        const lat = body.location.coordinates?.lat;
+        const lng = body.location.coordinates?.lng;
+        if (typeof lat === 'number' && typeof lng === 'number' && !isNaN(lat) && !isNaN(lng)) {
+          $set.geo = { type: 'Point', coordinates: [lng, lat] };
+        }
       } else if (key === 'media' && typeof body[key] === 'object') {
-        listing.media = {
-          images: Array.isArray(body[key].images) ? body[key].images : listing.media?.images ?? [],
-          videos: Array.isArray(body[key].videos) ? body[key].videos : listing.media?.videos ?? [],
+        $set.media = {
+          images: Array.isArray(body[key].images) ? body[key].images : existing.media?.images ?? [],
+          videos: Array.isArray(body[key].videos) ? body[key].videos : existing.media?.videos ?? [],
         };
       } else if (key === 'features' && Array.isArray(body[key])) {
-        listing.features = body[key];
+        $set.features = body[key];
       } else {
-        listing[key] = body[key];
+        $set[key] = body[key];
       }
     }
 
-    await listing.save(); // pre-save hook burada çalışır
+    // ── Tek atomik güncelleme — Mongoose subdocument sorunlarını tamamen atlar ─
+    await Listing.findByIdAndUpdate(id, { $set }, { runValidators: true });
 
-    const populated = await Listing.findById(listing._id)
+    const populated = await Listing.findById(id)
       .populate('features', 'key label category')
       .select('-__v')
       .lean();

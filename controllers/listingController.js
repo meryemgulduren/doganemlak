@@ -95,8 +95,8 @@ async function getById(req, res) {
       return res.status(404).json({ success: false, message: 'İlan bulunamadı.' });
     }
 
-    // Buffer'a ekle — her 30 saniyede bir DB'ye toplu yazılır
-    viewCountBuffer.increment(id);
+    // Buffer'a ekle — her 2 dakikada bir DB'ye toplu yazılır, 1 dakikalık IP korumalı
+    viewCountBuffer.increment(id, req.ip);
     listing.view_count = (listing.view_count || 0) + 1; // yanıtta güncel sayı göster
 
     res.json({ success: true, data: listing });

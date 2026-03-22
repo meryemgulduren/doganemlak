@@ -7,6 +7,7 @@ import FormSection from "./FormSection";
 import FeaturesAccordion from "./FeaturesAccordion";
 import LocationSelector from "./LocationSelector";
 import MediaUploadSection from "./MediaUploadSection";
+import samsunData from "../../data/samsun-geo.json";
 
 const FACADE_OPTIONS = ["Batı", "Doğu", "Güney", "Kuzey"];
 
@@ -157,6 +158,29 @@ export default function DynamicListingForm({
       delete normalizedSpecs.bina_heating_type;
     }
 
+    let finalLocation = { ...location };
+    if (!finalLocation.coordinates || finalLocation.coordinates.lat == null) {
+      if (finalLocation.district) {
+        const dist = samsunData.districts.find(d => d.name === finalLocation.district);
+        if (dist) {
+          let fallbackCoords = dist.coordinates;
+          if (finalLocation.neighborhood) {
+             const nb = dist.neighborhoods?.find(n => (typeof n === 'object' ? n.name : n) === finalLocation.neighborhood);
+             if (nb && typeof nb === 'object' && nb.coordinates) fallbackCoords = nb.coordinates;
+          }
+          if (fallbackCoords) {
+            const hasArrayCoords = Array.isArray(fallbackCoords) && fallbackCoords.length >= 2;
+            const hasObjectCoords = typeof fallbackCoords === 'object' && fallbackCoords !== null && 'lat' in fallbackCoords && 'lng' in fallbackCoords;
+            if (hasArrayCoords) {
+              finalLocation.coordinates = { lat: fallbackCoords[0], lng: fallbackCoords[1] };
+            } else if (hasObjectCoords) {
+              finalLocation.coordinates = { lat: fallbackCoords.lat, lng: fallbackCoords.lng };
+            }
+          }
+        }
+      }
+    }
+
     const payload = {
       core: {
         title,
@@ -164,7 +188,7 @@ export default function DynamicListingForm({
         price,
         currency,
         listing_type: listingType || "SATILIK",
-        location,
+        location: finalLocation,
         facade,
       },
       specifications: {

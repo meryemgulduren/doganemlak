@@ -46,6 +46,11 @@ const baseSchema = z.object({
     district:        z.string().optional().nullable(),
     neighborhood:    z.string().optional().nullable(),
     address_details: z.string().optional().nullable(),
+    coordinates: z.object({
+      lat: z.number().optional().nullable(),
+      lng: z.number().optional().nullable(),
+    }).optional().nullable(),
+    map_selection_confirmed: z.boolean().optional(),
   }).partial().optional(),
   specifications: z.record(z.any()).optional(),
   facade: z.array(z.string()).optional(),

@@ -1,103 +1,8932 @@
 {
   "city": "Samsun",
-  "coordinates": [41.2928, 36.3313],
+  "coordinates": [
+    41.2928,
+    36.3313
+  ],
   "districts": [
     {
-      "name": "Atakum",
-      "coordinates": [41.3490, 36.2064],
-      "neighborhoods": [
-        { "name": "Atakum Mah.", "coordinates": [41.3490, 36.2064] },
-        { "name": "Kurupelit Mah.", "coordinates": [41.3550, 36.2150] },
-        { "name": "Çatalçam Mah.", "coordinates": [41.3420, 36.1980] },
-        { "name": "Taflan Mah.", "coordinates": [41.3380, 36.2200] },
-        { "name": "Şenyurt Mah.", "coordinates": [41.3450, 36.2100] },
-        { "name": "Körfez Mah.", "coordinates": [41.3520, 36.2050] },
-        { "name": "Fener Mah.", "coordinates": [41.3480, 36.2000] }
-      ]
-    },
-    {
-      "name": "İlkadım",
-      "coordinates": [41.2878, 36.3308],
-      "neighborhoods": [
-        { "name": "Kışla Mah.", "coordinates": [41.2878, 36.3308] },
-        { "name": "Kale Mah.", "coordinates": [41.2850, 36.3280] },
-        { "name": "Pazar Mah.", "coordinates": [41.2900, 36.3320] },
-        { "name": "Hançerli Mah.", "coordinates": [41.2830, 36.3250] },
-        { "name": "Gazi Mah.", "coordinates": [41.2920, 36.3350] }
-      ]
-    },
-    {
-      "name": "Canik",
-      "coordinates": [41.2680, 36.3550],
-      "neighborhoods": [
-        { "name": "Hasköy Mah.", "coordinates": [41.2680, 36.3550] },
-        { "name": "Gölköy Mah.", "coordinates": [41.2650, 36.3580] },
-        { "name": "Sarayköy Mah.", "coordinates": [41.2720, 36.3520] }
-      ]
-    },
-    {
-      "name": "Tekkeköy",
-      "coordinates": [41.1500, 36.4500],
-      "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.1500, 36.4500] },
-        { "name": "Göçköy Mah.", "coordinates": [41.1550, 36.4550] },
-        { "name": "Korkut Mah.", "coordinates": [41.1450, 36.4480] }
-      ]
-    },
-    {
-      "name": "Bafra",
-      "coordinates": [41.5680, 35.9070],
-      "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.5680, 35.9070] },
-        { "name": "Gazi Mah.", "coordinates": [41.5700, 35.9100] },
-        { "name": "Fatih Mah.", "coordinates": [41.5650, 35.9050] }
-      ]
-    },
-    {
-      "name": "Çarşamba",
-      "coordinates": [41.2000, 36.7330],
-      "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.2000, 36.7330] },
-        { "name": "Göl Mah.", "coordinates": [41.2050, 36.7380] },
-        { "name": "Yenicami Mah.", "coordinates": [41.1980, 36.7300] }
-      ]
-    },
-    {
-      "name": "Terme",
-      "coordinates": [41.2090, 36.9740],
-      "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.2090, 36.9740] },
-        { "name": "Köprübaşı Mah.", "coordinates": [41.2120, 36.9780] }
-      ]
-    },
-    {
       "name": "19 Mayıs",
-      "coordinates": [41.4940, 36.0580],
+      "coordinates": [
+        41.5005168,
+        36.0426267
+      ],
       "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.4940, 36.0580] },
-        { "name": "Yörükler Mah.", "coordinates": [41.4980, 36.0620] }
+        {
+          "name": "FINDIKLI Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "BALLICA Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.2875369,
+            36.3379531
+          ]
+        },
+        {
+          "name": "ÇAMLICA Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "İSTİKLAL Mah.",
+          "coordinates": [
+            41.2843609,
+            36.3354047
+          ]
+        },
+        {
+          "name": "KARŞIYAKA Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YEŞİLOVA Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KUMCAĞIZ Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YENİ Mah.",
+          "coordinates": [
+            41.5057499,
+            36.0850961
+          ]
+        },
+        {
+          "name": "YUKARIENGİZ Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YÜKSELİŞ Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "PAZAR Mah.",
+          "coordinates": [
+            41.4942042,
+            36.0777291
+          ]
+        },
+        {
+          "name": "MİMARSİNAN Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ESENYER Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ENGİZ Mah.",
+          "coordinates": [
+            41.5116605,
+            36.119923
+          ]
+        },
+        {
+          "name": "AYDINPINAR Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "BEYLİK Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "CEREKLİ Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ÇANDIR Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ÇEBİNLER Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ÇETİRLİPINAR Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ÇİFTLİK Mah.",
+          "coordinates": [
+            41.2828659,
+            36.3376275
+          ]
+        },
+        {
+          "name": "DAĞKÖY Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "DÜZKÖY Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ESENTEPE Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "HİBE Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KARACAOĞLU Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KARAGÖL Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KERTME Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KÖSEDİK Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "KUŞKAYASI Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "ORMANCIK Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "TEPEKÖY Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YEŞİLYURT Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "DEREKÖY Mah.",
+          "coordinates": [
+            41.5005168,
+            36.0426267
+          ]
+        },
+        {
+          "name": "YÖRÜKLER Mah.",
+          "coordinates": [
+            41.525006,
+            36.0870196
+          ]
+        }
       ]
     },
     {
       "name": "Alaçam",
-      "coordinates": [41.6030, 35.6020],
+      "coordinates": [
+        41.6010427,
+        35.7923759
+      ],
       "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.6030, 35.6020] }
+        {
+          "name": "BEKİROĞLU Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ÇEŞME Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "İNCİRLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KADIKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KARŞIYAKA Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "MADENLER Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YAKACIK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YENİCAMİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "TEFEKLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÜMÜŞOVA Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "AKBULUT Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "AKGÜNEY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ALİDEDEBÖLMESİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "AŞAĞIAKGÜNEY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "AŞAĞIISIRGANLI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "AŞAĞIKOÇLU Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "BAHŞİOYMAĞI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "DEMİRCİDERESİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "DOYRAN Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ETYEMEZ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÖÇKÜN Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÖKÇEAĞAÇOYMAĞI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÖKÇEBOĞAZ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÜLKAYA Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÜVENLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "HABİLLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "HARMANCIK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KALIKDEMİRCİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KAPAKLI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KARAÇUKUR Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KARAHÜSEYİNLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KARLI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KIŞLAKONAK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KIZLAN Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KİLLİK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "KÖSEKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ORTAKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ÖRENLİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "PELİTBÜKÜ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "PELİTBÜKÜSEKİCEK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "SANCAR Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "SARILIK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "SOĞUKÇAM Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ŞİRİNKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "TAŞKELİK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "TEPEBÖLMESİ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "TERSKIRIK Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "TOPLU Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "UMUTLU Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "UZUNKIRAÇ Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "VİCİKLER Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YENİCE Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YENİKÖY Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YOĞUNPELİT Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YUKARIELMA Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YUKARIISIRGANLI Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YUKARIKOÇLU Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "YUKARISOĞUKÇAM Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ZEYTİN Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ALPARSLAN Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "ESENTEPE Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "FATİH Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "GÜLTEPE Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        },
+        {
+          "name": "DOĞANKENT Mah.",
+          "coordinates": [
+            41.6010427,
+            35.7923759
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Asarcık",
+      "coordinates": [
+        41.0740577,
+        36.2728061
+      ],
+      "neighborhoods": [
+        {
+          "name": "ATATÜRK Mah.",
+          "coordinates": [
+            41.0353894,
+            36.2361731
+          ]
+        },
+        {
+          "name": "BİÇİNCİK Mah.",
+          "coordinates": [
+            41.0362563,
+            36.2341352
+          ]
+        },
+        {
+          "name": "ARICAK Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "GÜNDOĞDU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ACISU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "AKYAZI Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ALAN Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ALİŞAR Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ARMUTLU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "AŞURU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "AYAKLIALAN Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "AYDINKÖY Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ÇULHAOĞLU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "DAĞCILAR Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "EMİRMUSA Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ESENTEPE Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "GÖKGÖL Mah.",
+          "coordinates": [
+            41.0438403,
+            36.2629743
+          ]
+        },
+        {
+          "name": "GÜLVEREN Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "HİSARİYE Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "İMAMLI Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "KESEALAN Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "KILAVUZLU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "KOŞACA Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "MUSAAĞA Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "SAKIZLIK Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "ULUKÖY Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "YARIMCA Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "YAYLAKÖY Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "YENİÖMERLİ Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "YEŞİLDERE Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        },
+        {
+          "name": "KUYUMCUOĞLU Mah.",
+          "coordinates": [
+            41.0740577,
+            36.2728061
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atakum",
+      "coordinates": [
+        41.3419749,
+        36.252206
+      ],
+      "neighborhoods": [
+        {
+          "name": "KASNAKÇIMERMER Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "AYVALI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KAMALI Mah.",
+          "coordinates": [
+            41.3272898,
+            36.2377828
+          ]
+        },
+        {
+          "name": "KESİLLİ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "SARAYKÖY Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "AKALAN Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ÇATMAOLUK Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KULACADAĞ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "SARIYUSUF Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ÇAMLIYAZI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "SARITAŞ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KÖSELİ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KARAOYUMCA Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "MEYVALI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "YUKARIAKSU Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "SARIIŞIK Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "AKSU Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ASLANDAMI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ELMAÇUKURU Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ERİKLİ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "GÜNEYKÖY Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KABADÜZ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ŞENYURT Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KARAKAVUK Mah.",
+          "coordinates": [
+            41.3788018,
+            36.1489165
+          ]
+        },
+        {
+          "name": "KAYAGÜNEY Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KURUGÖKÇE Mah.",
+          "coordinates": [
+            41.4249965,
+            36.1005782
+          ]
+        },
+        {
+          "name": "ÖZÖREN Mah.",
+          "coordinates": [
+            41.4012441,
+            36.1176184
+          ]
+        },
+        {
+          "name": "YEŞİLTEPE Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "MEVLANA Mah.",
+          "coordinates": [
+            41.3272664,
+            36.2684365
+          ]
+        },
+        {
+          "name": "İSTİKLAL Mah.",
+          "coordinates": [
+            41.3483567,
+            36.2424551
+          ]
+        },
+        {
+          "name": "YENİMAHALLE Mah.",
+          "coordinates": [
+            41.3466357,
+            36.2417862
+          ]
+        },
+        {
+          "name": "YEŞİLDERE Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.3347789,
+            36.2698777
+          ]
+        },
+        {
+          "name": "DENİZEVLERİ Mah.",
+          "coordinates": [
+            41.3241852,
+            36.2957053
+          ]
+        },
+        {
+          "name": "ATATEPE Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ATAKENT Mah.",
+          "coordinates": [
+            41.3450428,
+            36.248193
+          ]
+        },
+        {
+          "name": "ÇOBANLI Mah.",
+          "coordinates": [
+            41.3389902,
+            36.2520728
+          ]
+        },
+        {
+          "name": "KURUPELİT KÖRFEZ Mah.",
+          "coordinates": [
+            41.3649529,
+            36.227516
+          ]
+        },
+        {
+          "name": "YEŞİLYURT Mah.",
+          "coordinates": [
+            41.4251967,
+            36.1531421
+          ]
+        },
+        {
+          "name": "BALAÇ Mah.",
+          "coordinates": [
+            41.3158391,
+            36.2692456
+          ]
+        },
+        {
+          "name": "BÜYÜKKOLPINAR Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ÇAKIRLARYALI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ÇOBANÖZÜ Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ESENEVLER Mah.",
+          "coordinates": [
+            41.3255471,
+            36.2966417
+          ]
+        },
+        {
+          "name": "İNCESU YALI Mah.",
+          "coordinates": [
+            41.3859796,
+            36.2074269
+          ]
+        },
+        {
+          "name": "ÇATALÇAM GÜZELYURT Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "TAFLAN MERKEZ ORTA Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ALANLI Mah.",
+          "coordinates": [
+            41.3316144,
+            36.2205523
+          ]
+        },
+        {
+          "name": "ATAKENT GÜZELYALI Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "KÜÇÜKKOLPINAR Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "BEYPINAR Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "TAFLAN CAMİ Mah.",
+          "coordinates": [
+            41.4310338,
+            36.1496059
+          ]
+        },
+        {
+          "name": "İNCESU Mah.",
+          "coordinates": [
+            41.3793992,
+            36.215405
+          ]
+        },
+        {
+          "name": "BÜYÜKOYUMCA Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "ÇAKIRLAR Mah.",
+          "coordinates": [
+            41.4021785,
+            36.1679006
+          ]
+        },
+        {
+          "name": "MİMARSİNAN Mah.",
+          "coordinates": [
+            41.3419749,
+            36.252206
+          ]
+        },
+        {
+          "name": "TAFLAN YALI Mah.",
+          "coordinates": [
+            41.420075,
+            36.1410786
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ayvacık",
+      "coordinates": [
+        41.6426879,
+        35.487077
+      ],
+      "neighborhoods": [
+        {
+          "name": "DÖNGELYATAK Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "EYÜPSULTAN Mah.",
+          "coordinates": [
+            41.0022621,
+            36.6324603
+          ]
+        },
+        {
+          "name": "MEŞELİDÜZ Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ORTA Mah.",
+          "coordinates": [
+            40.9741067,
+            36.6223028
+          ]
+        },
+        {
+          "name": "YUNUSEMRE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "FATİHSULTANMEHMET Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KESKİNOĞLU Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ORHAN GAZİ Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "TEPEALTI Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KAPIKAYA Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "YEŞİLDERE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "OSMANLI Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "GÜLPINAR Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ARDIÇ Mah.",
+          "coordinates": [
+            40.9208474,
+            36.6226518
+          ]
+        },
+        {
+          "name": "BAŞALAN Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ÇAMALAN Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ÇAMLIKALE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ÇARŞIKÖY Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ÇÖKEKLİ Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "DÖNGEL Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "EYNEL Mah.",
+          "coordinates": [
+            40.9907361,
+            36.6355396
+          ]
+        },
+        {
+          "name": "GÜLTEPE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "GÜRÇAM Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "GÜZELYURT Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KABAKLIK Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KARŞIDÖNGEL Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KAZANCILI Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KOÇYURDU Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ORTAKÖY Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ÖRENCİK Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "SAHİLKÖY Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "SÖĞÜTPINARI Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ŞENPINAR Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "TERİCE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "TİRYAKİOĞLU Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "UĞURLU Mah.",
+          "coordinates": [
+            41.0753342,
+            36.6730676
+          ]
+        },
+        {
+          "name": "YENİCE Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "YENİKÖY Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "YEŞİLÇAM Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "YEŞİLPINAR Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "KARAAĞAÇ Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ZAFER Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        },
+        {
+          "name": "ESENYURT Mah.",
+          "coordinates": [
+            41.6426879,
+            35.487077
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bafra",
+      "coordinates": [
+        41.6461311,
+        36.059857
+      ],
+      "neighborhoods": [
+        {
+          "name": "ÇETİNKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DOĞANCA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İKİZPINAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KOLAY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALTINOVA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BÜYÜKCAMİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇİLHANE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "EMİREFENDİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GAZİPAŞA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GAZİOSMANPAŞA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "HACINABİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İSHAKLI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İSMETPAŞA Mah.",
+          "coordinates": [
+            41.5624253,
+            35.9140788
+          ]
+        },
+        {
+          "name": "KAVAKPINAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KIZILIRMAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TABAKHANE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YAKA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALTINYAPRAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BAŞARAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ADAKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "AĞILLAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "AKTEKKE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALTINAY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "AZAY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BALIKLAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BAKIRPINARI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BARIŞ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇATAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇULHAKOCA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DEDEDAĞI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DEDELİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DERBENT Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DOĞANKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ELDAVUT Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ELİFLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "EMENLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "EVRENUŞAĞI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "EYNEGAZİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "FENER Mah.",
+          "coordinates": [
+            41.3104725,
+            36.335455
+          ]
+        },
+        {
+          "name": "GAZİBEYLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GERZELİLER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÖKÇEAĞAÇ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÖKÇEKENT Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÖKÇESU Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÖLTEPE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÜMÜŞYAPRAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "HACIOĞLU Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "HARIZ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "HIDIRELLEZ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "HÜSEYİNBEYLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İKİZTEPE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İLYASLI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KAHRAMAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KALAYCILI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KAMBERLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KANLIGÜNEY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KARABURÇ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KARINCAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KARPUZLU Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KAYGUSUZ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KELİKLER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KERESTECİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KOMŞUPINAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KORULUK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KOŞU Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KOZAĞZI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KÖSELİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KUŞÇULAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KUŞLUĞAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KÜÇÜKKAVAKPINAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "LENGERLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "MÜSTECEP Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ORTADURAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "OSMANBEYLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÖRENCİK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "PAŞAŞEYH Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SAHİLKENT Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SARIÇEVRE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SARIKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SARIKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SÜRMELİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ŞEYHÖREN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ŞEYHULAŞ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ŞİRİNKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TAŞKÖPRÜ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TEPECİK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TÜRBE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TÜRKKÖYÜ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TÜTÜNCÜLER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÜÇPINAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YAĞMURCA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YAKINTAŞ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YEŞİLYAZI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YİĞİTALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YÖRGÜÇ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BOĞAZKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "AĞCAALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "AKALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALAÇAM Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ASMAÇAM Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇALKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇAMALTI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DARBOĞAZ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DERELER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DİKENCİK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "DÜZKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ELALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ESENÇAY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "GÖKALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İNÖZÜKOŞACA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KAPIKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KARAKÜTÜK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KUZALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "MEŞELİTÜRKMENLER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "OZAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SARPIN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ŞAHİNKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ULUAĞAÇ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YENİALAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YENİKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YERALTI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ASAR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BAŞKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BENGÜ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BURUNCA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "İĞDİR Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "SELEMELİK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TEPEBAŞI Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "TERZİLİ Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALTINKAYA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ÇATALTEPE Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "ALPARSLAN Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "BAHÇELER Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "FATİH Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "FEVZİÇAKMAK Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        },
+        {
+          "name": "KEMALPAŞA Mah.",
+          "coordinates": [
+            41.5745394,
+            35.917809
+          ]
+        },
+        {
+          "name": "MEVLANA Mah.",
+          "coordinates": [
+            41.6461311,
+            36.059857
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Canik",
+      "coordinates": [
+        41.2315013,
+        36.3697303
+      ],
+      "neighborhoods": [
+        {
+          "name": "GÖKÇEPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "YAVUZSELİM Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "BELEDİYE EVLERİ Mah.",
+          "coordinates": [
+            41.273147,
+            36.3653141
+          ]
+        },
+        {
+          "name": "ULUDAĞ Mah.",
+          "coordinates": [
+            41.262823,
+            36.365102
+          ]
+        },
+        {
+          "name": "TOPTEPE Mah.",
+          "coordinates": [
+            41.2623091,
+            36.3683162
+          ]
+        },
+        {
+          "name": "GAZİOSMANPAŞA Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "SOĞUKSU Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "HASKÖY Mah.",
+          "coordinates": [
+            41.2562572,
+            36.3617738
+          ]
+        },
+        {
+          "name": "200 EVLER Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "HACI İSMAİL Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KARŞIYAKA Mah.",
+          "coordinates": [
+            41.2666766,
+            36.3607728
+          ]
+        },
+        {
+          "name": "YENİMAHALLE Mah.",
+          "coordinates": [
+            41.2715215,
+            36.3537398
+          ]
+        },
+        {
+          "name": "ATATÜRK Mah.",
+          "coordinates": [
+            41.2786113,
+            36.351828
+          ]
+        },
+        {
+          "name": "ALİBEYLİ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "GECEHAN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "GÖDEKLİ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "GÖLALAN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "HACINAİPLİ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "HİLALTEPE Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "İMAMLAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KESTANEPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "MURATLI Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "ADATEPE Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "TEKKİRAZ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "TUZAKLI Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "ÜÇPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "ULUÇAYIR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "YAYLA Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "YEŞİLPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "AVLUCA Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "BAŞKONAK Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DEMİRCİ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DERELER Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DEVGERİŞ Mah.",
+          "coordinates": [
+            41.2419809,
+            36.3744462
+          ]
+        },
+        {
+          "name": "GÜLTEPE Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "GÜRGENYATAK Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KAŞYAYLA Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KIZILOĞLAK Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KOZLU Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "SARIBIYIK Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "TEKNEPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "TOYGAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "YENİKÖY Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "AMBARPINAR Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "BAŞALAN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "ÇAĞLAYAN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "ÇAMALAN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DÜZARDIÇ Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DÜZEREN Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "KALEBOĞAZI Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        },
+        {
+          "name": "DÜVECİK Mah.",
+          "coordinates": [
+            41.2423358,
+            36.3293291
+          ]
+        },
+        {
+          "name": "KUZEY YILDIZI Mah.",
+          "coordinates": [
+            41.2315013,
+            36.3697303
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Çarşamba",
+      "coordinates": [
+        41.2562275,
+        36.5547366
+      ],
+      "neighborhoods": [
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.1981473,
+            36.7263402
+          ]
+        },
+        {
+          "name": "HELVACALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇINARLIK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KABACEVİZ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARI AĞCAGÜNEY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "EĞERCİLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KURTULUŞ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÜZPINAR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "İSTİKLAL Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YEŞİLDERE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GAZİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ALİ FUAT BAŞGİL Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YEŞİLIRMAK Mah.",
+          "coordinates": [
+            41.1966337,
+            36.7282453
+          ]
+        },
+        {
+          "name": "ÜÇKÖPRÜ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "UMUT Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ESENTEPE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ACIKLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AKÇATARLA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AKKUZULU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ALİBEYLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ALLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ARIMKÖSELİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞIDİKENCİK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞIDONURLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞIESENLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞIKAVACIK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞIMUSALLA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BAFRACALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BEYLERCE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BEYYENİCE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BEZİRGAN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BOYACILI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BÖLMEÇAYIRI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "CANLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇATAK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇAYVAR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇERÇİLER Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DALBAHÇE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DEMİRARSLAN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DEMİRCİLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DEMİRLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DENİZLER Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DEYİNCEK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DURAKBAŞI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DURUSU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "EĞRİDERE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "EĞRİKUM Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ESENÇAY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÖKÇELİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÜLDERE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÜLÖREN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÜLYAZI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÜNEŞLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "HACILIÇAY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KARAAĞAÇ Mah.",
+          "coordinates": [
+            41.2136189,
+            36.7998664
+          ]
+        },
+        {
+          "name": "KARACALI Mah.",
+          "coordinates": [
+            41.2238563,
+            36.856023
+          ]
+        },
+        {
+          "name": "KARAKAYA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KARAMUSTAFALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KAYDAN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KIZILOT Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KİRAZBUCAĞI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KOCAKAVAK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KOLDERE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KONUKLUK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KÖKLÜK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇAMLICA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KUMKÖY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KUMTEPE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KURTAHMETLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KUŞÇULU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KUŞHANE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KÜRTÜN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "MAHMUTLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "MELİK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "MUSÇALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "NAMAZLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ORDUBAŞI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ORDUKÖY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "OVACIK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "OYMALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÖMERLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "PAŞAYAZI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SEFALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SAHİLKÖY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SIĞIRTMAÇ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SOĞUCAK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SUĞLUCA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ŞEYHHABİL Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "TATARLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ULUKÖY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "USTACALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "UZUNLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "VAKIFKÖPRÜ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YAĞCILAR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YAMANLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YENİKÖSELİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YENİKIŞLA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARIDİKENCİK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARIDONURLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARIESENLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARIKAVACIK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ZÜMRÜT Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AHUBABA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞAĞITURGUTLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AŞIKLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "BAYRAMLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇALTI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇELİKLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "DAMLATAŞ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "EPÇELİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "IRMAKSIRTI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KARABAHÇE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KARAKULAK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "OTLUK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "PORSUK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SARAÇLI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ŞENYURT Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ŞEYHGÜVEN Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "TAŞDEMİR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "TİLKİLİ Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "TURGUTLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YENİKARACALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YEŞİLOVA Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "YUKARIKARABAHÇE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KESTANEPINAR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ÇAY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "HASBAHÇE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KİRAZLIKÇAY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ORTA Mah.",
+          "coordinates": [
+            41.1974521,
+            36.7274003
+          ]
+        },
+        {
+          "name": "SARICALI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SUNGURLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "SELİMİYE Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "GÖKÇEÇAKMAK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KÖROĞLU Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ULUPINAR Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "HÜRRİYET Mah.",
+          "coordinates": [
+            41.2176651,
+            36.8800897
+          ]
+        },
+        {
+          "name": "DİKBIYIK Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AĞCAGÜNEY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "ATAKÖY Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "AKÇALTI Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        },
+        {
+          "name": "KEMER Mah.",
+          "coordinates": [
+            41.2562275,
+            36.5547366
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Havza",
+      "coordinates": [
+        41.0113931,
+        35.8099082
+      ],
+      "neighborhoods": [
+        {
+          "name": "BEKDİĞİN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ILICA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BOYALICA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇAY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "GÖÇMENLER Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "İCADİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "İMARET Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "25 MAYIS Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MEDRESE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MEMDUHİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YENİMAHALLE Mah.",
+          "coordinates": [
+            40.9740499,
+            35.663166
+          ]
+        },
+        {
+          "name": "YENİMESCİT Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "İNÖNÜ Mah.",
+          "coordinates": [
+            40.9707218,
+            35.6720847
+          ]
+        },
+        {
+          "name": "KARŞIYAKA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "DEĞİRMENÜSTÜ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "AĞCAMAHMUT Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "AĞDIRHASAN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ARSLANÇAYIRI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "AŞAĞISUSUZ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "AŞAĞIYAVUCAK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BAŞPELİT Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BEYKÖY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BEYÖREN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "CELİL Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "CEVİZLİK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇAYIRÖZÜ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇELTEK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "DEMİRYURT Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "DEREKÖY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "DOĞANÇAYIR Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "DÜNDARLI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ERELİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ERSANDIK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ESENBEY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "EYMİR Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "GELİNCİK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "GÜVERCİNLİK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "HACIBATTAL Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "HACIDEDE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "HİLMİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "İMİRCİK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KALEKÖY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KAMLIK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KARABÜK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KARAGEÇMİŞ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KARAMEŞE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KARGA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KAYABAŞI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KAYACIK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KEMALİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KIROĞLU Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KOCAOĞLU Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KOCAPINAR Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KUŞKONAĞI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KÜFLEK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MERYEMDERE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MESUDİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MISMILAĞAÇ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "MÜRSEL Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ORHANİYE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ORTAKLAR Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "PAŞAPINARI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "PINARÇAY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "SİVRİKESE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ŞEYHALİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ŞEYHKOYUN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ŞEYHSAFİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "TAŞKARACAÖREN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "TEKKEKÖY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "TUZLA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ULUÇAL Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YAZIKIŞLA Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YENİCE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YUKARISUSUZ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YUKARIYAVUCAK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇAKIRALAN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BELALAN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BOYALI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇAMYATAĞI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇELİKALAN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÇİFTLİKKÖY Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "EKİNPINARI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ELMACIK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ERİKBELEN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "GİDİRLİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "HECİNLİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KARAHALİL Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "KİRENLİK Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "SOFULAR Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ŞERİFALİ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ŞEYHLER Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YAĞCIMAHMUT Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YAYLAÇATI Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "YEŞİLALAN Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "SONDAJ Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "ÜNİVERSİTE Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "19 MAYIS Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.0113931,
+            35.8099082
+          ]
+        }
+      ]
+    },
+    {
+      "name": "İlkadım",
+      "coordinates": [
+        41.2946149,
+        36.3320596
+      ],
+      "neighborhoods": [
+        {
+          "name": "TOYBELEN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "UNKAPANI Mah.",
+          "coordinates": [
+            41.2945144,
+            36.3269769
+          ]
+        },
+        {
+          "name": "ADALET Mah.",
+          "coordinates": [
+            41.2730351,
+            36.3426881
+          ]
+        },
+        {
+          "name": "KILIÇDEDE Mah.",
+          "coordinates": [
+            41.2826256,
+            36.3463688
+          ]
+        },
+        {
+          "name": "BARUTHANE Mah.",
+          "coordinates": [
+            41.3206976,
+            36.3219207
+          ]
+        },
+        {
+          "name": "LİMAN Mah.",
+          "coordinates": [
+            41.2995403,
+            36.3323779
+          ]
+        },
+        {
+          "name": "ATAKÖY Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ÇİFTLİK Mah.",
+          "coordinates": [
+            41.2872052,
+            36.3316571
+          ]
+        },
+        {
+          "name": "DEREBAHÇE Mah.",
+          "coordinates": [
+            41.2650464,
+            36.3369163
+          ]
+        },
+        {
+          "name": "KAZIMKARABEKİR Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "19 MAYIS Mah.",
+          "coordinates": [
+            41.2891877,
+            36.3319463
+          ]
+        },
+        {
+          "name": "HANÇERLİ Mah.",
+          "coordinates": [
+            41.2971913,
+            36.3304035
+          ]
+        },
+        {
+          "name": "KARASAMSUN Mah.",
+          "coordinates": [
+            41.3035886,
+            36.3186114
+          ]
+        },
+        {
+          "name": "KUŞÇULU Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "UZGUR Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "CEDİT Mah.",
+          "coordinates": [
+            41.3068541,
+            36.3272246
+          ]
+        },
+        {
+          "name": "HASTANE Mah.",
+          "coordinates": [
+            41.2936321,
+            36.3310964
+          ]
+        },
+        {
+          "name": "KADIKÖY Mah.",
+          "coordinates": [
+            41.2807019,
+            36.3196588
+          ]
+        },
+        {
+          "name": "İSTASYON Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KADİFEKALE Mah.",
+          "coordinates": [
+            41.3006774,
+            36.3230057
+          ]
+        },
+        {
+          "name": "KAVACIK Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "YAŞARDOĞU Mah.",
+          "coordinates": [
+            41.2684135,
+            36.3216474
+          ]
+        },
+        {
+          "name": "İLYASKÖY Mah.",
+          "coordinates": [
+            41.2723677,
+            36.3189827
+          ]
+        },
+        {
+          "name": "KALE Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KIRAN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KÖKÇÜOĞLU Mah.",
+          "coordinates": [
+            41.2963279,
+            36.3233721
+          ]
+        },
+        {
+          "name": "RASATHANE Mah.",
+          "coordinates": [
+            41.2827901,
+            36.3328746
+          ]
+        },
+        {
+          "name": "HÜRRİYET Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KALKANCA Mah.",
+          "coordinates": [
+            41.3196649,
+            36.3182714
+          ]
+        },
+        {
+          "name": "SELAHİYE Mah.",
+          "coordinates": [
+            41.2968289,
+            36.3269567
+          ]
+        },
+        {
+          "name": "GÜZELDERE Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "YEŞİLTEPE Mah.",
+          "coordinates": [
+            41.284206,
+            36.3060228
+          ]
+        },
+        {
+          "name": "ÇATALARMUT Mah.",
+          "coordinates": [
+            41.2864742,
+            36.3045089
+          ]
+        },
+        {
+          "name": "KIŞLA Mah.",
+          "coordinates": [
+            41.2854944,
+            36.334697
+          ]
+        },
+        {
+          "name": "PAZAR Mah.",
+          "coordinates": [
+            41.2946214,
+            36.3311822
+          ]
+        },
+        {
+          "name": "REŞADİYE Mah.",
+          "coordinates": [
+            41.2819523,
+            36.3225592
+          ]
+        },
+        {
+          "name": "SAİTBEY Mah.",
+          "coordinates": [
+            41.2908191,
+            36.3262931
+          ]
+        },
+        {
+          "name": "YENİDOĞAN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "AHULU Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ANADOLU Mah.",
+          "coordinates": [
+            41.3171094,
+            36.3253248
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.2751438,
+            36.3442084
+          ]
+        },
+        {
+          "name": "FEVZİÇAKMAK Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KARADENİZ Mah.",
+          "coordinates": [
+            41.3042029,
+            36.3226088
+          ]
+        },
+        {
+          "name": "ZEYTİNLİK Mah.",
+          "coordinates": [
+            41.2897822,
+            36.3180801
+          ]
+        },
+        {
+          "name": "ÇAY Mah.",
+          "coordinates": [
+            41.2942549,
+            36.3322607
+          ]
+        },
+        {
+          "name": "DERECİK Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "FATİH Mah.",
+          "coordinates": [
+            41.2952819,
+            36.3306534
+          ]
+        },
+        {
+          "name": "ULUGAZİ Mah.",
+          "coordinates": [
+            41.2758269,
+            36.3048373
+          ]
+        },
+        {
+          "name": "ZAFER Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "TEPECİK Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ÇANDIR Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "AŞAĞIAVDAN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "AVDAN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ÇELİKALAN Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "BİLMECE Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ÇİVRİL Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KADAMUT Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "KAPAKLI Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "GÜRGENDAĞ Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "AKGÖL Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        },
+        {
+          "name": "ÇANAKÇI Mah.",
+          "coordinates": [
+            41.2946149,
+            36.3320596
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kavak",
+      "coordinates": [
+        41.0904437,
+        36.0505283
+      ],
+      "neighborhoods": [
+        {
+          "name": "YOSUNLU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "19 MAYIS Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KAYABAŞI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ATAYURT Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "AHIRLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "AĞCAKESE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "AKBELEN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ALAÇAM Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YUKARI DEREKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ALAGÖMLEK Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "AŞAĞIÇİRİŞLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "AZAKLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BAŞALAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BAYINDIR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BAYRAKLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BEKDEMİR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BELALAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BEYBESLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BEYKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BOĞAZİÇİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BÜKCEĞİZ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "BÜYÜKÇUKUR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇAKALLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇALBAŞI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇARIKLIBAŞI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇATALTEPE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇAYIRLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇİÇEKYAZI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇİĞDEM Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇİVRİL Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÇUKURBÜK Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DEĞİRMENCİLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DEMİRCİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DEREKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DİVANBAŞI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DUMAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DURA Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "EMİRLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "GERMİYAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "GÖÇEBE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "GÜNEYCE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "HACILI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ILICAKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "İDRİSLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "İKİZDERE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KAPIHAYAT Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARACAARSLAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARACALAR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARADAĞ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARANTI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARAPINAR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARAYUSUFLU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARTEPE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KARLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KAYAKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KAZANCI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KETHUDA Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KOZANSIKI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KÖSELİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KURŞUNLU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KUZALAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "KÜÇÜKÇUKUR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MAHMUTBEYLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MAHMUTLU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MERT Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MUHSİNLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MURATBEYLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ORTAKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "SARIALAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "SEYİTALİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "SIRALI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "SUSUZ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ŞEYHLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ŞEYHRESUL Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TABAKLI Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TATARMUSLU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TEKKEKÖY Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TEPECİK Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TOPTEPE Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "ÜÇHANLAR Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YENİGÜN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YERALAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YUKARIÇİRİŞLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "MEHMETPAŞA Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "SOĞUKSU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YAŞARDOĞU Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "YENİCAMİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "TALIŞMAN Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "DORUK Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        },
+        {
+          "name": "CELALLİ Mah.",
+          "coordinates": [
+            41.0904437,
+            36.0505283
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ladik",
+      "coordinates": [
+        40.955885,
+        35.9030984
+      ],
+      "neighborhoods": [
+        {
+          "name": "GÜRÜN Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AĞCAKAYA Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AHMETSARAY Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AKTAŞ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AKYAR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ALAYURT Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ARSLANTAŞ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AŞAĞIGÖLYAZI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AYVALI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AYVALISOKAĞI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BAŞLAMIŞ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BUDAKDERE Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BÜYÜKKIZOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "CÜCE Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ÇADIRKAYA Mah.",
+          "coordinates": [
+            40.9901003,
+            35.8520789
+          ]
+        },
+        {
+          "name": "ÇAKIRGÜMÜŞ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ÇAMLIKÖY Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "DELİAHMETOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "DERİNÖZ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "EYNEKARACA Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "GÜNKORU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "HAMAMAYAĞI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "HAMİTKÖY Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "HASIRCI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "İBİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "İSASOFTA Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KIRANBOĞAZ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KİRAZPINAR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KÖSEOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KUYUCAK Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KÜÇÜKKIZOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KÜPECİK Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "MAZLUMOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "MEŞEPINARI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "OYMAPINAR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BOLAT Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SALUR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SARIGAZEL Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SARIKSIZOĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SOĞANLI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SÖĞÜTLÜ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "TATLICAK Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "TEBEROĞLU Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "YUKARIGÖLYAZI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ŞIHLI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ALIÇLI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BÜYÜKALAN Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "DALDERE Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "DOĞANKAŞ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "GÜVENLİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "HIZARBAŞI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KABACAGÖZ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KARAABDAL Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "NUSRATLI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "YUMAKLI Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "YUVACIK Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "BAHŞİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KOĞA Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "İSKANİYE Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "HACIALİPINAR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "KIZILSİNİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SARAY Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "ŞEHREKÜSTÜ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "TÜFEKÇİDERE Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "YENİCAMİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "SANAYİ Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        },
+        {
+          "name": "AKPINAR Mah.",
+          "coordinates": [
+            40.955885,
+            35.9030984
+          ]
+        }
       ]
     },
     {
       "name": "Salıpazarı",
-      "coordinates": [41.0830, 36.8330],
+      "coordinates": [
+        41.2928,
+        36.3313
+      ],
       "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.0830, 36.8330] }
+        {
+          "name": "ORTA Mah.",
+          "coordinates": [
+            41.0811163,
+            36.8253588
+          ]
+        },
+        {
+          "name": "MUMLU Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "GÖKÇELİ Mah.",
+          "coordinates": [
+            41.0811069,
+            36.8275535
+          ]
+        },
+        {
+          "name": "SARIHASAN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "YENİ Mah.",
+          "coordinates": [
+            41.0801495,
+            36.8270013
+          ]
+        },
+        {
+          "name": "KARACALAR Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ALBAK Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "FATSALILAR Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "FINDIKLI Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ÇAĞLAYAN Mah.",
+          "coordinates": [
+            41.0487272,
+            36.8304131
+          ]
+        },
+        {
+          "name": "MERKEZ KOCALAR Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ALANKÖY Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "AVUT Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "BİÇME Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "CEVİZLİ Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ÇİÇEKLİ Mah.",
+          "coordinates": [
+            41.0602052,
+            36.8220108
+          ]
+        },
+        {
+          "name": "GÜZELVATAN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ESATÇİFTLİĞİ Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "FİDANCIK Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "DİKENCİK Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KALFALI Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KARACAÖREN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KARADERE Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KARAMAN Mah.",
+          "coordinates": [
+            41.0602548,
+            36.8078668
+          ]
+        },
+        {
+          "name": "KARAYONCA Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KIRGIL Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KIZILOT Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KONAKÖREN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KOCALAR Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "KUŞCIĞAZ Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "MUSLUBEY Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "SULUCA Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "TACALAN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "TAHNAL Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "TEPEALTI Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "YAVAŞBEY Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "YAYLAKÖY Mah.",
+          "coordinates": [
+            41.0417695,
+            36.8139864
+          ]
+        },
+        {
+          "name": "YENİDOĞAN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "YUKARIKESTANEPINAR Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "ALANYAKIN Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "BEREKET Mah.",
+          "coordinates": [
+            41.0826648,
+            36.8244015
+          ]
+        },
+        {
+          "name": "DÜZKÖY Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        },
+        {
+          "name": "GÖKÇEBAŞI Mah.",
+          "coordinates": [
+            41.2928,
+            36.3313
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tekkeköy",
+      "coordinates": [
+        41.2536509,
+        36.3886407
+      ],
+      "neighborhoods": [
+        {
+          "name": "KİBARLAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ANTYERİ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "BAKACAK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "BALCALI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "BAŞKÖY Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇAYIRÇÖKEK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇINARALAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇİMENLİ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ERENKÖY Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "GÖKÇEDERE Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "GÜZELYURT Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KARAOĞLAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KARAPERÇİN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KARGILI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KARIŞLAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KERPİÇLİ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KIŞLA Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "SARIYURT Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "SITMASUYU Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YAĞBASAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YAYLAGERİŞ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YAZILAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YENİDOĞAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YENİKÖY Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YEŞİLALAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YEŞİLDERE Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YEŞİLYURT Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YUKARIÇİNİK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ZAFER Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "FINDICAK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "BEYOĞLU Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.2278158,
+            36.4495249
+          ]
+        },
+        {
+          "name": "ÇAY Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇİFTLİK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "GÖLCEĞİZ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "HAMZALI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "HÜRRİYET Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KABABÜRÜK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KURTULUŞ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "19 MAYIS Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "OVABAŞI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "PINAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "SANAYİ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "SELYERİ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "23 NİSAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KUTLUKENT Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YENİ BÜYÜKLÜ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "İSTİKLAL Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇIRAKMAN Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KERİMBEY Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KAHYALI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇİNİK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ASARAĞAÇ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "BÜYÜKLÜ Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "YAVUZLAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KİRAZLIK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "KÖPRÜBAŞI Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ALTINKAYA Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ŞABANOĞLU Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "GÖKÇE Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "ÇAYLEYİK Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "AKBAŞLAR Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        },
+        {
+          "name": "SEYMENLER Mah.",
+          "coordinates": [
+            41.2536509,
+            36.3886407
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Terme",
+      "coordinates": [
+        41.1454485,
+        37.1563324
+      ],
+      "neighborhoods": [
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.2159012,
+            36.9790346
+          ]
+        },
+        {
+          "name": "AKBUCAK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YUKARISÖĞÜTLÜ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "AŞAĞIHÜSEYİNMESCİT Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "DUTLUK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "AKÇAY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "İLİMDAĞ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ÇAĞLAYAN Mah.",
+          "coordinates": [
+            41.2075118,
+            36.9733459
+          ]
+        },
+        {
+          "name": "GÖKÇEAĞAÇ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YENİDOĞAN Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YUNUS EMRE Mah.",
+          "coordinates": [
+            41.2093931,
+            36.9865484
+          ]
+        },
+        {
+          "name": "AHMETBEY Mah.",
+          "coordinates": [
+            41.1913678,
+            36.9796412
+          ]
+        },
+        {
+          "name": "AKÇAGÜN Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "AKÇAYKARACALI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ALTINLI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "AYBEDER Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "BAFRACALI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "BAĞSARAY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "BEŞİKLİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ÇAMLICA Mah.",
+          "coordinates": [
+            41.206133,
+            36.9681622
+          ]
+        },
+        {
+          "name": "ÇANAKLI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ÇANGALLAR Mah.",
+          "coordinates": [
+            41.2146051,
+            37.0070445
+          ]
+        },
+        {
+          "name": "ÇARDAK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "DAĞDIRALI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "DEREYOLU Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "DİBEKLİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "CILAR MAHALLESİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ERENKÖY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "EYERCİLİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ELMAKÖY Mah.",
+          "coordinates": [
+            41.2145195,
+            36.8949945
+          ]
+        },
+        {
+          "name": "EMİRYUSUF Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ETYEMEZLİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "GEÇMİŞ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "GÜNDOĞDU Mah.",
+          "coordinates": [
+            41.2154417,
+            36.9264639
+          ]
+        },
+        {
+          "name": "İMANALİSİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KARACAKÖY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KARACALI Mah.",
+          "coordinates": [
+            41.2238563,
+            36.856023
+          ]
+        },
+        {
+          "name": "KARAMAHMUT Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KARKUCAK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KAZIMKARABEKİRPAŞA Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KESİKKAYA Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KOCAMANBAŞI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KÖYBUCAĞI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KUMCIĞAZ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KUŞÇA Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KUŞÇULU Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "MESCİTKÖY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "MEŞEYAZI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "MURATLI Mah.",
+          "coordinates": [
+            41.2526521,
+            36.8057249
+          ]
+        },
+        {
+          "name": "OĞUZLU Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ÖZYURT Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ÖRENCİK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "SANCAKLI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "SARAYKÖY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "SİVASLILAR Mah.",
+          "coordinates": [
+            41.2170883,
+            36.9966036
+          ]
+        },
+        {
+          "name": "SÜTÖZÜ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ŞEYHLİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ŞUAYİP Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "TAŞPINAR Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ULUDERE Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "UZUNGAZİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YENİCAMİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YERLİ Mah.",
+          "coordinates": [
+            41.220062,
+            36.9028143
+          ]
+        },
+        {
+          "name": "YUKARITAŞPINAR Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YÜKSEKYAYLA Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ORTASÖĞÜTLÜ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.2091875,
+            36.9721091
+          ]
+        },
+        {
+          "name": "ÇAY Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "ELMALIK Mah.",
+          "coordinates": [
+            41.2111604,
+            36.9707293
+          ]
+        },
+        {
+          "name": "FENK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "YALI Mah.",
+          "coordinates": [
+            41.1997456,
+            37.0102311
+          ]
+        },
+        {
+          "name": "YENİ Mah.",
+          "coordinates": [
+            41.2055077,
+            36.971635
+          ]
+        },
+        {
+          "name": "AMBARTEPE Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "BAZLAMAÇ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "EVCİ Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "GÖLYAZI Mah.",
+          "coordinates": [
+            41.2295775,
+            36.9783732
+          ]
+        },
+        {
+          "name": "KOCAMAN Mah.",
+          "coordinates": [
+            41.2005993,
+            36.9714967
+          ]
+        },
+        {
+          "name": "SAKARLI Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "TAŞLIK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "SÖĞÜTLÜ Mah.",
+          "coordinates": [
+            41.22078,
+            36.8646711
+          ]
+        },
+        {
+          "name": "HÜSEYİNMESCİT Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        },
+        {
+          "name": "KOZLUK Mah.",
+          "coordinates": [
+            41.1454485,
+            37.1563324
+          ]
+        }
       ]
     },
     {
       "name": "Vezirköprü",
-      "coordinates": [41.1430, 35.4580],
+      "coordinates": [
+        41.0814061,
+        35.4972366
+      ],
       "neighborhoods": [
-        { "name": "Merkez Mah.", "coordinates": [41.1430, 35.4580] },
-        { "name": "Yenicami Mah.", "coordinates": [41.1460, 35.4620] }
+        {
+          "name": "NARLISARAY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÖL Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ABDÜLGANİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇANAKLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇAYIRBAŞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DEĞİRMENBAŞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "MEHMETPAŞA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "NALBANTLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ORTACAMİİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TABAKHANE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TAŞKALE Mah.",
+          "coordinates": [
+            41.1352931,
+            35.4626415
+          ]
+        },
+        {
+          "name": "TİKENLİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YENİ Mah.",
+          "coordinates": [
+            41.1433075,
+            35.4632663
+          ]
+        },
+        {
+          "name": "CUMHURİYET Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÖZESENTEPE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ADATEPE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AĞCAYAZI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AKÖREN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ALANCIK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ALTINKAYA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ARICA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AVDAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AYDINLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AYDOĞDU Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AYVALI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAHÇEKONAK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAŞALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAŞFAKI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BEKTAŞ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BOĞAKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BOĞAZKORU Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BORUK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BURHANİYE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BÜYÜKKALE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "CEBELİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇAKIRTAŞ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇALKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇAMLICA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇAMLIKONAK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇEKALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇEKMEDEN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇELTEK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇAMLIDERE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DEVALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DOYRAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DURUÇAY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ESEN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ESENYURT Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÖLLÜALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÖMLEKHİSAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÜDER Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÜLDERE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "HACILI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "HALKAHAVLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "HAYRANLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "İMİRCİK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "İNCESU Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "İNKAYA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KABALI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KAPLANCIK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KAPAKLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARABÜK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARACAÖREN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARAPINAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARKUCAK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KAVAKPINARI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KILIÇGÜNEY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIRATBÜKÜ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIRMA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIZILCAKORU Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIZILCAÖREN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KOVALI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÖZKURUÇAY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KUŞÇULAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KUYAŞ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KUYUMCULAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KÜÇÜKKALE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KÜLETEK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "MAHMATLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "MEŞELİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ORUÇ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "OVACIK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "OYMAAĞAÇ Mah.",
+          "coordinates": [
+            41.2076124,
+            35.4293327
+          ]
+        },
+        {
+          "name": "ÖRENCİK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÖZYÖRÜK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "PAŞAKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SAMUKALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SAMUR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TATARKALE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TEBERÜK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TEKKEKIRANI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TÜRKMEN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YAĞINÖZÜ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YEŞİLTEPE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YOLPINAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YUKARINARLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YURTDAĞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YÜRÜKÇAL Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BEŞPINAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AHMETBABA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ALANKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ALANŞEYHİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAKLA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "HALİLBABA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KAPAKLIEŞME Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARADORUK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARAKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÖĞÜRLÜ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SARIDİBEK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SOFULAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SOĞUCAK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TAHTAKÖPRÜ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KÖPRÜBAŞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "AĞCAALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ALANBAŞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAYRAMKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇALMAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ELALDI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ELBEYİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ELMALI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KADIÇAYIRI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "MELİKLİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ORTAKÖY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "PAZARCI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SARIYAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TAŞLIYÜK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "TEPEÖREN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YAĞCI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YARBAŞI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YENİÇELİK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "MEZRAA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DARIÇAŞALANI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAHÇESARAY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BELALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇALTI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÇORAKDERE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "DARIÇAY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KADIOĞLU Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KARANAR Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIRANALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KIZILKESE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KOCAKAYA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "KUMRAL Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SARAYCIK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SARIALAN Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SUSUZ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ŞENTEPE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YENİDÜZCE Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ATATÜRK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "GÖL YENİ Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "HABİBFAKI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SIRBAŞMAK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ÖZGÜNEY Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "SARAYLI Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "BAHÇELİEVLER Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "FAZIL AHMET PAŞA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "ESENTEPE Mah.",
+          "coordinates": [
+            41.1320875,
+            35.4770605
+          ]
+        },
+        {
+          "name": "KURUÇAY Mah.",
+          "coordinates": [
+            41.1516175,
+            35.4529921
+          ]
+        },
+        {
+          "name": "HIDIRLIK Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        },
+        {
+          "name": "YEŞİLADA Mah.",
+          "coordinates": [
+            41.0814061,
+            35.4972366
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Yakakent",
+      "coordinates": [
+        41.6346473,
+        35.5139214
+      ],
+      "neighborhoods": [
+        {
+          "name": "LİMAN Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "YASSIDAĞ Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "ASMAPINAR Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "BÜYÜKKIRIK Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "ÇAMALAN Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "ÇEPNİ Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "GÜNDÜZLÜ Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KARAABA Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KAYALI Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KUZÖREN Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KÜPLÜAĞZI Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "MUTAFLI Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "SARIGÖL Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "YEŞİLKÖY Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "MERKEZ Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KOZKÖY Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        },
+        {
+          "name": "KÜRÜZGÜRGENLİK Mah.",
+          "coordinates": [
+            41.6346473,
+            35.5139214
+          ]
+        }
       ]
     }
   ]

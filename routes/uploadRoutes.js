@@ -1,6 +1,8 @@
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const multer = require('multer');
+const sharp = require('sharp');
 const { authenticate } = require('../middleware/auth');
 const { requireAdmin } = require('../middleware/roleCheck');
 const { watermarkListingImage } = require('../utils/watermarkImage');
@@ -52,12 +54,41 @@ router.post('/image', (req, res, next) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'Dosya seçilmedi.' });
   }
+
+  try {
+    const originalPath = req.file.path;
+    const webpFilename = req.file.filename.replace(/\.[^/.]+$/, "") + ".webp";
+    const webpPath = path.join(req.file.destination, webpFilename);
+
+    if (originalPath !== webpPath) {
+      await sharp(originalPath)
+        .webp({ quality: 85, effort: 4 }) // Yüksek kalite, iyi sıkıştırma
+        .toFile(webpPath);
+      
+      fs.unlinkSync(originalPath); // Orijinal dosyayı sil
+      
+      req.file.filename = webpFilename;
+      req.file.path = webpPath;
+    } else {
+      const tmpPath = originalPath + '.tmp.webp';
+      await sharp(originalPath)
+        .webp({ quality: 85, effort: 4 })
+        .toFile(tmpPath);
+      fs.unlinkSync(originalPath);
+      fs.renameSync(tmpPath, originalPath);
+    }
+  } catch (err) {
+    console.error('[webp_convert] Hata:', err.message || err);
+    // Dönüşüm hatası olursa orijinal dosya ile devam etmeye çalışalım
+  }
+
   try {
     await watermarkListingImage(req.file.path);
   } catch (err) {
     console.error('[watermark] Uygulanamadı:', err.message || err);
-    // Orijinal dosya korunur; yükleme yine de başarılı sayılır
+    // Orijinal (veya dönüştürülmüş webp) dosya korunur
   }
+
   const baseUrl = `${req.protocol}://${req.get('host')}`;
   const url = `${baseUrl}/uploads/${req.file.filename}`;
   res.json({ success: true, url });

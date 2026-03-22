@@ -447,20 +447,20 @@ export default function AdDetail() {
     <div className="min-h-screen bg-background pt-6 pb-10 font-sans">
       <div className="max-w-[1280px] mx-auto px-3 sm:px-4 lg:px-6 relative">
         <header className="mb-4 sm:mb-6 flex flex-col gap-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <img
               src={logoImg}
               alt="Doğan Emlak Group"
-              className="h-20 sm:h-24 w-auto object-contain fixed left-1 top-1 z-20"
+              className="h-16 sm:h-20 w-auto object-contain shrink-0"
             />
-          </div>
-          <div>
-            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug">
-              {listing.title}
-            </h1>
-            <p className="mt-1 text-sm text-text-dark/70">
-              {locationString(listing.location)}
-            </p>
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug">
+                {listing.title}
+              </h1>
+              <p className="mt-1 text-sm text-text-dark/70">
+                {locationString(listing.location)}
+              </p>
+            </div>
           </div>
           <button
             type="button"
@@ -640,6 +640,7 @@ export default function AdDetail() {
             </div>
             <div className="divide-y divide-border text-xs sm:text-sm">
               <InfoRow label="İlan No" value={listing.listing_no} valueClassName="text-bordeaux font-semibold" />
+              <InfoRow label="Görüntülenme" value={listing.view_count != null ? `${listing.view_count.toLocaleString('tr-TR')} kez` : "—"} />
               <InfoRow label="İlan Tarihi" value={formatDate(listing.listing_date)} />
               <InfoRow label="Emlak Tipi" value={listing.listing_type === "KIRALIK" ? "Kiralık" : "Satılık"} />
               {isArsa ? (
