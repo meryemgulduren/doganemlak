@@ -82,15 +82,15 @@ async function list(req, res) {
 async function getById(req, res) {
   try {
     const { id } = req.params;
-    const listing = await Listing.findById(id)
+    const listingDoc = await Listing.findById(id)
       .populate('features', 'key label category')
-      .populate('admin_id', 'username first_name last_name phone email')
-      .select('-__v')
-      .lean();
+      .populate('admin_id', '_id username first_name last_name phone email profile_image')
+      .select('-__v');
 
-    if (!listing) {
+    if (!listingDoc) {
       return res.status(404).json({ success: false, message: 'İlan bulunamadı.' });
     }
+    const listing = listingDoc.toObject({ flattenMaps: true });
     if (listing.status !== 'ACTIVE') {
       return res.status(404).json({ success: false, message: 'İlan bulunamadı.' });
     }

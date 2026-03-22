@@ -7,12 +7,14 @@ const connectDB                 = require('./config/db');
 const authRoutes                = require('./routes/authRoutes');
 const listingRoutes             = require('./routes/listingRoutes');
 const favoriteRoutes            = require('./routes/favoriteRoutes');
+const favoriteConsultantRoutes  = require('./routes/favoriteConsultantRoutes');
 const adminRoutes               = require('./routes/adminRoutes');
 const analyticsRoutes           = require('./routes/analyticsRoutes');
 const categoryRoutes            = require('./routes/categoryRoutes');
 const featureDefinitionRoutes   = require('./routes/featureDefinitionRoutes');
 const uploadRoutes              = require('./routes/uploadRoutes');
 const cityRoutes                = require('./routes/cityRoutes');
+const consultantRoutes          = require('./routes/consultantRoutes');
 const viewCountBuffer           = require('./utils/viewCountBuffer');
 
 // DB bağlantısı kurulduktan sonra view_count buffer'ını başlat
@@ -37,7 +39,9 @@ app.get('/api/health', (_req, res) =>
 
 app.use('/api/auth',                authRoutes);
 app.use('/api/listings',            listingRoutes);
+app.use('/api/consultants',         consultantRoutes);
 app.use('/api/favorites',           favoriteRoutes);
+app.use('/api/favorite-consultants', favoriteConsultantRoutes);
 app.use('/api/admin/upload',        uploadRoutes);
 app.use('/api/admin/analytics',     analyticsRoutes);
 app.use('/api/admin',               adminRoutes);

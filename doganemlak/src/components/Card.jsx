@@ -13,6 +13,7 @@ function locationString(location) {
 }
 
 export default function Card({ listing }) {
+  if (!listing?._id) return null;
   const id       = listing._id;
   const title    = listing.title;
   const location = locationString(listing.location);
@@ -27,10 +28,10 @@ export default function Card({ listing }) {
   return (
     <Link
       to={`/ilan/${id}`}
-      className="group block bg-surface rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover hover:border-primary/40 transition-all duration-300"
+      className="group block bg-surface rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover hover:border-bordeaux/25 transition-all duration-300"
     >
       {/* Fotoğraf */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-accent/30">
+      <div className="relative aspect-[4/3] overflow-hidden bg-accent/80">
         <img
           src={image}
           alt={title}
@@ -40,10 +41,9 @@ export default function Card({ listing }) {
         <span
           className={`absolute top-3 left-3 px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide shadow-sm
             ${isRental
-              ? "bg-white text-black"
-              : "text-white"
+              ? "bg-surface text-text-dark border border-border"
+              : "bg-text-dark text-white"
             }`}
-          style={!isRental ? { backgroundColor: "#300e19" } : {}}
         >
           {isRental ? "Kiralık" : "Satılık"}
         </span>
@@ -58,19 +58,19 @@ export default function Card({ listing }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted text-xs mb-3">
           {location && (
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-secondary" />
+              <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-muted" />
               {location}
             </span>
           )}
           {roomCount && (
             <span className="flex items-center gap-1">
-              <BedDouble className="w-3.5 h-3.5 flex-shrink-0 text-secondary" />
+              <BedDouble className="w-3.5 h-3.5 flex-shrink-0 text-muted" />
               {roomCount}
             </span>
           )}
           {area && (
             <span className="flex items-center gap-1">
-              <Maximize2 className="w-3.5 h-3.5 flex-shrink-0 text-secondary" />
+              <Maximize2 className="w-3.5 h-3.5 flex-shrink-0 text-muted" />
               {area}
             </span>
           )}

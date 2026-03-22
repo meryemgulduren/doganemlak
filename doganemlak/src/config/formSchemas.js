@@ -41,11 +41,13 @@ export const generateListingSchema = (category, listingType, subType) => {
     return baseSchema;
   };
 
+  const isGloballyRequired = (id) => id === "title" || id === "description";
+
   requiredFields.forEach((id) => {
     const field = fieldDefinitions[id];
     if (field) {
       if (id !== "city" && id !== "district" && id !== "neighborhood" && id !== "address_details") {
-         schemaShape[id] = getZodType(field, true);
+         schemaShape[id] = getZodType(field, isGloballyRequired(id));
       }
     }
   });
@@ -59,14 +61,22 @@ export const generateListingSchema = (category, listingType, subType) => {
     }
   });
 
-  // Location is handled separately to keep it under the `location` object
-  // If city/district are ever not required, this might need dynamic checks, but for listings they always are.
-  schemaShape.location = z.object({
-    city: z.string().min(1, { message: "İl zorunludur" }),
-    district: z.string().min(1, { message: "İlçe zorunludur" }),
-    neighborhood: z.string().nullable().optional().or(z.literal("")),
-    address_details: z.string().nullable().optional().or(z.literal("")),
-  });
+  // Location is optional for all categories.
+  schemaShape.location = z
+    .object({
+      city: z.string().nullable().optional().or(z.literal("")),
+      district: z.string().nullable().optional().or(z.literal("")),
+      neighborhood: z.string().nullable().optional().or(z.literal("")),
+      address_details: z.string().nullable().optional().or(z.literal("")),
+      map_selection_confirmed: z.boolean().optional().default(false),
+      coordinates: z
+        .object({
+          lat: z.union([z.number(), z.null()]).optional(),
+          lng: z.union([z.number(), z.null()]).optional(),
+        })
+        .optional(),
+    })
+    .optional();
 
   schemaShape.media = z.object({
     images: z.array(z.string()).default([]),
@@ -76,8 +86,14 @@ export const generateListingSchema = (category, listingType, subType) => {
   schemaShape.features = z.array(z.string()).default([]);
   schemaShape.facade = z.array(z.string()).default([]);
   
-  if (subType === "DUKKAN_MAGAZA") {
-      schemaShape.commercial_features = z.array(z.string()).default([]);
+  if (category === "IS_YERI") {
+    schemaShape.commercial_features = z.array(z.string()).default([]);
+  }
+  if (category === "ARSA") {
+    schemaShape.arsa_features = z.array(z.string()).default([]);
+  }
+  if (category === "BINA") {
+    schemaShape.bina_features = z.array(z.string()).default([]);
   }
 
   return z.object(schemaShape);

@@ -3,14 +3,14 @@ import { useAuth } from "../../context/AuthContext";
 import { getToken } from "../../api/client";
 import { fetchAdminStats, fetchAdminAnalytics } from "../../api/admin";
 
-// ── Kurumsal Renk Paleti (Brand Colors) ──────────────────────────────────────
+// ── Eski marka paleti (kahve → altın) ─────────────────────────────────────────
 const BRAND_COLORS = [
-  "#1e3a8a", // blue-900 (En koyu)
-  "#2563eb", // blue-600
-  "#3b82f6", // blue-500
-  "#60a5fa", // blue-400
-  "#93c5fd", // blue-300
-  "#bfdbfe", // blue-200 (En açık)
+  "#49111C",
+  "#5c1a24",
+  "#30230D",
+  "#5c4a32",
+  "#8B7355",
+  "#A66F2C",
 ];
 
 function formatPrice(n) {
@@ -23,9 +23,9 @@ function formatPrice(n) {
 // 1. KPI Kartı (Küçük ve Şık)
 function KpiCard({ label, value }) {
   return (
-    <div className="bg-white rounded-[16px] p-5 shadow-sm border border-slate-100 flex flex-col justify-center hover:shadow-md transition-shadow">
-      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">{label}</p>
-      <h4 className="text-2xl font-extrabold text-slate-800">{value ?? "—"}</h4>
+    <div className="bg-surface rounded-[16px] p-5 shadow-sm border border-border flex flex-col justify-center hover:shadow-md transition-shadow">
+      <p className="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">{label}</p>
+      <h4 className="text-2xl font-extrabold text-text-dark">{value ?? "—"}</h4>
     </div>
   );
 }
@@ -34,9 +34,9 @@ function KpiCard({ label, value }) {
 function CSSDonutChart({ data, title }) {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100">
-        <h3 className="text-sm font-semibold text-slate-700 mb-4">{title}</h3>
-        <p className="text-sm text-slate-400 italic">Veri yok.</p>
+      <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border">
+        <h3 className="text-sm font-semibold text-text-dark mb-4">{title}</h3>
+        <p className="text-sm text-muted italic">Veri yok.</p>
       </div>
     );
   }
@@ -52,16 +52,16 @@ function CSSDonutChart({ data, title }) {
   });
 
   return (
-    <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100 flex flex-col h-full hover:shadow-md transition-shadow">
-      <h3 className="text-sm font-semibold text-slate-700 mb-6">{title}</h3>
+    <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border flex flex-col h-full hover:shadow-md transition-shadow">
+      <h3 className="text-sm font-semibold text-text-dark mb-6">{title}</h3>
       <div className="flex flex-col xl:flex-row items-center gap-8 my-auto">
         <div 
           className="relative w-32 h-32 rounded-full flex-shrink-0 shadow-sm" 
-          style={{ background: total > 0 ? `conic-gradient(${gradientStops.join(', ')})` : '#f1f5f9' }}
+          style={{ background: total > 0 ? `conic-gradient(${gradientStops.join(', ')})` : "#E8E4DC" }}
         >
-          <div className="absolute inset-4 bg-white rounded-full flex flex-col items-center justify-center shadow-inner">
-            <span className="text-xl font-extrabold text-slate-800">{total}</span>
-            <span className="text-[10px] uppercase tracking-wide text-slate-400 mt-0.5">Toplam</span>
+          <div className="absolute inset-4 bg-surface rounded-full flex flex-col items-center justify-center shadow-inner">
+            <span className="text-xl font-extrabold text-text-dark">{total}</span>
+            <span className="text-[10px] uppercase tracking-wide text-muted mt-0.5">Toplam</span>
           </div>
         </div>
         <div className="flex-1 space-y-3 w-full">
@@ -71,11 +71,11 @@ function CSSDonutChart({ data, title }) {
               <div key={d.label} className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2.5">
                   <span className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: BRAND_COLORS[i % BRAND_COLORS.length] }}></span>
-                  <span className="text-slate-600 font-medium truncate max-w-[120px]" title={d.label}>{d.label}</span>
+                  <span className="text-muted font-medium truncate max-w-[120px]" title={d.label}>{d.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-400 text-xs">% {pct}</span>
-                  <span className="font-bold text-slate-800 w-6 text-right">{d.value}</span>
+                  <span className="text-muted text-xs">% {pct}</span>
+                  <span className="font-bold text-text-dark w-6 text-right">{d.value}</span>
                 </div>
               </div>
             );
@@ -90,9 +90,9 @@ function CSSDonutChart({ data, title }) {
 function HorizontalBarChart({ rows, maxRows = 5, title }) {
   if (!rows || rows.length === 0) {
     return (
-      <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100">
-        <h3 className="text-sm font-semibold text-slate-700 mb-4">{title}</h3>
-        <p className="text-sm text-slate-400 italic">Veri yok.</p>
+      <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border">
+        <h3 className="text-sm font-semibold text-text-dark mb-4">{title}</h3>
+        <p className="text-sm text-muted italic">Veri yok.</p>
       </div>
     );
   }
@@ -101,23 +101,23 @@ function HorizontalBarChart({ rows, maxRows = 5, title }) {
   const maxVal = Math.max(...items.map((r) => r.count ?? 0), 1);
 
   return (
-    <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100 h-full hover:shadow-md transition-shadow">
-      <h3 className="text-sm font-semibold text-slate-700 mb-5">{title}</h3>
+    <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border h-full hover:shadow-md transition-shadow">
+      <h3 className="text-sm font-semibold text-text-dark mb-5">{title}</h3>
       <div className="space-y-4">
         {items.map((row, i) => {
           const pct = Math.round(((row.count ?? 0) / maxVal) * 100);
           return (
             <div key={i} className="flex items-center gap-4 text-sm">
-              <span className="w-28 text-slate-600 font-medium truncate text-xs flex-shrink-0" title={row._id}>
+              <span className="w-28 text-muted font-medium truncate text-xs flex-shrink-0" title={row._id}>
                 {row._id || "—"}
               </span>
-              <div className="flex-1 overflow-hidden flex items-center h-2 bg-slate-100 rounded-full">
+              <div className="flex-1 overflow-hidden flex items-center h-2 bg-accent/40 rounded-full">
                 <div
                   className="h-2 rounded-full transition-all duration-1000 ease-out"
                   style={{ width: `${pct}%`, background: BRAND_COLORS[i % BRAND_COLORS.length] }}
                 />
               </div>
-              <span className="w-8 text-right text-slate-800 text-xs font-bold">{row.count}</span>
+              <span className="w-8 text-right text-text-dark text-xs font-bold">{row.count}</span>
             </div>
           );
         })}
@@ -135,7 +135,10 @@ export default function AdminDashboardPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!user || !getToken()) return;
+    if (!user || !getToken()) {
+      setLoading(false);
+      return;
+    }
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -152,7 +155,7 @@ export default function AdminDashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-3 text-slate-500 py-12 justify-center">
+      <div className="flex items-center gap-3 text-muted py-12 justify-center">
         <svg className="w-6 h-6 animate-spin text-primary" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
@@ -179,8 +182,8 @@ export default function AdminDashboardPage() {
       
       <div className="flex items-center justify-between mb-2">
         <div>
-          <h2 className="text-2xl font-extrabold text-slate-800 tracking-tight">Genel Bakış</h2>
-          <p className="text-sm text-slate-500 mt-1">Platformun güncel istatistikleri ve özet verileri</p>
+          <h2 className="text-2xl font-extrabold text-text-dark tracking-tight">Genel Bakış</h2>
+          <p className="text-sm text-muted mt-1">Platformun güncel istatistikleri ve özet verileri</p>
         </div>
       </div>
 
@@ -201,23 +204,23 @@ export default function AdminDashboardPage() {
           {/* Fiyat Özetleri (3'lü Yan Yana Kart) */}
           {(ps.avg > 0 || ps.min > 0 || ps.max > 0) && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gradient-to-br from-slate-50 to-white rounded-[16px] p-5 shadow-sm border border-slate-100 flex flex-col justify-center hover:shadow-md transition-shadow">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span> En Düşük Fiyat
+              <div className="bg-gradient-to-br from-accent/40 to-surface rounded-[16px] p-5 shadow-sm border border-border flex flex-col justify-center hover:shadow-md transition-shadow">
+                <p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span> En Düşük Fiyat
                 </p>
-                <p className="text-xl font-extrabold text-slate-700">{formatPrice(ps.min)}</p>
+                <p className="text-xl font-extrabold text-text-dark">{formatPrice(ps.min)}</p>
               </div>
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-[16px] p-5 shadow-sm shadow-blue-900/10 text-white flex flex-col justify-center transform hover:-translate-y-0.5 transition-transform">
-                <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-300"></span> Ortalama Fiyat
+              <div className="bg-gradient-to-br from-primary to-text-dark rounded-[16px] p-5 shadow-sm shadow-text-dark/15 text-white flex flex-col justify-center transform hover:-translate-y-0.5 transition-transform">
+                <p className="text-[10px] font-bold text-white/85 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent"></span> Ortalama Fiyat
                 </p>
                 <p className="text-xl font-extrabold text-white">{formatPrice(ps.avg)}</p>
               </div>
-              <div className="bg-gradient-to-br from-slate-50 to-white rounded-[16px] p-5 shadow-sm border border-slate-100 flex flex-col justify-center hover:shadow-md transition-shadow">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span> En Yüksek Fiyat
+              <div className="bg-gradient-to-br from-accent/40 to-surface rounded-[16px] p-5 shadow-sm border border-border flex flex-col justify-center hover:shadow-md transition-shadow">
+                <p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span> En Yüksek Fiyat
                 </p>
-                <p className="text-xl font-extrabold text-slate-700">{formatPrice(ps.max)}</p>
+                <p className="text-xl font-extrabold text-text-dark">{formatPrice(ps.max)}</p>
               </div>
             </div>
           )}
@@ -241,27 +244,27 @@ export default function AdminDashboardPage() {
 
       {/* 3. Alt Satır (Son 30 Gün Özetleri) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100 flex items-center gap-6 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 rounded-[14px] bg-blue-50 flex items-center justify-center flex-shrink-0">
-            <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border flex items-center gap-6 hover:shadow-md transition-shadow">
+          <div className="w-14 h-14 rounded-[14px] bg-primary/15 flex items-center justify-center flex-shrink-0">
+            <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
           </div>
           <div>
-            <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Son 30 Gün: Eklenen</h3>
-            <p className="text-3xl font-extrabold text-slate-800">{ra.newListings30d || 0}</p>
+            <h3 className="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">Son 30 Gün: Eklenen</h3>
+            <p className="text-3xl font-extrabold text-text-dark">{ra.newListings30d || 0}</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-[16px] p-6 shadow-sm border border-slate-100 flex items-center gap-6 hover:shadow-md transition-shadow">
-          <div className="w-14 h-14 rounded-[14px] bg-emerald-50 flex items-center justify-center flex-shrink-0">
-            <svg className="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border flex items-center gap-6 hover:shadow-md transition-shadow">
+          <div className="w-14 h-14 rounded-[14px] bg-success/15 flex items-center justify-center flex-shrink-0">
+            <svg className="w-7 h-7 text-success" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <div>
-            <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Son 30 Gün: Satılan</h3>
-            <p className="text-3xl font-extrabold text-slate-800">{ra.soldListings30d || 0}</p>
+            <h3 className="text-[11px] font-bold text-muted uppercase tracking-widest mb-1">Son 30 Gün: Satılan</h3>
+            <p className="text-3xl font-extrabold text-text-dark">{ra.soldListings30d || 0}</p>
           </div>
         </div>
       </div>

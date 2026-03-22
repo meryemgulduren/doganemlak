@@ -74,6 +74,14 @@ export async function updateAdminListing(id, body) {
   });
 }
 
+/** Liste sayfasından sadece durum güncellemesi (ACTIVE, PASSIVE, PENDING, SOLD). */
+export async function patchAdminListingStatus(id, status) {
+  return apiRequest(`/api/admin/listings/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  });
+}
+
 export async function deleteAdminListing(id) {
   return apiRequest(`/api/admin/listings/${id}`, { method: 'DELETE' });
 }

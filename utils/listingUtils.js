@@ -29,6 +29,7 @@ const SPEC_TO_FIELD_MAP = {
   dues: 'dues',
   property_condition: 'property_condition',
   has_tenant: 'has_tenant',
+  ground_survey: 'ground_survey',
   commercial_features: 'commercial_features',
 };
 

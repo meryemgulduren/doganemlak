@@ -25,14 +25,10 @@ const arsaBinaSchemas = require('./schemas/arsaBinaSchemas');
  */
 const baseSchema = z.object({
   title: z.string().min(3, 'İlan başlığı en az 3 karakter olmalı.'),
-  description: z
-    .string()
-    .min(3, 'Açıklama en az 3 karakter olmalı.')
-    .optional()
-    .or(z.literal('').transform(() => undefined)),
+  description: z.string().min(3, 'Açıklama en az 3 karakter olmalı.'),
   price: z.coerce.number({
     invalid_type_error: 'Fiyat sayı olmalıdır.',
-  }).nonnegative('Fiyat negatif olamaz.'),
+  }).nonnegative('Fiyat negatif olamaz.').optional(),
   currency: z.enum(['TRY', 'USD', 'EUR']).optional(),
   listing_type: z.enum(['SATILIK', 'KIRALIK'], {
     invalid_type_error: 'İlan tipi SATILIK veya KIRALIK olmalıdır.',
@@ -46,8 +42,8 @@ const baseSchema = z.object({
   // Opsiyonel — hangi admin bu ilanı yönetiyor (yetkili danışman)
   admin_id: z.string().optional().nullable(),
   location: z.object({
-    city:            z.string().min(1).optional(),
-    district:        z.string().min(1).optional(),
+    city:            z.string().optional().nullable(),
+    district:        z.string().optional().nullable(),
     neighborhood:    z.string().optional().nullable(),
     address_details: z.string().optional().nullable(),
   }).partial().optional(),

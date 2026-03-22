@@ -113,7 +113,7 @@ async function login(req, res) {
  */
 async function getMe(req, res) {
   try {
-    res.json({ success: true, user: req.user });
+    res.json({ success: true, user: toSafeUser(req.user) });
   } catch (err) {
     console.error('GetMe error:', err);
     res.status(500).json({ success: false, message: 'Kullanıcı bilgisi alınamadı.' });

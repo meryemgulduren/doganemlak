@@ -1,27 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
-@import "leaflet/dist/leaflet.css";
 
+/* Beyaza yakın krem zemin, yumuşak nötr vurgular, bordeaux (#49111C) yapısal renk */
 @theme {
-  /* ── Temel Palet (Doğal ve Sıcak Renkler) ────────────────────── */
-  --color-background: #F2F4F3;
-  --color-text-dark:  #0A0908;
-  --color-primary:    #49111C;
-  --color-secondary:  #5E503F;
-  --color-accent:     #E5DDD5;
+  --color-background: #f7f6f4;
+  --color-cream: #f0ebe3;
+  --color-surface: #ffffff;
+  --color-text-dark: #30230d;
+  --color-muted: #5c5348;
+  --color-primary: #a66f2c;
+  --color-secondary: #8b7355;
+  --color-accent: #e8e4dc;
+  --color-border: #d8d3ca;
+  --color-bordeaux: #49111c;
+  --color-danger: #b91c1c;
+  --color-success: #2f855a;
+  --color-warning: #b45309;
+  --color-highlight: #8b7355;
 
-  /* ── Canlı Vurgu Renkleri ─────────────────────────────────────────── */
-  --color-danger:    #E53E3E;
-  --color-success:   #2F855A;
-  --color-warning:   #C05621;
-  --color-highlight: #A9927D;
+  --shadow-card: 0 1px 3px 0 rgb(73 17 28 / 0.06), 0 1px 2px -1px rgb(48 35 13 / 0.05);
+  --shadow-card-hover: 0 14px 32px -10px rgb(73 17 28 / 0.1),
+    0 6px 12px -6px rgb(48 35 13 / 0.08);
 
-  /* ── Nötr Tonlar ──────────────────────────────────────────────────── */
-  --color-surface:   #FFFFFF;
-  --color-border:    #D5CFC9;
-  --color-muted:     #7A7169;
-
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 @layer base {
@@ -29,9 +30,21 @@
     @apply font-sans antialiased;
   }
   body {
-    @apply bg-background text-text-dark font-sans antialiased;
+    @apply bg-background text-muted font-sans antialiased;
   }
-  input, button, select, textarea, a {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-text-dark;
+  }
+  input,
+  button,
+  select,
+  textarea,
+  a {
     @apply font-sans;
   }
   a {
@@ -41,10 +54,19 @@
     transition: background-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
   }
 
-  /* Scrollbar stillleri */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #F2F4F3; }
-  ::-webkit-scrollbar-thumb { background: #A9927D; border-radius: 99px; }
-  ::-webkit-scrollbar-thumb:hover { background: #5E503F; }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f7f6f4;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #49111c;
+    opacity: 0.85;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5c1a24;
+  }
 }
-

@@ -18,6 +18,8 @@ const optionalBool          = z.boolean().optional();
 const baseIsYeriSpecs = {
   m2_brut:             coercedPositiveNumber,
   m2_net:              coercedPositiveNumber,
+  room_count:          optionalString,
+  building_age:        optionalString,
   open_area_m2:        coercedNonnegativeNum,
   floor_number:        z.coerce.number().int().optional(),
   total_floors:        z.coerce.number().int().optional(),
@@ -33,6 +35,7 @@ const baseIsYeriSpecs = {
   title_deed_status:   z.string().optional(),
   registry_number:     z.string().optional(),
   commercial_features: z.array(z.string()).optional(),
+  bina_type:           optionalString,
   parking:             optionalString,
   elevator:            optionalString,
 };
@@ -71,11 +74,31 @@ module.exports = {
     requiredSpecs: OFIS_KIRALIK_REQUIRED,
   },
   'IS_YERI.SATILIK.DEPO_ANTREPO': {
-    schema: makeIsYeriSchema({ ceiling_height: z.coerce.number().positive().optional() }),
+    schema: makeIsYeriSchema({
+      ceiling_height: z.coerce.number().positive().optional(),
+      ground_survey: optionalString,
+    }),
     requiredSpecs: ['m2_brut', 'using_status', 'swap_option'],
   },
   'IS_YERI.KIRALIK.DEPO_ANTREPO': {
-    schema: makeIsYeriSchema({ ceiling_height: z.coerce.number().positive().optional() }),
+    schema: makeIsYeriSchema({
+      ceiling_height: z.coerce.number().positive().optional(),
+      ground_survey: optionalString,
+    }),
     requiredSpecs: ['m2_brut', 'using_status'],
+  },
+  'IS_YERI.SATILIK.KOMPLE_BINA': {
+    schema: makeIsYeriSchema({
+      ground_survey: optionalString,
+      bina_type: optionalString,
+    }),
+    requiredSpecs: ['m2_brut', 'm2_net', 'total_floors'],
+  },
+  'IS_YERI.KIRALIK.KOMPLE_BINA': {
+    schema: makeIsYeriSchema({
+      ground_survey: optionalString,
+      bina_type: optionalString,
+    }),
+    requiredSpecs: ['m2_brut', 'm2_net', 'total_floors'],
   },
 };

@@ -28,7 +28,7 @@ export default function SearchSuggestions({
   if (!categoriesData) {
     return (
       <div className="absolute left-0 right-0 top-full mt-1 z-[100] rounded-b-xl overflow-hidden border border-t-0 border-text-dark/30 bg-white/95 backdrop-blur-sm shadow-lg font-sans">
-        <div className="px-4 py-3 text-sm text-slate-500">Kategoriler yükleniyor...</div>
+        <div className="px-4 py-3 text-sm text-muted">Kategoriler yükleniyor...</div>
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function SearchSuggestions({
           />
         ))}
         {listToShow.length === 0 && (
-          <div className="px-4 py-3 text-sm text-slate-500">Alt kategori bulunamadı.</div>
+          <div className="px-4 py-3 text-sm text-muted">Alt kategori bulunamadı.</div>
         )}
       </div>
     </div>

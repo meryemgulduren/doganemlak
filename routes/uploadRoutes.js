@@ -3,6 +3,7 @@ const express = require('express');
 const multer = require('multer');
 const { authenticate } = require('../middleware/auth');
 const { requireAdmin } = require('../middleware/roleCheck');
+const { watermarkListingImage } = require('../utils/watermarkImage');
 
 const router = express.Router();
 
@@ -47,9 +48,15 @@ router.post('/image', (req, res, next) => {
     }
     next();
   });
-}, (req, res) => {
+}, async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'Dosya seçilmedi.' });
+  }
+  try {
+    await watermarkListingImage(req.file.path);
+  } catch (err) {
+    console.error('[watermark] Uygulanamadı:', err.message || err);
+    // Orijinal dosya korunur; yükleme yine de başarılı sayılır
   }
   const baseUrl = `${req.protocol}://${req.get('host')}`;
   const url = `${baseUrl}/uploads/${req.file.filename}`;

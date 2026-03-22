@@ -1,6 +1,6 @@
 import FormField from "./FormField";
 
-export default function FormSection({ section, fields }) {
+export default function FormSection({ section, fields, htmlId }) {
   if (!fields.length) return null;
 
   const gridCols =
@@ -37,10 +37,10 @@ export default function FormSection({ section, fields }) {
   }
 
   return (
-    <section className="rounded-xl border border-border bg-surface shadow-sm px-4 py-3 space-y-3">
+    <section id={htmlId} className="rounded-xl border border-border bg-surface shadow-sm px-4 py-3 space-y-3 scroll-mt-4">
       <header className="flex items-center gap-2">
         <span className="w-1 h-4 rounded-full bg-secondary flex-shrink-0" />
-        <h3 className="text-sm font-semibold text-slate-600">{section.label}</h3>
+        <h3 className="text-sm font-semibold text-text-dark">{section.label}</h3>
       </header>
       <div className={`grid grid-cols-1 ${gridCols} gap-3 items-start`}>
         {groupedFields.map((item) => {
@@ -51,7 +51,7 @@ export default function FormSection({ section, fields }) {
             return (
               <div key={item.id} className={`space-y-1 ${rowSpanClass}`}>
                 <label className="block text-xs font-medium text-text-dark mb-0.5" aria-hidden="true">&nbsp;</label>
-                <div className="flex flex-col gap-2 p-3 bg-slate-50 border border-border rounded-lg h-[calc(100%-20px)] justify-center">
+                <div className="flex flex-col gap-2 p-3 bg-accent/30 border border-border rounded-lg h-[calc(100%-20px)] justify-center">
                   {item.fields.map((field) => (
                     <FormField key={field.id} field={{ ...field, hideLabel: true }} />
                   ))}

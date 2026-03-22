@@ -5,7 +5,7 @@ import { sections, fieldDefinitions, resolveCategoryLayout } from "../../config/
 import { generateListingSchema } from "../../config/formSchemas";
 import FormSection from "./FormSection";
 import FeaturesAccordion from "./FeaturesAccordion";
-import AddressCascader from "./AddressCascader";
+import LocationSelector from "./LocationSelector";
 import MediaUploadSection from "./MediaUploadSection";
 
 const FACADE_OPTIONS = ["Batı", "Doğu", "Güney", "Kuzey"];
@@ -37,7 +37,7 @@ export default function DynamicListingForm({
       price: initialValues?.price ?? "",
       currency: initialValues?.currency ?? "TRY",
       location: initialValues?.location || { 
-        city: "", 
+        city: "Samsun", 
         district: "", 
         neighborhood: "", 
         address_details: "",
@@ -50,18 +50,34 @@ export default function DynamicListingForm({
         initialValues?.specifications?.commercial_features ??
         initialValues?.commercial_features ??
         [],
+      arsa_features: initialValues?.specifications?.arsa_features ?? [],
+      bina_features: initialValues?.specifications?.bina_features ?? [],
     };
 
     // Pull specifications up
     const specs = initialValues?.specifications || {};
     const specsDefaults = {
       m2_brut: specs.m2_brut ?? initialValues?.m2_brut ?? "",
+      bina_m2: specs.m2_brut ?? initialValues?.m2_brut ?? "",
+      arsa_m2: specs.m2_brut ?? initialValues?.m2_brut ?? "",
       m2_net: specs.m2_net ?? initialValues?.m2_net ?? "",
+      zoning_status: specs.zoning_status ?? "",
+      ada_no: specs.ada_no ?? "",
+      parsel_no: specs.parsel_no ?? "",
+      pafta_no: specs.pafta_no ?? "",
+      kaks_emsal: specs.kaks_emsal ?? "",
+      gabari: specs.gabari ?? "",
+      arsa_credit_eligible:
+        typeof specs.credit_eligible === "boolean"
+          ? (specs.credit_eligible ? "Evet" : "Hayır")
+          : "",
       room_count: specs.room_count ?? initialValues?.room_count ?? "",
       building_age: specs.building_age ?? initialValues?.building_age ?? "",
       floor_number: specs.floor_number ?? initialValues?.floor_number ?? "",
       total_floors: specs.total_floors ?? initialValues?.total_floors ?? "",
       heating_type: specs.heating_type ?? initialValues?.heating_type ?? "",
+      bina_heating_type: specs.heating_type ?? initialValues?.heating_type ?? "",
+      apartment_count: specs.apartment_count ?? initialValues?.apartment_count ?? "",
       bathroom_count: specs.bathroom_count ?? initialValues?.bathroom_count ?? "",
       balcony: specs.balcony ?? (typeof initialValues?.balcony === "boolean" ? initialValues.balcony : false),
       furnished: specs.furnished ?? (typeof initialValues?.furnished === "boolean" ? initialValues.furnished : false),
@@ -70,6 +86,8 @@ export default function DynamicListingForm({
       credit_eligible: specs.credit_eligible ?? (typeof initialValues?.credit_eligible === "boolean" ? initialValues.credit_eligible : false),
       dues: specs.dues ?? initialValues?.dues ?? "",
       title_deed_status: specs.title_deed_status ?? initialValues?.title_deed_status ?? "",
+      ground_survey: specs.ground_survey ?? initialValues?.ground_survey ?? "",
+      bina_type: specs.bina_type ?? initialValues?.bina_type ?? "",
       kitchen_type: specs.kitchen_type ?? "",
       elevator: specs.elevator ?? "",
       parking: specs.parking ?? "",
@@ -80,7 +98,8 @@ export default function DynamicListingForm({
       open_area_m2: specs.open_area_m2 ?? initialValues?.open_area_m2 ?? "",
     };
 
-    return { ...base, ...specsDefaults };
+    // Tüm kategori/spec alanlarını generic olarak koru; explicit mapping'ler bunu gerektiğinde override eder.
+    return { ...base, ...specs, ...specsDefaults };
   }, [initialValues]);
 
   const methods = useForm({
@@ -102,7 +121,7 @@ export default function DynamicListingForm({
       .filter(Boolean)
       .map((f) => ({
         ...f,
-        required: (layout.requiredFields || []).includes(f.id),
+        required: f.id === "title" || f.id === "description",
       }));
   }, [layout]);
 
@@ -113,12 +132,30 @@ export default function DynamicListingForm({
       features,
       facade,
       commercial_features,
+      arsa_features,
+      bina_features,
       title,
       description,
       price,
       currency,
       ...specs
     } = data;
+
+    const normalizedSpecs = { ...specs };
+    if (category === "ARSA") {
+      normalizedSpecs.m2_brut = normalizedSpecs.arsa_m2;
+      delete normalizedSpecs.arsa_m2;
+      const arsaCredit = normalizedSpecs.arsa_credit_eligible;
+      if (arsaCredit === "Evet") normalizedSpecs.credit_eligible = true;
+      if (arsaCredit === "Hayır") normalizedSpecs.credit_eligible = false;
+      delete normalizedSpecs.arsa_credit_eligible;
+    }
+    if (category === "BINA") {
+      normalizedSpecs.m2_brut = normalizedSpecs.bina_m2;
+      normalizedSpecs.heating_type = normalizedSpecs.bina_heating_type;
+      delete normalizedSpecs.bina_m2;
+      delete normalizedSpecs.bina_heating_type;
+    }
 
     const payload = {
       core: {
@@ -131,10 +168,12 @@ export default function DynamicListingForm({
         facade,
       },
       specifications: {
-        ...specs,
-        ...(subType === "DUKKAN_MAGAZA" ? { commercial_features } : {}),
+        ...normalizedSpecs,
+        ...(category === "IS_YERI" ? { commercial_features } : {}),
+        ...(category === "ARSA" ? { arsa_features } : {}),
+        ...(category === "BINA" ? { bina_features } : {}),
       },
-      features,
+      features: category === "IS_YERI" || category === "ARSA" || category === "BINA" ? [] : features,
       media,
       category,
       listingType,
@@ -161,18 +200,32 @@ export default function DynamicListingForm({
                       <Controller
                         name="facade"
                         render={({ field: facadeField }) => (
-                          <FeaturesAccordion
-                            key={section.id}
-                            category={category}
-                            subType={subType}
-                            featureDefinitions={featureDefinitions}
-                            selectedIds={featuresField.value}
-                            onChange={featuresField.onChange}
-                            commercialFeatures={commField.value}
-                            onCommercialFeaturesChange={commField.onChange}
-                            facadeOptions={FACADE_OPTIONS}
-                            facadeValue={facadeField.value}
-                            onFacadeChange={facadeField.onChange}
+                          <Controller
+                            name="arsa_features"
+                            render={({ field: arsaField }) => (
+                              <Controller
+                                name="bina_features"
+                                render={({ field: binaField }) => (
+                                  <FeaturesAccordion
+                                    key={section.id}
+                                    category={category}
+                                    subType={subType}
+                                    featureDefinitions={featureDefinitions}
+                                    selectedIds={featuresField.value}
+                                    onChange={featuresField.onChange}
+                                    commercialFeatures={commField.value}
+                                    onCommercialFeaturesChange={commField.onChange}
+                                    facadeOptions={FACADE_OPTIONS}
+                                    facadeValue={facadeField.value}
+                                    onFacadeChange={facadeField.onChange}
+                                    arsaFeatures={arsaField.value}
+                                    onArsaFeaturesChange={arsaField.onChange}
+                                    binaFeatures={binaField.value}
+                                    onBinaFeaturesChange={binaField.onChange}
+                                  />
+                                )}
+                              />
+                            )}
                           />
                         )}
                       />
@@ -187,19 +240,25 @@ export default function DynamicListingForm({
             return (
               <section
                 key={section.id}
-                className="rounded-xl border border-border bg-surface shadow-sm px-4 py-3 space-y-3"
+                id="listing-section-address"
+                className="rounded-xl border border-border bg-surface shadow-sm px-4 py-3 space-y-3 scroll-mt-4"
               >
                 <header className="flex items-center gap-2">
                   <span className="w-1 h-4 rounded-full bg-warning flex-shrink-0" />
-                  <h3 className="text-sm font-semibold text-slate-600">Adres Bilgileri</h3>
+                  <h3 className="text-sm font-semibold text-text-dark">Adres Bilgileri</h3>
                 </header>
                 <Controller
                   name="location"
                   render={({ field: { value, onChange }, fieldState: { error } }) => (
                     <>
-                      <AddressCascader value={value} onChange={onChange} />
-                      {error && error.city && <p className="text-xs text-danger">{error.city.message}</p>}
-                      {error && error.district && <p className="text-xs text-danger">{error.district.message}</p>}
+                      <LocationSelector value={value} onChange={onChange} />
+                      {error?.city && <p className="text-xs text-danger mt-1">{error.city.message}</p>}
+                      {error?.district && <p className="text-xs text-danger mt-1">{error.district.message}</p>}
+                      {(error?.coordinates?.message || error?.message) && (
+                        <p className="text-xs text-danger mt-1">
+                          {error.coordinates?.message ?? error.message}
+                        </p>
+                      )}
                     </>
                   )}
                 />
@@ -211,6 +270,7 @@ export default function DynamicListingForm({
           return (
             <FormSection
               key={section.id}
+              htmlId={`listing-section-${section.id}`}
               section={section}
               fields={sectionFields}
             />

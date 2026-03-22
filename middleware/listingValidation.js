@@ -11,6 +11,24 @@ const { baseSchema, categorySchemas } = require('../config/formSchemas');
  */
 async function validateListing(req, res, next) {
   try {
+    const pruneEmptyValues = (value) => {
+      if (Array.isArray(value)) {
+        return value
+          .map(pruneEmptyValues)
+          .filter((item) => item !== undefined);
+      }
+      if (value && typeof value === 'object') {
+        const entries = Object.entries(value)
+          .map(([k, v]) => [k, pruneEmptyValues(v)])
+          .filter(([, v]) => v !== undefined);
+        return Object.fromEntries(entries);
+      }
+      if (value === '' || value === null || value === undefined) {
+        return undefined;
+      }
+      return value;
+    };
+
     // Base alanlar için validasyon (coerce destekli)
     const parsedBase = await baseSchema.parseAsync(req.body);
     // Kritik: parsedBase bilinmeyen alanları strip eder (Zod default davranışı).
@@ -29,32 +47,8 @@ async function validateListing(req, res, next) {
 
     if (specConfig && hasSpecifications) {
       const rawSpecs = req.body.specifications || {};
-      const parsedSpecs = await specConfig.schema.parseAsync(rawSpecs);
-
-      // Zorunlu specifications alanları gerçekten dolu mu?
-      const missing = [];
-      for (const key of specConfig.requiredSpecs) {
-        const value = parsedSpecs[key];
-        if (
-          value === undefined ||
-          value === null ||
-          (typeof value === 'string' && value.trim() === '') ||
-          (typeof value === 'number' && Number.isNaN(value))
-        ) {
-          missing.push(key);
-        }
-      }
-
-      if (missing.length > 0) {
-        return res.status(400).json({
-          success: false,
-          message: 'Bazı zorunlu alanlar eksik.',
-          errors: missing.map((field) => ({
-            field: `specifications.${field}`,
-            message: 'Bu alan zorunludur.',
-          })),
-        });
-      }
+      const cleanedSpecs = pruneEmptyValues(rawSpecs) || {};
+      const parsedSpecs = await specConfig.schema.parseAsync(cleanedSpecs);
 
       req.body.specifications = parsedSpecs;
     }

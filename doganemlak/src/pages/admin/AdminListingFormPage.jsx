@@ -49,7 +49,13 @@ export default function AdminListingFormPage() {
     credit_eligible: false,
     dues: "",
     status: "ACTIVE",
-    location: { city: "", district: "", neighborhood: "", address_details: "" },
+    location: {
+      city: "Samsun",
+      district: "",
+      neighborhood: "",
+      address_details: "",
+      coordinates: { lat: null, lng: null },
+    },
     media: { images: [], videos: [] },
     features: [],
   });
@@ -88,16 +94,19 @@ export default function AdminListingFormPage() {
           dues: d.dues ?? "",
           status: d.status ?? "ACTIVE",
           location: {
-            city: d.location?.city || "",
+            city: d.location?.city || "Samsun",
             district: d.location?.district || "",
             neighborhood: d.location?.neighborhood || "",
             address_details: d.location?.address_details || "",
+            coordinates: d.location?.coordinates || { lat: null, lng: null },
           },
           media: {
             images: d.media?.images ?? [],
             videos: d.media?.videos ?? [],
           },
           features: d.features?.map((f) => f._id) ?? [],
+          facade: d.facade ?? [],
+          specifications: d.specifications ?? {},
         });
       })
       .catch((err) => {
@@ -252,14 +261,14 @@ export default function AdminListingFormPage() {
             {isEdit ? "İlan Düzenle" : "Yeni İlan - Detaylar"}
           </h2>
           {!isEdit && (form.categoryLabel || form.category) && (
-            <p className="text-sm text-gray-600 mb-3">
+            <p className="text-sm text-muted mb-3">
               Kategori: {form.categoryLabel ?? form.category} ›{" "}
               {form.listingTypeLabel ?? form.listingType}
               {(form.subTypeLabel || form.subType) ? ` › ${form.subTypeLabel ?? form.subType}` : ""}
               <button
                 type="button"
                 onClick={() => setFormStep(FORM_STEP_CATEGORY)}
-                className="ml-2 text-blue-600 hover:underline text-sm"
+                className="ml-2 text-primary hover:underline text-sm"
               >
                 Değiştir
               </button>
@@ -272,7 +281,7 @@ export default function AdminListingFormPage() {
           <div className="mb-4 rounded-xl border border-border bg-surface shadow-sm px-4 py-3">
             <header className="flex items-center gap-2 mb-2">
               <span className="w-1 h-4 rounded-full bg-success flex-shrink-0" />
-              <h3 className="text-sm font-semibold text-slate-600">✓ Yetkili Danışman</h3>
+              <h3 className="text-sm font-semibold text-text-dark">✓ Yetkili Danışman</h3>
             </header>
             <select
               value={adminId}

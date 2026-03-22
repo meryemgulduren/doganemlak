@@ -7,6 +7,9 @@ import RegisterPage from "./pages/RegisterPage";
 import IlanVerPage from "./pages/IlanVerPage";
 import AdDetail from "./pages/AdDetail";
 import FavorilerimPage from "./pages/FavorilerimPage";
+import FavoriDanismanlarPage from "./pages/FavoriDanismanlarPage";
+import GayrimenkulDanismanlarPage from "./pages/GayrimenkulDanismanlarPage";
+import SorunOneriPage from "./pages/SorunOneriPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./components/AdminLayout";
@@ -26,11 +29,21 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="ilanlar" element={<HomePage />} />
+            <Route path="gayrimenkul-danismanlar" element={<GayrimenkulDanismanlarPage />} />
+            <Route path="sorun-oneri" element={<SorunOneriPage />} />
             <Route
               path="favorilerim"
               element={
                 <ProtectedRoute>
                   <FavorilerimPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="favori-danismanlar"
+              element={
+                <ProtectedRoute>
+                  <FavoriDanismanlarPage />
                 </ProtectedRoute>
               }
             />

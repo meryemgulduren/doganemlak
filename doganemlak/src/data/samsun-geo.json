@@ -1,0 +1,104 @@
+{
+  "city": "Samsun",
+  "coordinates": [41.2928, 36.3313],
+  "districts": [
+    {
+      "name": "Atakum",
+      "coordinates": [41.3490, 36.2064],
+      "neighborhoods": [
+        { "name": "Atakum Mah.", "coordinates": [41.3490, 36.2064] },
+        { "name": "Kurupelit Mah.", "coordinates": [41.3550, 36.2150] },
+        { "name": "Çatalçam Mah.", "coordinates": [41.3420, 36.1980] },
+        { "name": "Taflan Mah.", "coordinates": [41.3380, 36.2200] },
+        { "name": "Şenyurt Mah.", "coordinates": [41.3450, 36.2100] },
+        { "name": "Körfez Mah.", "coordinates": [41.3520, 36.2050] },
+        { "name": "Fener Mah.", "coordinates": [41.3480, 36.2000] }
+      ]
+    },
+    {
+      "name": "İlkadım",
+      "coordinates": [41.2878, 36.3308],
+      "neighborhoods": [
+        { "name": "Kışla Mah.", "coordinates": [41.2878, 36.3308] },
+        { "name": "Kale Mah.", "coordinates": [41.2850, 36.3280] },
+        { "name": "Pazar Mah.", "coordinates": [41.2900, 36.3320] },
+        { "name": "Hançerli Mah.", "coordinates": [41.2830, 36.3250] },
+        { "name": "Gazi Mah.", "coordinates": [41.2920, 36.3350] }
+      ]
+    },
+    {
+      "name": "Canik",
+      "coordinates": [41.2680, 36.3550],
+      "neighborhoods": [
+        { "name": "Hasköy Mah.", "coordinates": [41.2680, 36.3550] },
+        { "name": "Gölköy Mah.", "coordinates": [41.2650, 36.3580] },
+        { "name": "Sarayköy Mah.", "coordinates": [41.2720, 36.3520] }
+      ]
+    },
+    {
+      "name": "Tekkeköy",
+      "coordinates": [41.1500, 36.4500],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.1500, 36.4500] },
+        { "name": "Göçköy Mah.", "coordinates": [41.1550, 36.4550] },
+        { "name": "Korkut Mah.", "coordinates": [41.1450, 36.4480] }
+      ]
+    },
+    {
+      "name": "Bafra",
+      "coordinates": [41.5680, 35.9070],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.5680, 35.9070] },
+        { "name": "Gazi Mah.", "coordinates": [41.5700, 35.9100] },
+        { "name": "Fatih Mah.", "coordinates": [41.5650, 35.9050] }
+      ]
+    },
+    {
+      "name": "Çarşamba",
+      "coordinates": [41.2000, 36.7330],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.2000, 36.7330] },
+        { "name": "Göl Mah.", "coordinates": [41.2050, 36.7380] },
+        { "name": "Yenicami Mah.", "coordinates": [41.1980, 36.7300] }
+      ]
+    },
+    {
+      "name": "Terme",
+      "coordinates": [41.2090, 36.9740],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.2090, 36.9740] },
+        { "name": "Köprübaşı Mah.", "coordinates": [41.2120, 36.9780] }
+      ]
+    },
+    {
+      "name": "19 Mayıs",
+      "coordinates": [41.4940, 36.0580],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.4940, 36.0580] },
+        { "name": "Yörükler Mah.", "coordinates": [41.4980, 36.0620] }
+      ]
+    },
+    {
+      "name": "Alaçam",
+      "coordinates": [41.6030, 35.6020],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.6030, 35.6020] }
+      ]
+    },
+    {
+      "name": "Salıpazarı",
+      "coordinates": [41.0830, 36.8330],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.0830, 36.8330] }
+      ]
+    },
+    {
+      "name": "Vezirköprü",
+      "coordinates": [41.1430, 35.4580],
+      "neighborhoods": [
+        { "name": "Merkez Mah.", "coordinates": [41.1430, 35.4580] },
+        { "name": "Yenicami Mah.", "coordinates": [41.1460, 35.4620] }
+      ]
+    }
+  ]
+}

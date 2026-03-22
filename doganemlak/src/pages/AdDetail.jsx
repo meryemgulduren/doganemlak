@@ -1,21 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Image as ImageIcon, Video, Check, Home, Heart, X, MapPin } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, Home, Heart, X } from "lucide-react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-// Leaflet marker simgesi için düzeltme
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
-L.Marker.prototype.options.icon = DefaultIcon;
 import logoImg from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -24,6 +10,11 @@ import {
   addFavorite,
   removeFavorite,
 } from "../api/listings";
+import {
+  fetchFavoriteConsultants,
+  addFavoriteConsultant,
+  removeFavoriteConsultant,
+} from "../api/consultants";
 
 const CATEGORY_LABELS = {
   IC_OZELLIKLER: "İç Özellikler",
@@ -34,6 +25,117 @@ const CATEGORY_LABELS = {
   KONUT_TIPI: "Konut Tipi",
   ENGELLI_UYGUNLUK: "Engelliye Uygunluk",
 };
+const DUKKAN_MAGAZA_DETAIL_GROUPS = [
+  {
+    id: "KULLANIM_AMACI",
+    label: "Kullanım Amacı",
+    items: [
+      "Ayakkabıcı & Lostra", "Çay Ocağı", "Çiğ Köfteci", "Market",
+      "Mefruşatçı & Perdeci", "Motosiklet Servis & Bakım", "Muayenehane", "Otomotiv",
+      "Oyun Kafe", "Prova & Kayıt Stüdyosu", "Su Bayi", "Tamirhane",
+      "Tekel Bayi", "Tüp Bayi",
+    ],
+  },
+  {
+    id: "GENEL_OZELLIKLER",
+    label: "Genel Özellikler",
+    items: [
+      "Güvenlik Kamerası", "Jeneratör", "Su Deposu", "Yangın Alarmı",
+      "Hırsız Alarmı", "Hidrofor", "Mutfak", "WC",
+    ],
+  },
+  {
+    id: "ALT_YAPI",
+    label: "Alt Yapı",
+    items: [
+      "ADSL", "Wi-Fi", "Kablo TV", "Uydu",
+      "Intercom", "Telefon Hattı", "Faks - Telefon Hattı", "Sanayi Elektriği",
+    ],
+  },
+];
+const DEPO_ANTREPO_DETAIL_GROUPS = [
+  {
+    id: "GENEL_OZELLIKLER",
+    label: "Genel Özellikler",
+    items: [
+      "Asansör", "Güvenlik Kamerası", "Jeneratör", "Su Deposu",
+      "Yangın Merdiveni", "Yangın Alarmı", "Hırsız Alarmı", "Hidrofor",
+      "Açık Otopark", "Kapalı Otopark", "Bahçe", "Mutfak", "WC",
+    ],
+  },
+  {
+    id: "ALT_YAPI",
+    label: "Alt Yapı",
+    items: ["ADSL", "Wi-Fi", "Kablo TV", "Uydu", "Intercom", "Telefon Hattı"],
+  },
+];
+const KOMPLE_BINA_DETAIL_GROUPS = [
+  {
+    id: "KULLANIM_AMACI",
+    label: "Kullanım Amacı",
+    items: [
+      "Anaokulu", "Atölye", "Banka", "Büro & Ofis",
+      "Cafe & Bar", "Dershane & Kurs", "İmalathane", "Kuaför & Güzellik Merkezi",
+      "Muayenehane", "Pastane & Fırın", "Poliklinik", "Restoran & Lokanta",
+      "Sağlık Merkezi & Hastane", "Sinema & Konferans Salonu", "Spor Tesisi", "Yurt",
+    ],
+  },
+  {
+    id: "BINA_OZELLIKLERI",
+    label: "Bina Özellikleri",
+    items: [
+      "Açık Otopark", "Asansör", "Güvenlik Kamerası", "Helikopter Sahası",
+      "Hırsız Alarmı", "Hidrofor", "Jeneratör", "Kapalı Otopark",
+      "Su Deposu", "Su Yalıtımı", "Yangın Alarmı", "Yangın Merdiveni",
+    ],
+  },
+  {
+    id: "DIS_CEPHE_OZELLIKLERI",
+    label: "Dış Cephe Özellikleri",
+    items: ["Ahşap Kaplama", "BTB Kaplama", "Cam Giydirme", "Siding Kaplama", "Taş Kaplama"],
+  },
+  {
+    id: "MANZARA",
+    label: "Manzara",
+    items: ["Deniz", "Doğa", "Şehir"],
+  },
+  {
+    id: "ALT_YAPI",
+    label: "Alt Yapı",
+    items: ["ADSL", "Intercom", "Kablo TV", "Telefon Hattı", "Uydu", "Wi-Fi"],
+  },
+  {
+    id: "YAKINLIK",
+    label: "Yakınlık",
+    items: ["Cami", "Hastane", "Havaalanı", "Kilise", "Market", "Restoran", "Sağlık Ocağı", "Toplu Taşıma", "Veteriner"],
+  },
+];
+const ARSA_DETAIL_GROUPS = [
+  {
+    id: "ALT_YAPI",
+    label: "Altyapı",
+    items: [
+      "Elektrik", "Sanayi Elektriği", "Su", "Telefon",
+      "Doğalgaz", "Kanalizasyon", "Arıtma", "Sondaj & Kuyu",
+      "Zemin Etüdü", "Yolu Açılmış", "Yolu Açılmamış", "Yolu Yok",
+    ],
+  },
+  {
+    id: "KONUM",
+    label: "Konum",
+    items: ["Ana Yola Yakın", "Denize Sıfır", "Denize Yakın", "Havaalanına Yakın", "Toplu Ulaşıma Yakın"],
+  },
+  {
+    id: "GENEL_OZELLIKLER",
+    label: "Genel Özellikler",
+    items: ["İfrazlı", "Parselli", "Projeli", "Köşe Parsel"],
+  },
+  {
+    id: "MANZARA",
+    label: "Manzara",
+    items: ["Şehir", "Deniz", "Doğa", "Boğaz", "Göl"],
+  },
+];
 
 function formatPrice(price, currency = "TRY", listingType = "SATILIK") {
   const formatted = new Intl.NumberFormat("tr-TR").format(price);
@@ -62,13 +164,18 @@ export default function AdDetail() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [favoriteIds, setFavoriteIds] = useState(new Set());
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [favoriteConsultantIds, setFavoriteConsultantIds] = useState(new Set());
+  const [consultantFavoriteLoading, setConsultantFavoriteLoading] = useState(false);
 
   // Lightbox States
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  /** Sol sütun: Açıklama | Video | Konum tek alanda */
+  const [detailPanel, setDetailPanel] = useState("aciklama");
 
   useEffect(() => {
     setActiveImageIndex(0);
+    setDetailPanel("aciklama");
   }, [id]);
 
   useEffect(() => {
@@ -100,6 +207,24 @@ export default function AdDetail() {
       .catch(() => {});
     return () => { cancelled = true; };
   }, [isLoggedIn, id]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setFavoriteConsultantIds(new Set());
+      return;
+    }
+    let cancelled = false;
+    fetchFavoriteConsultants()
+      .then((res) => {
+        if (!cancelled && res.success && Array.isArray(res.data)) {
+          setFavoriteConsultantIds(new Set(res.data.map((c) => String(c._id))));
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoggedIn]);
 
   const mediaList = useMemo(() => {
     const list = [
@@ -171,6 +296,38 @@ export default function AdDetail() {
     }
   };
 
+  const consultantIdRaw = listing?.admin_id?._id ?? listing?.admin_id;
+  const consultantId = consultantIdRaw != null ? String(consultantIdRaw) : null;
+  const currentUserId = user?._id != null ? String(user._id) : user?.id != null ? String(user.id) : null;
+  const isOwnConsultantProfile = Boolean(consultantId && currentUserId && currentUserId === consultantId);
+  const isConsultantFavorite = consultantId ? favoriteConsultantIds.has(consultantId) : false;
+
+  const handleConsultantFavoriteToggle = async () => {
+    if (!consultantId) return;
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: { pathname: `/ilan/${id}` } } });
+      return;
+    }
+    if (isOwnConsultantProfile) return;
+
+    setConsultantFavoriteLoading(true);
+    try {
+      if (isConsultantFavorite) {
+        await removeFavoriteConsultant(consultantId);
+        setFavoriteConsultantIds((prev) => {
+          const next = new Set(prev);
+          next.delete(consultantId);
+          return next;
+        });
+      } else {
+        await addFavoriteConsultant(consultantId);
+        setFavoriteConsultantIds((prev) => new Set([...prev, consultantId]));
+      }
+    } finally {
+      setConsultantFavoriteLoading(false);
+    }
+  };
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (!reviewText.trim() || !isLoggedIn) return;
@@ -230,8 +387,61 @@ export default function AdDetail() {
     acc[cat].push(f);
     return acc;
   }, {});
+  const isIsYeri = listing.property_type === "IS_YERI";
+  const commercialFeatures =
+    (Array.isArray(listing.commercial_features) && listing.commercial_features.length > 0)
+      ? listing.commercial_features
+      : Array.isArray(listing.specifications?.commercial_features)
+        ? listing.specifications.commercial_features
+        : [];
+  const facadeFeatures = Array.isArray(listing.facade) ? listing.facade : [];
+  const isDukkanMagaza = isIsYeri && listing.subType === "DUKKAN_MAGAZA";
+  const isDepoAntrepo = isIsYeri && listing.subType === "DEPO_ANTREPO";
+  const isKompleBina = isIsYeri && listing.subType === "KOMPLE_BINA";
+  const showKonutBooleans = listing.category === "KONUT";
+  const isBina = listing.category === "BINA" || listing.property_type === "BINA";
+  const dukkanGroupedDetails = DUKKAN_MAGAZA_DETAIL_GROUPS
+    .map((group) => ({
+      ...group,
+      selected: group.items.filter((item) => commercialFeatures.includes(item)),
+    }))
+    .filter((group) => group.selected.length > 0);
+  const depoGroupedDetails = DEPO_ANTREPO_DETAIL_GROUPS
+    .map((group) => ({
+      ...group,
+      selected: group.items.filter((item) => commercialFeatures.includes(item)),
+    }))
+    .filter((group) => group.selected.length > 0);
+  const kompleBinaGroupedDetails = KOMPLE_BINA_DETAIL_GROUPS
+    .map((group) => ({
+      ...group,
+      selected: group.items.filter((item) => commercialFeatures.includes(item)),
+    }))
+    .filter((group) => group.selected.length > 0);
+  const groundSurveyValue =
+    listing.specifications?.ground_survey ??
+    listing.specifications?.groundSurvey ??
+    listing.ground_survey;
+  const binaTypeValue =
+    listing.specifications?.bina_type ??
+    listing.specifications?.binaType ??
+    listing.bina_type;
+  const arsaSpecs = listing.specifications || {};
+  const isArsa = listing.category === "ARSA" || listing.property_type === "ARSA";
+  const isKonut = listing.category === "KONUT" || listing.property_type === "DAIRE" || listing.property_type === "VILLA";
+  const binaFeatureValues = Array.isArray(listing.specifications?.bina_features) ? listing.specifications.bina_features : [];
+  const arsaFeatureValues = Array.isArray(arsaSpecs.arsa_features) ? arsaSpecs.arsa_features : [];
+  const arsaGroupedDetails = ARSA_DETAIL_GROUPS
+    .map((group) => ({
+      ...group,
+      selected: group.items.filter((item) => arsaFeatureValues.includes(item)),
+    }))
+    .filter((group) => group.selected.length > 0);
 
   const currentMedia = mediaList[activeImageIndex];
+  const videoUrls = Array.isArray(listing.media?.videos) ? listing.media.videos : [];
+  const hasMapCoords =
+    Boolean(listing.location?.coordinates?.lat) && Boolean(listing.location?.coordinates?.lng);
 
   return (
     <div className="min-h-screen bg-background pt-6 pb-10 font-sans">
@@ -312,20 +522,97 @@ export default function AdDetail() {
                 {activeImageIndex + 1} / {mediaList.length}
               </span>
             </div>
-            <div className="flex flex-wrap gap-2 text-xs sm:text-sm mb-4">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3">
               <button
                 type="button"
                 onClick={() => openLightbox(activeImageIndex)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-text-dark/70 text-background font-medium hover:bg-text-dark"
+                className="px-2.5 py-1.5 rounded-lg border border-accent/60 bg-white text-primary text-xs font-medium transition-colors shrink-0 hover:bg-accent/30"
               >
-                {currentMedia.type === 'video' ? <Video className="w-4 h-4" /> : <ImageIcon className="w-4 h-4" />}
-                {currentMedia.type === 'video' ? "Videoyu Oynat" : "Büyük Fotoğraf"}
+                {currentMedia.type === "video" ? "Videoyu Oynat" : "Büyük Fotoğraf"}
               </button>
+              {(
+                [
+                  { id: "aciklama", label: "Açıklama" },
+                  { id: "video", label: "Video" },
+                  { id: "konum", label: "Konum" },
+                ]
+              ).map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setDetailPanel(tab.id)}
+                  className={`px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-colors shrink-0 ${
+                    detailPanel === tab.id
+                      ? "border-primary bg-primary text-white"
+                      : "border-accent/60 bg-white text-primary hover:bg-accent/30"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
-            <div className="border-t border-accent/40 pt-3 mt-1">
-              <p className="text-xs sm:text-sm leading-relaxed text-text-dark uppercase tracking-wide whitespace-pre-line">
-                {listing.description || "-"}
-              </p>
+            <div
+              className="rounded-xl border border-accent/50 bg-accent/20 p-3 sm:p-4 min-h-[140px]"
+              aria-live="polite"
+            >
+              {detailPanel === "aciklama" && (
+                <p className="text-xs sm:text-sm leading-relaxed text-text-dark uppercase tracking-wide whitespace-pre-line">
+                  {listing.description || "—"}
+                </p>
+              )}
+              {detailPanel === "video" && (
+                <div className="space-y-3">
+                  {videoUrls.length > 0 ? (
+                    videoUrls.map((url) => (
+                      <video
+                        key={url}
+                        src={url}
+                        controls
+                        playsInline
+                        className="w-full rounded-lg bg-black max-h-[280px]"
+                      />
+                    ))
+                  ) : (
+                    <p className="text-xs sm:text-sm text-text-dark/60">Bu ilan için video eklenmemiş.</p>
+                  )}
+                </div>
+              )}
+              {detailPanel === "konum" && (
+                <div className="space-y-3">
+                  <div className="text-xs sm:text-sm text-text-dark space-y-1">
+                    <p className="font-semibold text-text-dark">Adres</p>
+                    <p>{locationString(listing.location) || "—"}</p>
+                    {listing.location?.address_details ? (
+                      <p className="text-text-dark/80 whitespace-pre-line">{listing.location.address_details}</p>
+                    ) : null}
+                    {hasMapCoords ? (
+                      <p className="text-[11px] text-muted font-mono pt-1">
+                        {listing.location.coordinates.lat.toFixed(6)}, {listing.location.coordinates.lng.toFixed(6)}
+                      </p>
+                    ) : null}
+                  </div>
+                  {hasMapCoords ? (
+                    <div className="h-52 sm:h-64 w-full rounded-xl overflow-hidden border border-border shadow-inner z-0">
+                      <MapContainer
+                        center={[listing.location.coordinates.lat, listing.location.coordinates.lng]}
+                        zoom={15}
+                        className="h-full w-full"
+                        scrollWheelZoom={false}
+                      >
+                        <TileLayer
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[listing.location.coordinates.lat, listing.location.coordinates.lng]} />
+                      </MapContainer>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-text-dark/60">
+                      Haritada göstermek için koordinat bilgisi girilmemiş.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -352,73 +639,205 @@ export default function AdDetail() {
               </button>
             </div>
             <div className="divide-y divide-border text-xs sm:text-sm">
-              <InfoRow label="İlan No" value={listing.listing_no} valueClassName="text-red-600 font-semibold" />
+              <InfoRow label="İlan No" value={listing.listing_no} valueClassName="text-bordeaux font-semibold" />
               <InfoRow label="İlan Tarihi" value={formatDate(listing.listing_date)} />
               <InfoRow label="Emlak Tipi" value={listing.listing_type === "KIRALIK" ? "Kiralık" : "Satılık"} />
-              <InfoRow label="m² (Brüt)" value={listing.m2_brut} />
-              <InfoRow label="m² (Net)" value={listing.m2_net} />
-              <InfoRow label="Oda Sayısı" value={listing.room_count} />
-              {listing.subType !== "MUSTAKIL_VILLA" && (
-                <InfoRow label="Bulunduğu Kat" value={listing.floor_number} />
-              )}
-              {listing.subType === "MUSTAKIL_VILLA" && (() => {
-                // specifications Map'ten veya top-level alandan oku
-                const rawSpecs = listing.specifications;
-                const specValue = rawSpecs instanceof Object
-                  ? (rawSpecs.open_area_m2 ?? (rawSpecs.get ? rawSpecs.get("open_area_m2") : undefined))
-                  : undefined;
-                const val = listing.open_area_m2 ?? specValue;
-                return val != null && val !== "" ? (
-                  <InfoRow label="Açık Alan m²" value={val} />
-                ) : null;
-              })()}
-              <InfoRow label="Kat Sayısı" value={listing.total_floors} />
-              <InfoRow label="Bina Yaşı" value={listing.building_age} />
-              <InfoRow label="Isıtma" value={listing.heating_type} />
-              <InfoRow label="Banyo Sayısı" value={listing.bathroom_count} />
-              <InfoRow label="Balkon" value={listing.balcony ? "Var" : "Yok"} />
-              <InfoRow label="Eşyalı" value={listing.furnished ? "Evet" : "Hayır"} />
-              <InfoRow label="Site İçerisinde" value={listing.in_site ? "Evet" : "Hayır"} />
-              <InfoRow label="Kullanım Durumu" value={listing.using_status} />
-              <InfoRow label="Krediye Uygun" value={listing.credit_eligible ? "Evet" : "Hayır"} />
-              {/* İş Yeri alanları — property_type her zaman doğru kaydediliyor */}
-              {listing.property_type === "IS_YERI" && (
+              {isArsa ? (
                 <>
-                  <InfoRow label="Durumu" value={listing.property_condition} />
-                  <InfoRow label="Kiracılı" value={listing.has_tenant} />
+                  <InfoRow label="m²" value={listing.m2_brut ?? arsaSpecs.m2_brut} />
+                  <InfoRow label="İmar Durumu" value={arsaSpecs.zoning_status} />
+                  <InfoRow label="Ada No" value={arsaSpecs.ada_no} />
+                  <InfoRow label="Parsel No" value={arsaSpecs.parsel_no} />
+                  <InfoRow label="Pafta No" value={arsaSpecs.pafta_no} />
+                  <InfoRow label="Kaks (Emsal)" value={arsaSpecs.kaks_emsal} />
+                  <InfoRow label="Gabari" value={arsaSpecs.gabari} />
+                  <InfoRow
+                    label="Krediye Uygun"
+                    value={
+                      typeof arsaSpecs.credit_eligible === "boolean"
+                        ? (arsaSpecs.credit_eligible ? "Evet" : "Hayır")
+                        : null
+                    }
+                  />
+                  <InfoRow label="Tapu Durumu" value={arsaSpecs.title_deed_status ?? listing.title_deed_status} />
+                  <InfoRow label="Taşınmaz Numarası" value={arsaSpecs.registry_number ?? listing.registry_number} />
+                  <InfoRow label="Takaslı" value={arsaSpecs.swap_option ?? listing.swap_option} />
+                </>
+              ) : (
+                <>
+                  <InfoRow label={isBina ? "m²" : "m² (Brüt)"} value={listing.m2_brut} />
+                  <InfoRow label="m² (Net)" value={isBina ? null : listing.m2_net} />
+                  <InfoRow label="Oda Sayısı" value={isBina ? null : listing.room_count} />
+                  {listing.subType !== "MUSTAKIL_VILLA" && (
+                    <InfoRow label="Bulunduğu Kat" value={isBina ? null : listing.floor_number} />
+                  )}
+                  {listing.subType === "MUSTAKIL_VILLA" && (() => {
+                    // specifications Map'ten veya top-level alandan oku
+                    const rawSpecs = listing.specifications;
+                    const specValue = rawSpecs instanceof Object
+                      ? (rawSpecs.open_area_m2 ?? (rawSpecs.get ? rawSpecs.get("open_area_m2") : undefined))
+                      : undefined;
+                    const val = listing.open_area_m2 ?? specValue;
+                    return val != null && val !== "" ? (
+                      <InfoRow label="Açık Alan m²" value={val} />
+                    ) : null;
+                  })()}
+                  <InfoRow label="Kat Sayısı" value={listing.total_floors} />
+                  <InfoRow
+                    label="Bir Kattaki Daire"
+                    value={isBina ? (listing.specifications?.apartment_count ?? null) : null}
+                  />
+                  <InfoRow label="Bina Tipi" value={listing.subType === "KOMPLE_BINA" ? binaTypeValue : null} />
+                  <InfoRow label="Bina Yaşı" value={listing.building_age} />
+                  <InfoRow label={isBina ? "Isıtma Tipi" : "Isıtma"} value={listing.heating_type} />
+                  <InfoRow label="Mutfak" value={listing.category === "KONUT" ? listing.specifications?.kitchen_type : null} />
+                  <InfoRow
+                    label="Asansör"
+                    value={
+                      listing.category === "KONUT" || isBina
+                        ? (listing.specifications?.elevator ?? null)
+                        : null
+                    }
+                  />
+                  <InfoRow
+                    label="Otopark"
+                    value={
+                      listing.category === "KONUT" || isBina
+                        ? (listing.specifications?.parking ?? null)
+                        : null
+                    }
+                  />
                   <InfoRow
                     label="Takaslı"
-                    value={listing.specifications?.swap_option ?? listing.swap_option}
+                    value={
+                      listing.category === "KONUT" || isBina
+                        ? (listing.specifications?.swap_option ?? listing.swap_option)
+                        : null
+                    }
                   />
                   <InfoRow
                     label="Aidat (TL)"
-                    value={listing.dues ?? listing.specifications?.dues}
+                    value={listing.category === "KONUT" ? (listing.dues ?? listing.specifications?.dues) : null}
                   />
                   <InfoRow
                     label="Tapu Durumu"
-                    value={listing.title_deed_status ?? listing.specifications?.title_deed_status}
+                    value={
+                      listing.category === "KONUT" || isBina
+                        ? (listing.specifications?.title_deed_status ?? listing.title_deed_status)
+                        : null
+                    }
                   />
                   <InfoRow
-                    label="Taşınmaz No"
-                    value={listing.specifications?.registry_number ?? listing.registry_number}
+                    label="Taşınmaz Numarası"
+                    value={
+                      listing.category === "KONUT" || isBina
+                        ? (listing.specifications?.registry_number ?? listing.registry_number)
+                        : null
+                    }
                   />
+                  <InfoRow
+                    label="Cephe"
+                    value={listing.category === "KONUT" && Array.isArray(listing.facade) && listing.facade.length > 0 ? listing.facade.join(", ") : null}
+                  />
+                  <InfoRow label="Zemin Etüdü" value={listing.subType === "KOMPLE_BINA" ? groundSurveyValue : null} />
+                  <InfoRow label="Banyo Sayısı" value={isBina ? null : listing.bathroom_count} />
+                  <InfoRow label="Balkon" value={showKonutBooleans ? (listing.balcony ? "Var" : "Yok") : null} />
+                  <InfoRow label="Eşyalı" value={showKonutBooleans ? (listing.furnished ? "Evet" : "Hayır") : null} />
+                  <InfoRow label="Site İçerisinde" value={showKonutBooleans ? (listing.in_site ? "Evet" : "Hayır") : null} />
+                  <InfoRow label="Kullanım Durumu" value={isBina ? null : listing.using_status} />
+                  <InfoRow
+                    label="Krediye Uygun"
+                    value={
+                      isBina
+                        ? (
+                            typeof listing.specifications?.credit_eligible === "boolean"
+                              ? (listing.specifications.credit_eligible ? "Evet" : "Hayır")
+                              : null
+                          )
+                        : (listing.credit_eligible ? "Evet" : "Hayır")
+                    }
+                  />
+                  {/* İş Yeri alanları — property_type her zaman doğru kaydediliyor */}
+                  {listing.property_type === "IS_YERI" && (
+                    <>
+                      <InfoRow label="Durumu" value={listing.property_condition} />
+                      <InfoRow label="Kiracılı" value={listing.has_tenant} />
+                      <InfoRow
+                        label="Takaslı"
+                        value={listing.specifications?.swap_option ?? listing.swap_option}
+                      />
+                      <InfoRow
+                        label="Aidat (TL)"
+                        value={listing.dues ?? listing.specifications?.dues}
+                      />
+                      <InfoRow
+                        label="Tapu Durumu"
+                        value={listing.title_deed_status ?? listing.specifications?.title_deed_status}
+                      />
+                      <InfoRow
+                        label="Taşınmaz No"
+                        value={listing.specifications?.registry_number ?? listing.registry_number}
+                      />
+                      <InfoRow
+                        label="Zemin Etüdü"
+                        value={groundSurveyValue}
+                      />
+                    </>
+                  )}
                 </>
               )}
             </div>
 
             {/* ── Yetkili Danışman ── */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">Yetkili Danışman</p>
+            <div className="mt-4 pt-4 border-t border-border">
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted">
+                  Yetkili Danışman
+                </p>
+                {consultantId && (
+                  <button
+                    type="button"
+                    onClick={handleConsultantFavoriteToggle}
+                    disabled={consultantFavoriteLoading || isOwnConsultantProfile}
+                    title={
+                      isOwnConsultantProfile
+                        ? "Kendi danışman hesabınızı favoriye ekleyemezsiniz."
+                        : undefined
+                    }
+                    className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-lg border transition-colors disabled:opacity-60 ${
+                      isOwnConsultantProfile
+                        ? "border-border text-text-dark/40 cursor-not-allowed"
+                        : isConsultantFavorite
+                          ? "border-danger/50 text-danger bg-danger/5"
+                          : "border-primary/40 text-primary hover:bg-primary/5"
+                    }`}
+                  >
+                    <span aria-hidden>❤️</span>
+                    {isOwnConsultantProfile
+                      ? "Danışmanı Favorile"
+                      : isLoggedIn
+                        ? isConsultantFavorite
+                          ? "Favorilerde"
+                          : "Danışmanı Favorile"
+                        : "Danışmanı Favorile"}
+                  </button>
+                )}
+              </div>
               <div className="flex items-center gap-3">
                 {/* Avatar */}
-                <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-base flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg, #C5A25D, #a8874a)" }}
-                >
-                  {listing.admin_id
-                    ? (listing.admin_id.first_name?.[0] || listing.admin_id.username?.[0] || "D").toUpperCase()
-                    : "D"}
-                </div>
+                {listing.admin_id?.profile_image ? (
+                  <img
+                    src={listing.admin_id.profile_image}
+                    alt=""
+                    className="w-11 h-11 rounded-full object-cover flex-shrink-0 border border-accent/30"
+                  />
+                ) : (
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-base flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
+                    {listing.admin_id
+                      ? (listing.admin_id.first_name?.[0] || listing.admin_id.username?.[0] || "D").toUpperCase()
+                      : "D"}
+                  </div>
+                )}
                 <div className="space-y-0.5 min-w-0">
                   {/* İsim Soyisim */}
                   <p className="font-semibold text-sm text-text-dark truncate">
@@ -438,7 +857,7 @@ export default function AdDetail() {
                       {listing.admin_id.phone}
                     </a>
                   ) : (
-                    <p className="text-xs text-gray-400">—</p>
+                    <p className="text-xs text-muted">—</p>
                   )}
                   {/* E-posta */}
                   {listing.admin_id?.email ? (
@@ -452,7 +871,7 @@ export default function AdDetail() {
                       {listing.admin_id.email}
                     </a>
                   ) : (
-                    <p className="text-xs text-gray-400">—</p>
+                    <p className="text-xs text-muted">—</p>
                   )}
                 </div>
               </div>
@@ -460,40 +879,210 @@ export default function AdDetail() {
           </div>
         </section>
 
-        {/* Dükkan & Mağaza - Ticari Özellikler */}
-        {listing.property_type === "IS_YERI" &&
-          listing.subType === "DUKKAN_MAGAZA" && (() => {
-            // top-level veya specifications map'ten oku
-            const commercialFeats =
-              (Array.isArray(listing.commercial_features) && listing.commercial_features.length > 0)
-                ? listing.commercial_features
-                : Array.isArray(listing.specifications?.commercial_features)
-                  ? listing.specifications.commercial_features
-                  : [];
-            if (commercialFeats.length === 0) return null;
-            return (
-              <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5">
-                <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Ticari Özellikler</h2>
-                <div className="flex flex-wrap gap-2">
-                  {commercialFeats.map((feat) => (
-                    <span
-                      key={feat}
-                      className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
-                    >
-                      {feat}
-                    </span>
-                  ))}
+        {/* İş Yeri için kategoriye özel özellikler */}
+        {isDukkanMagaza && (dukkanGroupedDetails.length > 0 || facadeFeatures.length > 0) && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Ticari Özellikler</h2>
+            <div className="space-y-4 sm:space-y-5">
+              {dukkanGroupedDetails.map((group) => (
+                <div key={group.id}>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">{group.label}</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {group.selected.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </section>
-            );
-          })()}
+              ))}
+              {facadeFeatures.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">Cephe</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {facadeFeatures.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+        {isDepoAntrepo && (depoGroupedDetails.length > 0 || facadeFeatures.length > 0) && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Özellikler</h2>
+            <div className="space-y-4 sm:space-y-5">
+              {depoGroupedDetails.map((group) => (
+                <div key={group.id}>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">{group.label}</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {group.selected.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {facadeFeatures.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">Cephe</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {facadeFeatures.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+        {isKompleBina && (kompleBinaGroupedDetails.length > 0 || facadeFeatures.length > 0) && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Özellikler</h2>
+            <div className="space-y-4 sm:space-y-5">
+              {kompleBinaGroupedDetails.map((group) => (
+                <div key={group.id}>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">{group.label}</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {group.selected.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {facadeFeatures.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">Cephe</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {facadeFeatures.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+        {isIsYeri && !isDukkanMagaza && !isDepoAntrepo && !isKompleBina && commercialFeatures.length > 0 && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">
+              Detay Bilgisi
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {commercialFeatures.map((feat) => (
+                <span
+                  key={feat}
+                  className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                >
+                  {feat}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
 
 
-        {Object.keys(featuresByCategory).length > 0 && (
+        {isArsa && arsaGroupedDetails.length > 0 && (
           <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5 mt-6">
             <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Özellikler</h2>
             <div className="space-y-4 sm:space-y-5">
+              {arsaGroupedDetails.map((group) => (
+                <div key={group.id}>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">{group.label}</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {group.selected.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {isBina && binaFeatureValues.length > 0 && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5 mt-6">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Detay Bilgisi</h2>
+            <div className="flex flex-wrap gap-2">
+              {binaFeatureValues.map((feat) => (
+                <span
+                  key={feat}
+                  className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                >
+                  {feat}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+        {!isIsYeri && !isArsa && !isBina && (Object.keys(featuresByCategory).length > 0 || (isKonut && facadeFeatures.length > 0)) && (
+          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5 mt-6">
+            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-3">Özellikler</h2>
+            <div className="space-y-4 sm:space-y-5">
+              {isKonut && facadeFeatures.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-text-dark mb-1.5">Cephe</h3>
+                  <div className="bg-background/70 rounded-xl border border-accent/40 px-3 sm:px-4 py-3">
+                    <div className="flex flex-wrap gap-2">
+                      {facadeFeatures.map((item) => (
+                        <span
+                          key={item}
+                          className="inline-block px-3 py-1 rounded-full text-xs font-medium border border-accent/50 bg-accent/10 text-text-dark"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
               {Object.entries(featuresByCategory).map(([category, items]) => (
                 <div key={category}>
                   <h3 className="text-sm font-semibold text-text-dark mb-1.5">
@@ -515,33 +1104,6 @@ export default function AdDetail() {
           </section>
         )}
 
-        {/* ── Harita Konumu ── */}
-        {listing.location?.coordinates?.lat && listing.location?.coordinates?.lng && (
-          <section className="bg-white rounded-2xl border border-accent/60 shadow-sm p-4 sm:p-5 mt-6 overflow-hidden">
-            <h2 className="text-base sm:text-lg font-semibold text-text-dark mb-4 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-primary" />
-              Konum
-            </h2>
-            <div className="h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-border shadow-inner z-0">
-              <MapContainer 
-                center={[listing.location.coordinates.lat, listing.location.coordinates.lng]} 
-                zoom={15} 
-                className="h-full w-full"
-                scrollWheelZoom={false}
-              >
-                <TileLayer 
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
-                />
-                <Marker position={[listing.location.coordinates.lat, listing.location.coordinates.lng]} />
-              </MapContainer>
-            </div>
-            <div className="mt-3 text-xs text-muted flex justify-between items-center px-1">
-              <span>{locationString(listing.location)}</span>
-              <span className="font-mono">{listing.location.coordinates.lat.toFixed(6)}, {listing.location.coordinates.lng.toFixed(6)}</span>
-            </div>
-          </section>
-        )}
       </div>
 
       {/* --- Lightbox Modal --- */}

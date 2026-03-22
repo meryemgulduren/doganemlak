@@ -4,6 +4,7 @@ const {
   listAllListings,
   createListing,
   updateListing,
+  patchListingStatus,
   deleteListing,
   createAdmin,
   listAdmins,
@@ -24,6 +25,7 @@ router.get('/stats', getStats);
 // İlan CRUD
 router.get('/listings',        listAllListings);
 router.post('/listings',       validateListing, createListing);
+router.patch('/listings/:id/status', patchListingStatus);
 router.put('/listings/:id',    validateListing, updateListing);
 router.delete('/listings/:id', deleteListing);
 

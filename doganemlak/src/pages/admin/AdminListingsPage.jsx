@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchAdminListings, deleteAdminListing } from "../../api/admin";
+import { fetchAdminListings, deleteAdminListing, patchAdminListingStatus } from "../../api/admin";
+
+const STATUS_OPTIONS = [
+  { value: "ACTIVE", label: "Aktif" },
+  { value: "PASSIVE", label: "Pasif" },
+  { value: "PENDING", label: "Bekliyor" },
+  { value: "SOLD", label: "Satıldı" },
+];
 
 export default function AdminListingsPage() {
   const [listings, setListings] = useState([]);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [statusSavingId, setStatusSavingId] = useState(null);
 
   // Filtreler
   const [filters, setFilters] = useState({
@@ -40,6 +48,24 @@ export default function AdminListingsPage() {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleStatusChange = async (listingId, previousStatus, newStatus) => {
+    if (!newStatus || newStatus === previousStatus) return;
+    setStatusSavingId(listingId);
+    setListings((prev) =>
+      prev.map((l) => (l._id === listingId ? { ...l, status: newStatus } : l))
+    );
+    try {
+      await patchAdminListingStatus(listingId, newStatus);
+    } catch (err) {
+      setListings((prev) =>
+        prev.map((l) => (l._id === listingId ? { ...l, status: previousStatus } : l))
+      );
+      alert(err.message || "Durum güncellenemedi.");
+    } finally {
+      setStatusSavingId(null);
+    }
+  };
+
   const handleDelete = async (id, title) => {
     if (!window.confirm(`"${title}" ilanını silmek istediğinize emin misiniz?`)) return;
     try {
@@ -52,7 +78,7 @@ export default function AdminListingsPage() {
   };
 
   if (loading && listings.length === 0) return <p className="text-text-dark/70">Yükleniyor...</p>;
-  if (error) return <p className="text-red-600">{error}</p>;
+  if (error) return <p className="text-danger">{error}</p>;
 
   return (
     <div className="space-y-6">
@@ -87,7 +113,6 @@ export default function AdminListingsPage() {
           <option value="">Tüm Tipler</option>
           <option value="SATILIK">Satılık</option>
           <option value="KIRALIK">Kiralık</option>
-          <option value="GUNLUK_KIRALIK">Günlük Kiralık</option>
         </select>
         <select
           name="status"
@@ -99,6 +124,7 @@ export default function AdminListingsPage() {
           <option value="ACTIVE">Aktif (ACTIVE)</option>
           <option value="PASSIVE">Pasif (PASSIVE)</option>
           <option value="PENDING">Bekliyor (PENDING)</option>
+          <option value="SOLD">Satıldı (SOLD)</option>
         </select>
       </div>
 
@@ -121,13 +147,32 @@ export default function AdminListingsPage() {
                   <td className="px-4 py-2 max-w-[200px] truncate" title={listing.title}>{listing.title}</td>
                   <td className="px-4 py-2">{listing.listing_type}</td>
                   <td className="px-4 py-2">
-                    <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-                      listing.status === 'ACTIVE' ? 'bg-green-100 text-green-700' :
-                      listing.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-gray-100 text-gray-700'
-                    }`}>
-                      {listing.status}
-                    </span>
+                    <select
+                      aria-label={`${listing.title} durumu`}
+                      value={listing.status || "ACTIVE"}
+                      disabled={statusSavingId === listing._id}
+                      onChange={(e) =>
+                        handleStatusChange(listing._id, listing.status, e.target.value)
+                      }
+                      className={`max-w-[140px] w-full px-2 py-1.5 rounded-md text-xs font-medium border border-border focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-60 ${
+                        listing.status === "ACTIVE"
+                          ? "bg-green-50 text-green-800 border-green-200"
+                          : listing.status === "PENDING"
+                            ? "bg-yellow-50 text-yellow-800 border-yellow-200"
+                            : listing.status === "SOLD"
+                              ? "bg-primary/15 text-text-dark border-primary/35"
+                              : "bg-accent/35 text-text-dark border-border"
+                      }`}
+                    >
+                      {!STATUS_OPTIONS.some((o) => o.value === listing.status) && listing.status ? (
+                        <option value={listing.status}>{listing.status}</option>
+                      ) : null}
+                      {STATUS_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
                   </td>
                   <td className="px-4 py-2 text-right">
                     <Link
@@ -139,7 +184,7 @@ export default function AdminListingsPage() {
                     <button
                       type="button"
                       onClick={() => handleDelete(listing._id, listing.title)}
-                      className="text-red-500 hover:underline font-medium"
+                      className="text-danger hover:underline font-medium"
                     >
                       Sil
                     </button>

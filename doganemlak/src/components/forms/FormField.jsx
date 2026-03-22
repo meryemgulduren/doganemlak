@@ -98,7 +98,7 @@ export default function FormField({ field }) {
           className="block text-xs font-medium text-text-dark mb-0.5"
         >
           {field.label}
-          {field.required && <span className="text-red-500 ml-0.5">*</span>}
+          {field.required && <span className="text-danger ml-0.5">*</span>}
         </label>
       ) : (
         !field.hideLabel && (
@@ -108,7 +108,7 @@ export default function FormField({ field }) {
         )
       )}
       {input}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-danger">{error}</p>}
     </div>
   );
 }

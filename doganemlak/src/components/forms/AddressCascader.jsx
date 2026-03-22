@@ -1,19 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
-import L from "leaflet";
 import { getCities, getDistricts, getNeighborhoods } from "../../api/city";
-
-// Leaflet marker simgesi için düzeltme (Vite/React ortamında gerekebilir)
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
-L.Marker.prototype.options.icon = DefaultIcon;
 
 /**
  * Harita merkezini ve zoom seviyesini programatik olarak değiştirmek için yardımcı bileşen.
@@ -115,8 +102,8 @@ export default function AddressCascader({ value, onChange }) {
     });
   };
 
-  const inputCls = "w-full px-3 py-2 border border-border rounded-xl text-sm bg-surface text-slate-700 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none";
-  const labelCls = "block text-xs font-semibold text-slate-500 mb-1.5 ml-1";
+  const inputCls = "w-full px-3 py-2 border border-border rounded-xl text-sm bg-surface text-text-dark placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none";
+  const labelCls = "block text-xs font-semibold text-muted mb-1.5 ml-1";
 
   return (
     <div className="space-y-4">
@@ -132,7 +119,7 @@ export default function AddressCascader({ value, onChange }) {
               <option value="">İl Seçiniz</option>
               {cities.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
@@ -150,7 +137,7 @@ export default function AddressCascader({ value, onChange }) {
               <option value="">İlçe Seçiniz</option>
               {districts.map(d => <option key={d.name} value={d.name}>{d.name}</option>)}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
@@ -168,7 +155,7 @@ export default function AddressCascader({ value, onChange }) {
               <option value="">Mahalle Seçiniz</option>
               {neighborhoods.map(n => <option key={n} value={n}>{n}</option>)}
             </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
@@ -190,7 +177,7 @@ export default function AddressCascader({ value, onChange }) {
             )}
           </MapContainer>
           
-          <div className="absolute bottom-3 left-3 z-[1000] bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-xl text-[11px] font-medium text-slate-600 shadow-lg border border-white/50">
+          <div className="absolute bottom-3 left-3 z-[1000] bg-surface/90 backdrop-blur-sm px-3 py-1.5 rounded-xl text-[11px] font-medium text-muted shadow-lg border border-border">
             {current.coordinates?.lat 
               ? `${current.coordinates.lat.toFixed(6)}, ${current.coordinates.lng.toFixed(6)}` 
               : "Lütfen bir nokta seçin"}

@@ -209,9 +209,16 @@ async function updateListing(req, res) {
       listing.property_type = mapCategoryToPropertyType(body.category, body.subType);
     }
 
-    // ── specifications (hook flat kolonları otomatik günceller) ─────────────
+    const toPlainSpecs = (specValue) => {
+      if (!specValue) return {};
+      if (specValue instanceof Map) return Object.fromEntries(specValue);
+      return { ...specValue };
+    };
+
+    // ── specifications (mevcut değerleri koruyarak birleştir) ───────────────
     if (body.specifications && typeof body.specifications === 'object') {
-      listing.specifications = body.specifications;
+      const currentSpecs = toPlainSpecs(listing.specifications);
+      listing.specifications = { ...currentSpecs, ...body.specifications };
     }
 
     // ── Beyaz listedeki top-level alanlar ────────────────────────────────────
@@ -243,6 +250,44 @@ async function updateListing(req, res) {
   } catch (err) {
     console.error('Admin update listing error:', err);
     res.status(500).json({ success: false, message: 'İlan güncellenirken hata oluştu.' });
+  }
+}
+
+const ALLOWED_STATUS_VALUES = ['ACTIVE', 'PASSIVE', 'PENDING', 'SOLD'];
+
+/**
+ * PATCH /api/admin/listings/:id/status
+ * Sadece durum güncellemesi (liste sayfası için; validateListing gerekmez).
+ */
+async function patchListingStatus(req, res) {
+  try {
+    const { id } = req.params;
+    const raw = req.body?.status;
+    const status =
+      typeof raw === 'string' ? raw.trim().toUpperCase() : '';
+    if (!ALLOWED_STATUS_VALUES.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Geçersiz durum.',
+      });
+    }
+
+    const listing = await Listing.findByIdAndUpdate(
+      id,
+      { $set: { status } },
+      { new: true, runValidators: true }
+    )
+      .select('_id status listing_no title')
+      .lean();
+
+    if (!listing) {
+      return res.status(404).json({ success: false, message: 'İlan bulunamadı.' });
+    }
+
+    res.json({ success: true, data: listing });
+  } catch (err) {
+    console.error('Patch listing status error:', err);
+    res.status(500).json({ success: false, message: 'Durum güncellenemedi.' });
   }
 }
 
@@ -280,11 +325,11 @@ function toSafeUser(user) {
 /**
  * POST /api/admin/admins
  * Yeni admin kullanıcısı oluşturur.
- * Body: { username, email, password, first_name, last_name, phone }
+ * Body: { username, email, password, first_name, last_name, phone, profile_image? }
  */
 async function createAdmin(req, res) {
   try {
-    const { username, email, password, first_name, last_name, phone } = req.body;
+    const { username, email, password, first_name, last_name, phone, profile_image } = req.body;
 
     if (!username?.trim() || !email?.trim() || !password) {
       return res.status(400).json({
@@ -308,6 +353,11 @@ async function createAdmin(req, res) {
     }
 
     const password_hash = await bcrypt.hash(password, 12);
+    const profileUrl =
+      typeof profile_image === 'string' && profile_image.trim().length > 0
+        ? profile_image.trim()
+        : null;
+
     const admin = await User.create({
       username:   username.trim(),
       email:      email.toLowerCase().trim(),
@@ -315,6 +365,7 @@ async function createAdmin(req, res) {
       first_name: first_name?.trim() || null,
       last_name:  last_name?.trim()  || null,
       phone:      phone?.trim()       || null,
+      profile_image: profileUrl,
       role: 'ADMIN',
     });
 
@@ -332,7 +383,7 @@ async function createAdmin(req, res) {
 async function listAdmins(req, res) {
   try {
     const admins = await User.find({ role: 'ADMIN' })
-      .select('-password_hash -favorites')
+      .select('-password_hash -favorites -favorite_consultants')
       .sort({ createdAt: -1 })
       .lean();
 
@@ -369,5 +420,15 @@ async function deleteAdmin(req, res) {
 }
 
 
-module.exports = { getStats, listAllListings, createListing, updateListing, deleteListing, createAdmin, listAdmins, deleteAdmin };
+module.exports = {
+  getStats,
+  listAllListings,
+  createListing,
+  updateListing,
+  patchListingStatus,
+  deleteListing,
+  createAdmin,
+  listAdmins,
+  deleteAdmin,
+};
 

@@ -31,7 +31,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-background font-sans grid grid-cols-1 md:grid-cols-2">
       {/* Form tarafı */}
-      <div className="relative flex flex-col items-center justify-center px-6 py-12 md:px-12">
+      <div className="relative flex flex-col items-center justify-center px-6 py-12 md:px-12 bg-surface">
         <Link 
           to="/" 
           className="absolute top-6 left-6 transition-transform hover:scale-105"
@@ -40,7 +40,7 @@ export default function LoginPage() {
         </Link>
         <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-7 mt-8 md:mt-12">
           <div className="text-center mb-4">
-            <h1 className="text-4xl font-extrabold text-text-dark mb-4">Giriş Yap</h1>
+            <h1 className="text-4xl font-extrabold text-bordeaux mb-4">Giriş Yap</h1>
           </div>
 
           {error && (
@@ -58,12 +58,12 @@ export default function LoginPage() {
                 value={loginInput}
                 onChange={(e) => setLoginInput(e.target.value)}
                 required
-                className="peer w-full px-4 py-3.5 text-sm rounded-md border border-[#F3C35C] bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-[#01161E]/50 focus:border-[#01161E] transition-all"
+                className="peer w-full px-4 py-3.5 text-sm rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
                 placeholder="E-posta veya Kullanıcı Adı"
               />
               <label
                 htmlFor="login"
-                className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-bordeaux pointer-events-none"
               >
                 E-posta veya Kullanıcı Adı
               </label>
@@ -76,12 +76,12 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="peer w-full px-4 pr-11 py-3.5 text-sm rounded-md border border-[#F3C35C] bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-[#01161E]/50 focus:border-[#01161E] transition-all"
+                className="peer w-full px-4 pr-11 py-3.5 text-sm rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
                 placeholder="Şifre"
               />
               <label
                 htmlFor="password"
-                className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-primary pointer-events-none"
+                className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-bordeaux pointer-events-none"
               >
                 Şifre
               </label>
@@ -99,15 +99,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
-            style={{ backgroundColor: "#49111C" }}
-            className="w-full py-3.5 mt-2 text-base rounded-md text-white font-semibold hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#49111C]/50 focus:ring-offset-2 transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+            className="w-full py-3.5 mt-2 text-base rounded-md bg-bordeaux text-white font-semibold hover:bg-bordeaux/90 focus:outline-none focus:ring-2 focus:ring-bordeaux/40 focus:ring-offset-2 focus:ring-offset-surface transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
           >
             {submitting ? "Giriş yapılıyor..." : "Giriş Yap"}
           </button>
 
           <p className="text-center text-sm text-muted">
             Hesabınız yok mu?{" "}
-            <Link to="/register" style={{ color: "#F3C35C" }} className="font-semibold hover:underline">
+            <Link to="/register" className="font-semibold text-bordeaux hover:text-bordeaux/80 hover:underline">
               Kayıt Ol
             </Link>
           </p>
@@ -115,7 +114,7 @@ export default function LoginPage() {
       </div>
 
       {/* Logo tarafı */}
-      <div className="hidden md:flex items-center justify-center bg-accent/30 border-l border-border">
+      <div className="hidden md:flex items-center justify-center bg-cream border-l border-bordeaux/10">
         <Link to="/" aria-label="Ana sayfaya dön">
           <img src={logoImg} alt="Doğan Emlak" className="h-80 w-auto object-contain" />
         </Link>

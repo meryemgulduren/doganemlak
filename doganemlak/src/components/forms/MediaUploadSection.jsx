@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { uploadImage, uploadVideo } from "../../api/admin";
 
+function scrollToEl(id, focusEl) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: focusEl ? "center" : "nearest" });
+  if (focusEl && typeof el.focus === "function") {
+    window.setTimeout(() => {
+      try {
+        el.focus({ preventScroll: true });
+      } catch {
+        el.focus();
+      }
+    }, 450);
+  }
+}
+
 export default function MediaUploadSection({ media, onChange }) {
   const [imageUploading, setImageUploading] = useState(false);
   const [videoUploading, setVideoUploading] = useState(false);
@@ -81,9 +96,9 @@ export default function MediaUploadSection({ media, onChange }) {
     <section className="rounded-xl border border-border bg-surface shadow-sm px-4 py-4 space-y-4 mb-4">
       <header className="flex items-center gap-2">
         <span className="w-1 h-4 rounded-full bg-secondary flex-shrink-0" />
-        <h3 className="text-base font-semibold text-slate-600">Medya Yönetimi</h3>
+        <h3 className="text-base font-semibold text-text-dark">Medya Yönetimi</h3>
       </header>
-      {error && <p className="text-sm text-red-600 font-medium">{error}</p>}
+      {error && <p className="text-sm text-danger font-medium">{error}</p>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Fotoğraflar */}
@@ -92,7 +107,7 @@ export default function MediaUploadSection({ media, onChange }) {
             <h4 className="text-sm font-semibold text-text-dark">Fotoğraflar ({images.length}/20)</h4>
             <label className={`text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${
               images.length >= 20 || imageUploading
-                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                ? 'bg-accent/40 text-muted cursor-not-allowed'
                 : 'bg-accent text-primary hover:bg-primary hover:text-white'
             }`}>
               <input 
@@ -106,12 +121,12 @@ export default function MediaUploadSection({ media, onChange }) {
               {imageUploading ? "Yükleniyor..." : "Fotoğraf Seç"}
             </label>
           </div>
-          <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 min-h-[140px] flex flex-wrap gap-2">
+          <div className="bg-accent/25 p-3 rounded-lg border border-border min-h-[140px] flex flex-wrap gap-2">
             {images.length === 0 ? (
-              <div className="w-full text-center text-xs text-gray-400 mt-10">Henüz fotoğraf yüklenmedi</div>
+              <div className="w-full text-center text-xs text-muted mt-10">Henüz fotoğraf yüklenmedi</div>
             ) : (
               images.map((url, idx) => (
-                <div key={idx} className="relative group w-20 h-20 rounded-md overflow-hidden border border-gray-200">
+                <div key={idx} className="relative group w-20 h-20 rounded-md overflow-hidden border border-border">
                   <img src={url} alt="ilan_foto" className="w-full h-full object-cover" />
                   <button
                     type="button"
@@ -127,12 +142,12 @@ export default function MediaUploadSection({ media, onChange }) {
         </div>
 
         {/* Videolar */}
-        <div className="space-y-3">
+        <div id="listing-jump-videos" className="space-y-3 scroll-mt-4">
           <div className="flex items-center justify-between">
             <h4 className="text-sm font-semibold text-text-dark">Videolar ({videos.length}/5)</h4>
             <label className={`text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${
               videos.length >= 5 || videoUploading
-                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                ? 'bg-accent/40 text-muted cursor-not-allowed'
                 : 'bg-accent text-primary hover:bg-primary hover:text-white'
             }`}>
               <input 
@@ -146,12 +161,12 @@ export default function MediaUploadSection({ media, onChange }) {
               {videoUploading ? "Yükleniyor..." : "Video Seç"}
             </label>
           </div>
-          <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 min-h-[140px] flex flex-wrap gap-2">
+          <div className="bg-accent/25 p-3 rounded-lg border border-border min-h-[140px] flex flex-wrap gap-2">
             {videos.length === 0 ? (
-              <div className="w-full text-center text-xs text-gray-400 mt-10">Henüz video yüklenmedi</div>
+              <div className="w-full text-center text-xs text-muted mt-10">Henüz video yüklenmedi</div>
             ) : (
               videos.map((url, idx) => (
-                <div key={idx} className="relative group w-32 h-20 rounded-md overflow-hidden border border-gray-200 bg-black">
+                <div key={idx} className="relative group w-32 h-20 rounded-md overflow-hidden border border-border bg-black">
                   <video src={url} className="w-full h-full object-contain" muted />
                   {/* Play Icon Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

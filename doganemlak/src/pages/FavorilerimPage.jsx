@@ -26,7 +26,7 @@ export default function FavorilerimPage() {
   }, []);
 
   if (loading) return <p className="text-text-dark/70 font-sans p-6">Yükleniyor...</p>;
-  if (error) return <p className="text-red-600 font-sans p-6">{error}</p>;
+  if (error) return <p className="text-danger font-sans p-6">{error}</p>;
 
   return (
     <div className="w-full px-3 sm:px-4 lg:px-6 py-6 font-sans">

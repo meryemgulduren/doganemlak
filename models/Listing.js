@@ -53,6 +53,7 @@ const listingSchema = new mongoose.Schema(
     dues: { type: Number, default: null },
     property_condition: { type: String, default: null },
     has_tenant: { type: String, default: null },
+    ground_survey: { type: String, default: null },
     commercial_features: { type: [String], default: [] },
 
     /**
@@ -67,11 +68,23 @@ const listingSchema = new mongoose.Schema(
 
     facade: [{ type: String }],
     location: { type: locationSchema, default: () => ({}) },
+    /** GeoJSON Point — konum bazlı arama ($near, $geoWithin) için */
+    geo: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point',
+      },
+      coordinates: {
+        type: [Number],
+        default: undefined,
+      },
+    },
     media: { type: mediaSchema, default: () => ({ images: [], videos: [] }) },
     features: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FeatureDefinition' }],
     view_count: { type: Number, default: 0 },
     favorite_count: { type: Number, default: 0 },
-    status: { type: String, enum: ['ACTIVE', 'PASSIVE', 'SOLD'], default: 'ACTIVE' },
+    status: { type: String, enum: ['ACTIVE', 'PASSIVE', 'PENDING', 'SOLD'], default: 'ACTIVE' },
     admin_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
   },
   { timestamps: true }
@@ -86,6 +99,18 @@ listingSchema.index({ listing_date: -1 });
 listingSchema.index({ 'location.city': 'text', 'location.district': 'text' });
 // Konum compound index (non-text filtreler için)
 listingSchema.index({ 'location.city': 1, 'location.district': 1 });
+listingSchema.index({ geo: '2dsphere' });
+
+// ── Pre-save hook: location.coordinates → geo (GeoJSON) senkronizasyonu ────────
+listingSchema.pre('save', async function syncLocationToGeo() {
+  const lat = this.location?.coordinates?.lat;
+  const lng = this.location?.coordinates?.lng;
+  if (typeof lat === 'number' && typeof lng === 'number' && !isNaN(lat) && !isNaN(lng)) {
+    this.geo = { type: 'Point', coordinates: [lng, lat] }; // GeoJSON: [longitude, latitude]
+  } else {
+    this.geo = undefined;
+  }
+});
 
 // ── Pre-save hook: specifications → flat alan senkronizasyonu ─────────────────
 /**

@@ -11,13 +11,14 @@ const userSchema = new mongoose.Schema(
     role:          { type: String, enum: ['ADMIN', 'USER'], default: 'USER' },
     profile_image: { type: String, default: null },
     favorites:     [{ type: mongoose.Schema.Types.ObjectId, ref: 'Listing' }],
+    /** Normal kullanıcıların favorilediği danışman (ADMIN) kullanıcıları */
+    favorite_consultants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     last_login:    { type: Date, default: null },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );
 
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+// email ve username için index zaten `unique: true` ile oluşturuluyor; tekrar tanımlamayın (Mongoose uyarısı).
 userSchema.index({ role: 1 });
 
 module.exports = mongoose.model('User', userSchema);

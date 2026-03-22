@@ -42,6 +42,12 @@ export const fieldDefinitions = {
     type: "number",
     section: "price_area",
   },
+  bina_m2: {
+    id: "bina_m2",
+    label: "m²",
+    type: "number",
+    section: "price_area",
+  },
   m2_net: {
     id: "m2_net",
     label: "m² Net",
@@ -54,6 +60,68 @@ export const fieldDefinitions = {
     type: "number",
     section: "price_area",
     placeholder: "Bahçe / açık alan m²",
+  },
+  arsa_m2: {
+    id: "arsa_m2",
+    label: "m²",
+    type: "number",
+    section: "price_area",
+  },
+  zoning_status: {
+    id: "zoning_status",
+    label: "İmar Durumu",
+    type: "select",
+    section: "price_area",
+    options: [
+      "Konut",
+      "Ticari",
+      "Sanayi",
+      "Turizm",
+      "Eğitim",
+      "Sağlık",
+      "Bağ & Bahçe",
+      "Tarla",
+      "İmarsız",
+    ],
+  },
+  ada_no: {
+    id: "ada_no",
+    label: "Ada No",
+    type: "text",
+    section: "property_details",
+  },
+  parsel_no: {
+    id: "parsel_no",
+    label: "Parsel No",
+    type: "text",
+    section: "property_details",
+  },
+  pafta_no: {
+    id: "pafta_no",
+    label: "Pafta No",
+    type: "text",
+    section: "property_details",
+  },
+  kaks_emsal: {
+    id: "kaks_emsal",
+    label: "Kaks (Emsal)",
+    type: "select",
+    section: "property_details",
+    options: ["0.10", "0.20", "0.30", "0.40", "0.50", "0.75", "1.00", "1.50", "2.00", "Serbest"],
+  },
+  gabari: {
+    id: "gabari",
+    label: "Gabari",
+    type: "select",
+    section: "property_details",
+    options: ["Serbest", "6.50", "9.50", "12.50", "15.50", "18.50", "21.50", "24.50"],
+  },
+  arsa_credit_eligible: {
+    id: "arsa_credit_eligible",
+    label: "Krediye Uygun",
+    type: "select",
+    section: "extra",
+    options: ["Evet", "Hayır"],
   },
   room_count: {
     id: "room_count",
@@ -81,9 +149,23 @@ export const fieldDefinitions = {
     type: "number",
     section: "property_details",
   },
+  apartment_count: {
+    id: "apartment_count",
+    label: "Bir Kattaki Daire",
+    type: "select",
+    section: "property_details",
+    options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+  },
   heating_type: {
     id: "heating_type",
     label: "Isıtma",
+    type: "select",
+    section: "property_details",
+    options: ["Yok", "Soba", "Kat Kaloriferi", "Doğalgaz Sobası", "Merkezi", "Merkezi (Pay Ölçer)", "Kombi", "Yerden Isıtma"],
+  },
+  bina_heating_type: {
+    id: "bina_heating_type",
+    label: "Isıtma Tipi",
     type: "select",
     section: "property_details",
     options: ["Yok", "Soba", "Kat Kaloriferi", "Doğalgaz Sobası", "Merkezi", "Merkezi (Pay Ölçer)", "Kombi", "Yerden Isıtma"],
@@ -186,6 +268,20 @@ export const fieldDefinitions = {
     section: "extra",
     options: ["Evet", "Hayır"],
   },
+  bina_type: {
+    id: "bina_type",
+    label: "Bina Tipi",
+    type: "select",
+    section: "property_details",
+    options: ["Apartman", "İş Hanı", "Müstakil", "Villa"],
+  },
+  ground_survey: {
+    id: "ground_survey",
+    label: "Zemin Etüdü",
+    type: "select",
+    section: "extra",
+    options: ["Var", "Yok"],
+  },
   city: {
     id: "city",
     label: "İl",
@@ -216,6 +312,94 @@ export const fieldDefinitions = {
 
 // Kategori kombinasyonuna göre alan setleri.
 export const categoryLayouts = {
+  "ARSA.SATILIK": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "zoning_status",
+      "arsa_m2",
+      "title_deed_status",
+      "swap_option",
+    ],
+    optionalFields: [
+      "ada_no",
+      "parsel_no",
+      "pafta_no",
+      "kaks_emsal",
+      "gabari",
+      "arsa_credit_eligible",
+      "registry_number",
+    ],
+  },
+  "ARSA.KIRALIK": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "zoning_status",
+      "arsa_m2",
+      "title_deed_status",
+      "swap_option",
+    ],
+    optionalFields: [
+      "ada_no",
+      "parsel_no",
+      "pafta_no",
+      "kaks_emsal",
+      "gabari",
+      "arsa_credit_eligible",
+      "registry_number",
+    ],
+  },
+  "BINA.SATILIK": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "total_floors",
+      "apartment_count",
+      "bina_heating_type",
+      "bina_m2",
+      "building_age",
+      "elevator",
+      "parking",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "credit_eligible",
+      "registry_number",
+      "neighborhood",
+      "address_details",
+    ],
+  },
+  "BINA.KIRALIK": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "total_floors",
+      "apartment_count",
+      "bina_heating_type",
+      "bina_m2",
+      "building_age",
+      "elevator",
+      "parking",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "credit_eligible",
+      "registry_number",
+      "neighborhood",
+      "address_details",
+    ],
+  },
   "KONUT.SATILIK.DAIRE": {
     requiredFields: [
       "title",
@@ -302,6 +486,7 @@ export const categoryLayouts = {
       "balcony",
       "furnished",
       "in_site",
+      "credit_eligible",
       "using_status",
       "dues",
       "neighborhood",
@@ -360,6 +545,62 @@ export const categoryLayouts = {
       "address_details",
     ],
   },
+  // İş Yeri — Depo & Antrepo (Satılık/Kiralık ortak form)
+  "IS_YERI.DEPO_ANTREPO": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_net",
+      "room_count",
+      "building_age",
+      "heating_type",
+      "using_status",
+      "property_condition",
+      "has_tenant",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "dues",
+      "floor_number",
+      "credit_eligible",
+      "registry_number",
+      "ground_survey",
+      "neighborhood",
+      "address_details",
+    ],
+  },
+  // İş Yeri — Komple Bina (satılık/kiralık ortak)
+  "IS_YERI.KOMPLE_BINA": {
+    requiredFields: [
+      "title",
+      "description",
+      "price",
+      "m2_brut",
+      "m2_net",
+      "building_age",
+      "heating_type",
+      "total_floors",
+      "bina_type",
+      "using_status",
+      "property_condition",
+      "has_tenant",
+      "title_deed_status",
+      "swap_option",
+      "city",
+      "district",
+    ],
+    optionalFields: [
+      "ground_survey",
+      "credit_eligible",
+      "registry_number",
+      "neighborhood",
+      "address_details",
+    ],
+  },
   // Diğer kombinasyonlar için genel fallback
   default: {
     requiredFields: ["title", "description", "price", "city", "district"],
@@ -398,8 +639,24 @@ export function resolveCategoryLayout(category, listingType, subType) {
     if (subType === "DUKKAN_MAGAZA") {
       return { key: "IS_YERI.DUKKAN_MAGAZA", ...categoryLayouts["IS_YERI.DUKKAN_MAGAZA"] };
     }
+    if (subType === "DEPO_ANTREPO") {
+      return { key: "IS_YERI.DEPO_ANTREPO", ...categoryLayouts["IS_YERI.DEPO_ANTREPO"] };
+    }
+    if (subType === "KOMPLE_BINA") {
+      return { key: "IS_YERI.KOMPLE_BINA", ...categoryLayouts["IS_YERI.KOMPLE_BINA"] };
+    }
     // BURO_OFIS ve diğerleri
     return { key: "IS_YERI.BURO_OFIS", ...categoryLayouts["IS_YERI.BURO_OFIS"] };
+  }
+  if (category === "ARSA") {
+    const arsaKey = `ARSA.${listingType || "SATILIK"}`;
+    if (categoryLayouts[arsaKey]) return { key: arsaKey, ...categoryLayouts[arsaKey] };
+    return { key: "ARSA.SATILIK", ...categoryLayouts["ARSA.SATILIK"] };
+  }
+  if (category === "BINA") {
+    const binaKey = `BINA.${listingType || "SATILIK"}`;
+    if (categoryLayouts[binaKey]) return { key: binaKey, ...categoryLayouts[binaKey] };
+    return { key: "BINA.SATILIK", ...categoryLayouts["BINA.SATILIK"] };
   }
 
   return { key: "default", ...categoryLayouts.default };
