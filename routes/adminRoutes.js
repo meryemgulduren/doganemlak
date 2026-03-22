@@ -34,5 +34,10 @@ router.get('/admins',       listAdmins);
 router.post('/admins',      createAdmin);
 router.delete('/admins/:id', deleteAdmin);
 
+// Talep/Şikayet yönetimi
+const { getComplaints, updateComplaintStatus } = require('../controllers/complaintController');
+router.get('/complaints',              getComplaints);
+router.put('/complaints/:id/status',   updateComplaintStatus);
+
 module.exports = router;
 

@@ -49,6 +49,9 @@ app.use('/api/categories',          categoryRoutes);
 app.use('/api/feature-definitions', featureDefinitionRoutes);
 app.use('/api/cities',              cityRoutes);
 
+const complaintRoutes = require('./routes/complaintRoutes');
+app.use('/api/complaints',          complaintRoutes);
+
 const server = app.listen(PORT, () => {
   console.log(`Sunucu http://localhost:${PORT} üzerinde çalışıyor.`);
 });

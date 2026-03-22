@@ -17,6 +17,7 @@ import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminListingsPage from "./pages/admin/AdminListingsPage";
 import AdminListingFormPage from "./pages/admin/AdminListingFormPage";
 import AdminAddAdminPage from "./pages/admin/AdminAddAdminPage";
+import AdminComplaintsPage from "./pages/admin/AdminComplaintsPage";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
             <Route path="ilan-yeni" element={<AdminListingFormPage />} />
             <Route path="ilan-duzenle/:id" element={<AdminListingFormPage />} />
             <Route path="adminler" element={<AdminAddAdminPage />} />
+            <Route path="talepler" element={<AdminComplaintsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -30,4 +30,19 @@ async function authenticate(req, res, next) {
   }
 }
 
-module.exports = { authenticate };
+/**
+ * Token varsa kullanıcıyı set eder, yoksa devam eder (anonim izin).
+ */
+async function optionalAuth(req, _res, next) {
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET);
+      req.user = await User.findById(decoded.userId).select('-password_hash');
+    } catch (_) { /* anonim devam */ }
+  }
+  next();
+}
+
+module.exports = { authenticate, optionalAuth };
