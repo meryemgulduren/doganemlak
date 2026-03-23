@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { fetchFavoriteConsultants, removeFavoriteConsultant } from "../api/consultants";
 
 export default function FavoriDanismanlarPage() {
@@ -40,15 +39,9 @@ export default function FavoriDanismanlarPage() {
     [c.first_name, c.last_name].filter(Boolean).join(" ") || c.username || "—";
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 font-sans">
+    <div className="max-w-3xl mx-auto px-4 py-10 font-sans bg-background">
       <div className="flex items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-extrabold text-text-dark">Favori Danışmanlarım</h1>
-        <Link
-          to="/"
-          className="text-sm font-medium text-primary hover:underline"
-        >
-          Ana sayfa
-        </Link>
       </div>
 
       {error && (
@@ -62,7 +55,7 @@ export default function FavoriDanismanlarPage() {
       ) : consultants.length === 0 ? (
         <p className="text-text-dark/70">
           Henüz favori danışmanınız yok. İlan detayındaki{" "}
-          <span className="font-semibold">❤️ Danışmanı Favorile</span> ile ekleyebilirsiniz.
+          <span className="font-semibold text-danger">❤️ Danışmanı Favorile</span> ile ekleyebilirsiniz.
         </p>
       ) : (
         <ul className="space-y-4">

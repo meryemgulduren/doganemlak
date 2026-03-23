@@ -22,7 +22,7 @@ const THIRTY_DAYS_AGO = () => {
  * {
  *   overview:           { total, active, sold, passive, pending, totalUsers }
  *   byCategory:         [{ _id, count, avgPrice }]
- *   byCity:             [{ _id, count }]
+ *   byConsultantFavorites:[{ _id, count }]
  *   byListingType:      [{ _id, count }]
  *   priceStats:         { min, max, avg }
  *   recentActivity:     { newListings30d, soldListings30d }
@@ -30,7 +30,7 @@ const THIRTY_DAYS_AGO = () => {
  */
 async function getAnalyticsSummary(req, res) {
   try {
-    const [aggregationResult, totalUsers, newListings30d, soldListings30d] =
+    const [aggregationResult, totalUsers, newListings30d, soldListings30d, byConsultantFavorites] =
       await Promise.all([
         Listing.aggregate([
           {
@@ -55,18 +55,6 @@ async function getAnalyticsSummary(req, res) {
                     _id:      '$category',
                     count:    { $sum: 1 },
                     avgPrice: { $avg: '$price' },
-                  },
-                },
-                { $sort: { count: -1 } },
-                { $limit: 10 },
-              ],
-              // ── Şehir dağılımı ───────────────────────────────────────────
-              byCity: [
-                { $match: { 'location.city': { $exists: true, $ne: null } } },
-                {
-                  $group: {
-                    _id:   '$location.city',
-                    count: { $sum: 1 },
                   },
                 },
                 { $sort: { count: -1 } },
@@ -107,6 +95,55 @@ async function getAnalyticsSummary(req, res) {
           status: 'SOLD',
           updatedAt: { $gte: THIRTY_DAYS_AGO() },
         }),
+
+        User.aggregate([
+          { $match: { role: 'ADMIN' } },
+          {
+            $lookup: {
+              from: 'users',
+              let: { consultantId: '$_id' },
+              pipeline: [
+                { $match: { role: 'USER' } },
+                {
+                  $match: {
+                    $expr: { $in: ['$$consultantId', { $ifNull: ['$favorite_consultants', []] }] },
+                  },
+                },
+                { $count: 'count' },
+              ],
+              as: 'favMeta',
+            },
+          },
+          {
+            $addFields: {
+              count: { $ifNull: [{ $arrayElemAt: ['$favMeta.count', 0] }, 0] },
+              fullName: {
+                $trim: {
+                  input: {
+                    $concat: [
+                      { $ifNull: ['$first_name', ''] },
+                      ' ',
+                      { $ifNull: ['$last_name', ''] },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          {
+            $project: {
+              count: 1,
+              _id: {
+                $cond: [
+                  { $gt: [{ $strLenCP: '$fullName' }, 0] },
+                  '$fullName',
+                  { $ifNull: ['$username', '—'] },
+                ],
+              },
+            },
+          },
+          { $sort: { count: -1, _id: 1 } },
+        ]),
       ]);
 
     const facets = aggregationResult[0] ?? {};
@@ -118,7 +155,7 @@ async function getAnalyticsSummary(req, res) {
       data: {
         overview: { ...overview, totalUsers },
         byCategory:    facets.byCategory    ?? [],
-        byCity:        facets.byCity        ?? [],
+        byConsultantFavorites: byConsultantFavorites ?? [],
         byListingType: facets.byListingType ?? [],
         priceStats: {
           min: Math.round(priceStats.min ?? 0),

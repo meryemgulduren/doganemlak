@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Mail } from "lucide-react";
 import { fetchPublicConsultants } from "../api/consultants";
 
 function consultantDisplayName(c) {
@@ -32,7 +32,7 @@ export default function GayrimenkulDanismanlarPage() {
   }, []);
 
   return (
-    <div className="w-full px-3 sm:px-4 lg:px-6 xl:px-8 py-10 font-sans">
+    <div className="w-full px-3 sm:px-4 lg:px-6 xl:px-8 py-10 font-sans bg-background">
       <div className="max-w-[1600px] mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b-2 border-bordeaux/30">
           <div>
@@ -43,12 +43,6 @@ export default function GayrimenkulDanismanlarPage() {
               Sistemde kayıtlı tüm yetkili danışmanlarımızla iletişime geçebilirsiniz.
             </p>
           </div>
-          <Link
-            to="/"
-            className="text-sm font-medium text-primary hover:underline whitespace-nowrap"
-          >
-            ← Ana sayfa
-          </Link>
         </div>
 
         {error && (
@@ -68,39 +62,39 @@ export default function GayrimenkulDanismanlarPage() {
                 key={c._id}
                 className="rounded-2xl border border-border bg-surface shadow-sm p-4 flex flex-col gap-3"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-stretch gap-3">
                   {c.profile_image ? (
                     <img
                       src={c.profile_image}
                       alt=""
-                      className="w-14 h-14 rounded-full object-cover flex-shrink-0 border border-accent/30"
+                      className="w-24 h-32 rounded-lg object-cover flex-shrink-0 border border-accent/30"
                     />
                   ) : (
-                    <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-white text-lg flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
+                    <div className="w-24 h-32 rounded-lg flex items-center justify-center font-bold text-white text-xl flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
                       {(c.first_name?.[0] || c.username?.[0] || "D").toUpperCase()}
                     </div>
                   )}
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1 flex flex-col justify-center gap-2">
                     <p className="font-semibold text-text-dark truncate">{consultantDisplayName(c)}</p>
-                    <p className="text-xs text-text-dark/50 truncate">@{c.username}</p>
+                    {c.phone && (
+                      <a
+                        href={`tel:${c.phone}`}
+                        className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                      >
+                        <span aria-hidden>📞</span> {c.phone}
+                      </a>
+                    )}
+                    {c.email && (
+                      <a
+                        href={`mailto:${c.email}`}
+                        className="text-sm font-medium text-text-dark/80 hover:text-primary inline-flex items-center gap-1.5 truncate"
+                      >
+                        <Mail className="w-4 h-4 flex-shrink-0" />
+                        {c.email}
+                      </a>
+                    )}
                   </div>
                 </div>
-                {c.phone && (
-                  <a
-                    href={`tel:${c.phone}`}
-                    className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
-                  >
-                    <span aria-hidden>📞</span> {c.phone}
-                  </a>
-                )}
-                {c.email && (
-                  <a
-                    href={`mailto:${c.email}`}
-                    className="text-xs text-text-dark/60 hover:text-primary truncate"
-                  >
-                    {c.email}
-                  </a>
-                )}
               </div>
             ))}
           </div>

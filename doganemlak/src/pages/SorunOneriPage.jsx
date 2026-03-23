@@ -62,16 +62,16 @@ export default function SorunOneriPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10 font-sans">
-      <h1 className="text-2xl font-bold text-text-dark mb-2">Talep / Şikayet Formu</h1>
-      <p className="text-text-dark/70 text-sm leading-relaxed mb-6">
+    <div className="max-w-[56rem] mx-auto px-4 sm:px-6 pt-2 pb-8 font-sans bg-background">
+      <h1 className="text-[2rem] font-bold text-text-dark mb-2">Talep / Şikayet Formu</h1>
+      <p className="text-text-dark/70 text-[15px] leading-relaxed mb-6">
         Karşılaştığınız sorunları veya taleplerinizi aşağıdaki formu kullanarak bize iletebilirsiniz.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Tür seçimi */}
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-1.5">Tür</label>
+          <label className="block text-[15px] font-medium text-text-dark mb-1.5">Tür</label>
           <div className="flex gap-3">
             {[
               { value: "TALEP", label: "Talep / Öneri" },
@@ -81,9 +81,9 @@ export default function SorunOneriPage() {
                 key={opt.value}
                 type="button"
                 onClick={() => setType(opt.value)}
-                className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg border text-[15px] font-medium transition-colors ${
                   type === opt.value
-                    ? "bg-primary text-white border-primary"
+                    ? "bg-bordeaux text-white border-bordeaux"
                     : "bg-white text-text-dark border-border hover:bg-accent/30"
                 }`}
               >
@@ -95,22 +95,22 @@ export default function SorunOneriPage() {
 
         {/* Açıklama */}
         <div>
-          <label htmlFor="complaint-text" className="block text-sm font-medium text-text-dark mb-1.5">
+          <label htmlFor="complaint-text" className="block text-[15px] font-medium text-text-dark mb-1.5">
             Açıklama
           </label>
           <textarea
             id="complaint-text"
-            rows={4}
+            rows={6}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Lütfen açıklayınız..."
-            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-dark placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"
+            className="w-full rounded-xl border border-border bg-white px-5 py-4 text-base text-text-dark placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-bordeaux/30 resize-none"
           />
         </div>
 
         {/* Fotoğraf yükleme */}
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-1.5">
+          <label className="block text-[15px] font-medium text-text-dark mb-1.5">
             Fotoğraf Ekle <span className="text-muted font-normal">(en fazla 3)</span>
           </label>
           <input
@@ -118,7 +118,7 @@ export default function SorunOneriPage() {
             accept="image/*"
             multiple
             onChange={handleFiles}
-            className="block w-full text-sm text-muted file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer"
+            className="block w-full text-base text-muted file:mr-3 file:py-2.5 file:px-5 file:rounded-lg file:border-0 file:text-base file:font-medium file:bg-bordeaux/10 file:text-bordeaux hover:file:bg-bordeaux/20 cursor-pointer"
           />
           {previews.length > 0 && (
             <div className="flex gap-2 mt-3">
@@ -142,7 +142,7 @@ export default function SorunOneriPage() {
         <button
           type="submit"
           disabled={sending}
-          className="w-full py-2.5 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary/90 transition-colors disabled:opacity-50"
+          className="w-full py-3.5 rounded-xl bg-bordeaux text-white font-semibold text-base hover:bg-bordeaux/90 transition-colors disabled:opacity-50"
         >
           {sending ? "Gönderiliyor..." : "Gönder"}
         </button>

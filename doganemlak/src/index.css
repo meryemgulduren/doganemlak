@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
-/* Beyaza yakın krem zemin, yumuşak nötr vurgular, bordeaux (#49111C) yapısal renk */
+/* Beyaz zemin, yumuşak nötr vurgular, bordeaux (#49111C) yapısal renk */
 @theme {
-  --color-background: #f7f6f4;
+  --color-background: #ffffff;
   --color-cream: #f0ebe3;
   --color-surface: #ffffff;
   --color-text-dark: #30230d;
@@ -59,7 +59,7 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #f7f6f4;
+    background: #ffffff;
   }
   ::-webkit-scrollbar-thumb {
     background: #49111c;

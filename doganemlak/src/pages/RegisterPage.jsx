@@ -31,11 +31,11 @@ export default function RegisterPage() {
       <div className="relative flex flex-col items-center justify-center px-6 py-12 md:px-12 bg-surface">
         <Link 
           to="/" 
-          className="absolute top-6 left-6 transition-transform hover:scale-105"
+          className="absolute top-4 left-6 transition-transform hover:scale-105"
         >
-          <img src={logoImg} alt="Doğan Emlak Logo" className="h-20 w-auto object-contain" />
+          <img src={logoImg} alt="Doğan Emlak Logo" className="h-24 w-auto object-contain" />
         </Link>
-        <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-7 mt-8 md:mt-12">
+        <form onSubmit={handleSubmit} className="w-full max-w-[30rem] flex flex-col gap-7 mt-8 md:mt-12">
           <div className="text-center mb-4">
             <h1 className="text-4xl font-extrabold text-bordeaux mb-4">Kayıt Ol</h1>
           </div>
@@ -55,7 +55,7 @@ export default function RegisterPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="peer w-full px-4 py-3.5 text-sm rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
+                className="peer w-full px-4 py-3.5 text-base rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
                 placeholder="Kullanıcı Adı"
               />
               <label
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="peer w-full px-4 py-3.5 text-sm rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
+                className="peer w-full px-4 py-3.5 text-base rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
                 placeholder="E-posta Adresi"
               />
               <label
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="peer w-full px-4 pr-11 py-3.5 text-sm rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
+                className="peer w-full px-4 pr-11 py-3.5 text-base rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
                 placeholder="Şifre"
               />
               <label
@@ -129,7 +129,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Logo tarafı */}
-      <div className="hidden md:flex items-center justify-center bg-cream border-l border-bordeaux/10">
+      <div className="hidden md:flex items-center justify-center bg-[#faf8f3] border-l border-bordeaux/10">
         <Link to="/" aria-label="Ana sayfaya dön">
           <img src={logoImg} alt="Doğan Emlak" className="h-80 w-auto object-contain" />
         </Link>

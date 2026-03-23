@@ -5,12 +5,12 @@ import { fetchAdminStats, fetchAdminAnalytics } from "../../api/admin";
 
 // ── Eski marka paleti (kahve → altın) ─────────────────────────────────────────
 const BRAND_COLORS = [
-  "#49111C",
-  "#5c1a24",
-  "#30230D",
-  "#5c4a32",
-  "#8B7355",
-  "#A66F2C",
+  "#B23A50", // açık canlı bordeaux
+  "#D59834", // açık canlı amber
+  "#3E9C98", // açık canlı teal
+  "#5B84C4", // açık canlı mavi
+  "#B07A5E", // açık toprak ton
+  "#7FA84A", // açık zeytin yeşili
 ];
 
 function formatPrice(n) {
@@ -126,6 +126,34 @@ function HorizontalBarChart({ rows, maxRows = 5, title }) {
   );
 }
 
+function ConsultantFavoritesList({ rows, title }) {
+  return (
+    <div className="bg-surface rounded-[16px] p-6 shadow-sm border border-border hover:shadow-md transition-shadow">
+      <h3 className="text-sm font-semibold text-text-dark mb-5">{title}</h3>
+      {!rows || rows.length === 0 ? (
+        <p className="text-sm text-muted italic">Veri yok.</p>
+      ) : (
+        <div className="space-y-2">
+          {rows.map((row, idx) => (
+            <div
+              key={`${row._id}-${idx}`}
+              className="flex items-center justify-between gap-4 py-2.5 border-b border-border/60 last:border-b-0"
+            >
+              <span className="text-sm text-text-dark font-medium truncate" title={row._id}>
+                {row._id || "—"}
+              </span>
+              <span className="text-sm text-muted whitespace-nowrap">
+                <span className="font-bold text-text-dark mr-1">{row.count ?? 0}</span>
+                kullanıcı favorilemiş
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Ana Sayfa ────────────────────────────────────────────────────────────────
 export default function AdminDashboardPage() {
   const { user } = useAuth();
@@ -210,7 +238,7 @@ export default function AdminDashboardPage() {
                 </p>
                 <p className="text-xl font-extrabold text-text-dark">{formatPrice(ps.min)}</p>
               </div>
-              <div className="bg-gradient-to-br from-primary to-text-dark rounded-[16px] p-5 shadow-sm shadow-text-dark/15 text-white flex flex-col justify-center transform hover:-translate-y-0.5 transition-transform">
+              <div className="bg-gradient-to-br from-[#B23A50] to-[#7A1F2B] rounded-[16px] p-5 shadow-sm shadow-text-dark/15 text-white flex flex-col justify-center transform hover:-translate-y-0.5 transition-transform">
                 <p className="text-[10px] font-bold text-white/85 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent"></span> Ortalama Fiyat
                 </p>
@@ -235,9 +263,6 @@ export default function AdminDashboardPage() {
           
           {/* İlan Tipi Dağılımı (Donut Chart) */}
           <CSSDonutChart data={listingTypeData} title="İlan Tipi Dağılımı" />
-
-          {/* Şehir Dağılımı (Kısa Liste) */}
-          <HorizontalBarChart rows={analytics?.byCity} title="Şehre Göre Yoğunluk" maxRows={5} />
           
         </div>
       </div>
@@ -268,6 +293,12 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* 4. Alt Liste (Tüm Danışmanlar + Favorilenme Sayısı) */}
+      <ConsultantFavoritesList
+        rows={analytics?.byConsultantFavorites}
+        title="Danışman Profilleri ve Favorilenme Sayıları"
+      />
 
     </div>
   );

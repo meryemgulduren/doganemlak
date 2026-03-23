@@ -348,7 +348,7 @@ export default function AdDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-background font-sans">
+      <div className="min-h-[60vh] flex items-center justify-center bg-[#faf8f3] font-sans">
         <p className="text-text-dark/70">İlan yükleniyor...</p>
       </div>
     );
@@ -356,7 +356,7 @@ export default function AdDetail() {
 
   if (error || !listing) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-background font-sans">
+      <div className="min-h-[60vh] flex items-center justify-center bg-[#faf8f3] font-sans">
         <div className="bg-white/90 border border-accent/60 rounded-2xl px-6 py-8 shadow-sm text-center space-y-3">
           <p className="text-lg font-semibold text-text-dark">
             {error || "İlan bulunamadı"}
@@ -444,14 +444,14 @@ export default function AdDetail() {
     Boolean(listing.location?.coordinates?.lat) && Boolean(listing.location?.coordinates?.lng);
 
   return (
-    <div className="min-h-screen bg-background pt-6 pb-10 font-sans">
+    <div className="min-h-screen bg-[#faf8f3] pt-6 pb-10 font-sans">
       <div className="max-w-[1280px] mx-auto px-3 sm:px-4 lg:px-6 relative">
-        <header className="mb-4 sm:mb-6 flex flex-col gap-3">
-          <div className="flex items-center gap-4">
+        <header className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <img
               src={logoImg}
               alt="Doğan Emlak Group"
-              className="h-16 sm:h-20 w-auto object-contain shrink-0"
+              className="h-20 sm:h-24 w-auto object-contain shrink-0 -ml-16 sm:-ml-28 md:-ml-32 lg:-ml-36"
             />
             <div className="min-w-0">
               <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug">
@@ -465,7 +465,7 @@ export default function AdDetail() {
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="absolute right-0 top-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm"
+            className="self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm"
           >
             <Home className="w-4 h-4" />
             Ana Sayfa
@@ -526,7 +526,7 @@ export default function AdDetail() {
               <button
                 type="button"
                 onClick={() => openLightbox(activeImageIndex)}
-                className="px-2.5 py-1.5 rounded-lg border border-accent/60 bg-white text-primary text-xs font-medium transition-colors shrink-0 hover:bg-accent/30"
+                className="px-2.5 py-1.5 rounded-lg border border-accent/60 bg-white text-primary text-sm font-medium transition-colors shrink-0 hover:bg-accent/30"
               >
                 {currentMedia.type === "video" ? "Videoyu Oynat" : "Büyük Fotoğraf"}
               </button>
@@ -541,7 +541,7 @@ export default function AdDetail() {
                   key={tab.id}
                   type="button"
                   onClick={() => setDetailPanel(tab.id)}
-                  className={`px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-colors shrink-0 ${
+                  className={`px-2.5 py-1.5 rounded-lg border text-sm font-medium transition-colors shrink-0 ${
                     detailPanel === tab.id
                       ? "border-primary bg-primary text-white"
                       : "border-accent/60 bg-white text-primary hover:bg-accent/30"
@@ -556,7 +556,7 @@ export default function AdDetail() {
               aria-live="polite"
             >
               {detailPanel === "aciklama" && (
-                <p className="text-xs sm:text-sm leading-relaxed text-text-dark uppercase tracking-wide whitespace-pre-line">
+                <p className="text-sm sm:text-base leading-relaxed text-text-dark uppercase tracking-wide whitespace-pre-line">
                   {listing.description || "—"}
                 </p>
               )}
@@ -579,14 +579,14 @@ export default function AdDetail() {
               )}
               {detailPanel === "konum" && (
                 <div className="space-y-3">
-                  <div className="text-xs sm:text-sm text-text-dark space-y-1">
+                  <div className="text-sm sm:text-base text-text-dark space-y-1">
                     <p className="font-semibold text-text-dark">Adres</p>
                     <p>{locationString(listing.location) || "—"}</p>
                     {listing.location?.address_details ? (
                       <p className="text-text-dark/80 whitespace-pre-line">{listing.location.address_details}</p>
                     ) : null}
                     {hasMapCoords ? (
-                      <p className="text-[11px] text-muted font-mono pt-1">
+                      <p className="text-xs sm:text-sm text-muted font-mono pt-1">
                         {listing.location.coordinates.lat.toFixed(6)}, {listing.location.coordinates.lng.toFixed(6)}
                       </p>
                     ) : null}
@@ -607,7 +607,7 @@ export default function AdDetail() {
                       </MapContainer>
                     </div>
                   ) : (
-                    <p className="text-xs text-text-dark/60">
+                    <p className="text-sm text-text-dark/60">
                       Haritada göstermek için koordinat bilgisi girilmemiş.
                     </p>
                   )}
@@ -620,7 +620,7 @@ export default function AdDetail() {
             <div className="mb-4 border-b border-border pb-3 flex items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-medium text-muted mb-1">Fiyat</div>
-                <div className="text-xl sm:text-2xl font-bold text-primary">
+                <div className="text-xl sm:text-2xl font-bold text-text-dark">
                   {formatPrice(listing.price, listing.currency, listing.listing_type)}
                 </div>
               </div>
