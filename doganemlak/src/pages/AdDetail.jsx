@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Check, Home, Heart, X } from "lucide-react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import logoImg from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
+import Seo from "../components/Seo";
 import {
   fetchListingById,
   fetchFavorites,
@@ -152,6 +153,64 @@ function locationString(location) {
 function formatDate(date) {
   if (!date) return "-";
   return new Date(date).toLocaleDateString("tr-TR");
+}
+
+function buildListingSeoTitle(listing) {
+  const city = listing?.location?.city || "Samsun";
+  const district = listing?.location?.district || "Merkez";
+  const listingType = listing?.listing_type === "KIRALIK" ? "Kiralık" : "Satılık";
+  const roomPart = listing?.room_count ? `${listing.room_count} ` : "";
+  const propertyType =
+    listing?.category === "ARSA"
+      ? "Arsa"
+      : listing?.property_type === "IS_YERI"
+        ? "İş Yeri"
+        : "Daire";
+  return `${city} ${district} ${listingType} ${roomPart}${propertyType} | Doğan Emlak`
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildListingSeoDescription(listing) {
+  const city = listing?.location?.city || "Samsun";
+  const district = listing?.location?.district || "Merkez";
+  const neighborhood = listing?.location?.neighborhood ? `${listing.location.neighborhood}, ` : "";
+  const listingType = listing?.listing_type === "KIRALIK" ? "kiralık" : "satılık";
+  const roomPart = listing?.room_count ? `${listing.room_count} ` : "";
+  const shortDescription = (listing?.description || "").replace(/\s+/g, " ").trim();
+  const base = `${city} ${district} bölgesinde ${neighborhood}${listingType} ${roomPart}daire ilanı.`;
+  if (!shortDescription) return base;
+  return `${base} ${shortDescription}`.slice(0, 160);
+}
+
+function buildRealEstateListingSchema(listing, canonicalUrl) {
+  const imageUrl = listing?.media?.images?.[0] || undefined;
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: listing?.title || "Emlak İlanı",
+    description: listing?.description || "",
+    url: canonicalUrl,
+    datePosted: listing?.listing_date || listing?.createdAt || undefined,
+    image: imageUrl,
+    offers: {
+      "@type": "Offer",
+      price: Number(listing?.price || 0),
+      priceCurrency: listing?.currency || "TRY",
+      availability:
+        listing?.status === "SOLD"
+          ? "https://schema.org/SoldOut"
+          : "https://schema.org/InStock",
+      itemCondition: "https://schema.org/UsedCondition",
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: listing?.location?.address_details || undefined,
+      addressLocality: listing?.location?.district || undefined,
+      addressRegion: listing?.location?.city || undefined,
+      addressCountry: "TR",
+    },
+  };
 }
 
 export default function AdDetail() {
@@ -442,10 +501,22 @@ export default function AdDetail() {
   const videoUrls = Array.isArray(listing.media?.videos) ? listing.media.videos : [];
   const hasMapCoords =
     Boolean(listing.location?.coordinates?.lat) && Boolean(listing.location?.coordinates?.lng);
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://www.doganemlak.com").replace(/\/$/, "");
+  const canonicalUrl = `${siteUrl}/ilan/${id}`;
+  const seoTitle = buildListingSeoTitle(listing);
+  const seoDescription = buildListingSeoDescription(listing);
+  const seoJsonLd = buildRealEstateListingSchema(listing, canonicalUrl);
 
   return (
-    <div className="min-h-screen bg-[#faf8f3] pt-6 pb-10 font-sans">
-      <div className="max-w-[1280px] mx-auto px-3 sm:px-4 lg:px-6 relative">
+    <>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonical={canonicalUrl}
+        jsonLd={seoJsonLd}
+      />
+      <div className="min-h-screen bg-[#faf8f3] pt-6 pb-10 font-sans">
+        <div className="max-w-[1280px] mx-auto px-3 sm:px-4 lg:px-6 relative">
         <header className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <img
@@ -1104,74 +1175,75 @@ export default function AdDetail() {
           </section>
         )}
 
-      </div>
-
-      {/* --- Lightbox Modal --- */}
-      {isLightboxOpen && (
-        <div
-          className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center animate-fade-in"
-          onClick={closeLightbox}
-        >
-          {/* Close Button */}
-          <button
-            type="button"
-            onClick={closeLightbox}
-            className="absolute top-5 right-5 text-white/70 hover:text-white p-2 transition-colors z-[1000] bg-black/50 rounded-full"
-            aria-label="Kapat"
-          >
-            <X className="w-8 h-8" />
-          </button>
-
-          {/* Current Media */}
-          <div className="relative w-full max-w-5xl h-full max-h-screen p-4 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-            {mediaList[lightboxIndex].type === 'video' ? (
-              <video
-                src={mediaList[lightboxIndex].url}
-                className="max-w-full max-h-full rounded-lg shadow-2xl"
-                controls
-                autoPlay
-                playsInline
-              />
-            ) : (
-              <img
-                src={mediaList[lightboxIndex].url}
-                alt={`${listing.title} Fotoğraf ${lightboxIndex + 1}`}
-                className="max-w-full max-h-full object-contain select-none rounded-lg shadow-2xl"
-              />
-            )}
-          </div>
-
-          {/* Left Arrow */}
-          {mediaList.length > 1 && (
-            <button
-              type="button"
-              onClick={prevLightboxImage}
-              className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
-              aria-label="Önceki"
-            >
-              <ChevronLeft className="w-10 h-10 sm:w-16 sm:h-16" />
-            </button>
-          )}
-
-          {/* Right Arrow */}
-          {mediaList.length > 1 && (
-            <button
-              type="button"
-              onClick={nextLightboxImage}
-              className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
-              aria-label="Sonraki"
-            >
-              <ChevronRight className="w-10 h-10 sm:w-16 sm:h-16" />
-            </button>
-          )}
-
-          {/* Counter */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md px-4 py-1.5 rounded-full text-white/90 text-sm font-medium tracking-widest z-[1000] border border-white/10">
-            {lightboxIndex + 1} / {mediaList.length}
-          </div>
         </div>
-      )}
-    </div>
+
+        {/* --- Lightbox Modal --- */}
+        {isLightboxOpen && (
+          <div
+            className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center animate-fade-in"
+            onClick={closeLightbox}
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={closeLightbox}
+              className="absolute top-5 right-5 text-white/70 hover:text-white p-2 transition-colors z-[1000] bg-black/50 rounded-full"
+              aria-label="Kapat"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Current Media */}
+            <div className="relative w-full max-w-5xl h-full max-h-screen p-4 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              {mediaList[lightboxIndex].type === 'video' ? (
+                <video
+                  src={mediaList[lightboxIndex].url}
+                  className="max-w-full max-h-full rounded-lg shadow-2xl"
+                  controls
+                  autoPlay
+                  playsInline
+                />
+              ) : (
+                <img
+                  src={mediaList[lightboxIndex].url}
+                  alt={`${listing.title} Fotoğraf ${lightboxIndex + 1}`}
+                  className="max-w-full max-h-full object-contain select-none rounded-lg shadow-2xl"
+                />
+              )}
+            </div>
+
+            {/* Left Arrow */}
+            {mediaList.length > 1 && (
+              <button
+                type="button"
+                onClick={prevLightboxImage}
+                className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
+                aria-label="Önceki"
+              >
+                <ChevronLeft className="w-10 h-10 sm:w-16 sm:h-16" />
+              </button>
+            )}
+
+            {/* Right Arrow */}
+            {mediaList.length > 1 && (
+              <button
+                type="button"
+                onClick={nextLightboxImage}
+                className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 p-4 text-white/50 hover:text-white transition-colors z-[1000] bg-black/20 hover:bg-black/50 rounded-full"
+                aria-label="Sonraki"
+              >
+                <ChevronRight className="w-10 h-10 sm:w-16 sm:h-16" />
+              </button>
+            )}
+
+            {/* Counter */}
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md px-4 py-1.5 rounded-full text-white/90 text-sm font-medium tracking-widest z-[1000] border border-white/10">
+              {lightboxIndex + 1} / {mediaList.length}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
