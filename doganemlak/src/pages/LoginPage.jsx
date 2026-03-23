@@ -96,6 +96,11 @@ export default function LoginPage() {
             </div>
           </div>
 
+          <div className="text-right -mt-2">
+            <Link to="/sifremi-unuttum" className="text-sm font-medium text-bordeaux hover:text-bordeaux/80 hover:underline">
+              Şifremi Unuttum
+            </Link>
+          </div>
           <button
             type="submit"
             disabled={submitting}

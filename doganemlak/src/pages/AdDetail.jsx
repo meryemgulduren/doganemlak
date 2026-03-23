@@ -640,7 +640,6 @@ export default function AdDetail() {
             </div>
             <div className="divide-y divide-border text-xs sm:text-sm">
               <InfoRow label="İlan No" value={listing.listing_no} valueClassName="text-bordeaux font-semibold" />
-              <InfoRow label="Görüntülenme" value={listing.view_count != null ? `${listing.view_count.toLocaleString('tr-TR')} kez` : "—"} />
               <InfoRow label="İlan Tarihi" value={formatDate(listing.listing_date)} />
               <InfoRow label="Emlak Tipi" value={listing.listing_type === "KIRALIK" ? "Kiralık" : "Satılık"} />
               {isArsa ? (

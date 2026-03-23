@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema(
     /** Normal kullanıcıların favorilediği danışman (ADMIN) kullanıcıları */
     favorite_consultants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     last_login:    { type: Date, default: null },
+    /** Şifre sıfırlama token'ı (SHA-256 hash olarak saklanır) */
+    reset_token:         { type: String, default: null },
+    reset_token_expires: { type: Date, default: null },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

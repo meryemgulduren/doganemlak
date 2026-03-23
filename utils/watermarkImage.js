@@ -75,7 +75,10 @@ async function watermarkListingImage(imagePath) {
     ? imagePath
     : path.join(process.cwd(), imagePath);
 
-  const meta = await sharp(absPath).metadata();
+  // Dosyayı belleğe oku — sharp'ın dosya handle'ı tutmasını önler (Windows EPERM fix)
+  const imageBuffer = fs.readFileSync(absPath);
+
+  const meta = await sharp(imageBuffer).metadata();
   const width = meta.width || 0;
   const height = meta.height || 0;
   if (!width || !height) return false;
@@ -103,36 +106,28 @@ async function watermarkListingImage(imagePath) {
   const left = Math.round((width - lw) / 2);
   const top = Math.round((height - lh) / 2);
 
-  const tmpPath = `${absPath}.wm.tmp`;
+  // Buffer üzerinde composite yap — dosyaya dokunmadığımız için kilit yok
+  let pipeline = sharp(imageBuffer).composite([
+    {
+      input: logoFaded,
+      left,
+      top,
+      blend: 'over',
+    },
+  ]);
 
-  try {
-    let pipeline = sharp(absPath).composite([
-      {
-        input: logoFaded,
-        left,
-        top,
-        blend: 'over',
-      },
-    ]);
-
-    if (ext === '.png') {
-      await pipeline.png({ compressionLevel: 9 }).toFile(tmpPath);
-    } else if (ext === '.webp') {
-      await pipeline.webp({ quality: 88 }).toFile(tmpPath);
-    } else {
-      await pipeline.jpeg({ quality: 88, mozjpeg: true }).toFile(tmpPath);
-    }
-
-    fs.renameSync(tmpPath, absPath);
-    return true;
-  } catch (e) {
-    try {
-      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
-    } catch (_) {
-      /* ignore */
-    }
-    throw e;
+  let outputBuffer;
+  if (ext === '.png') {
+    outputBuffer = await pipeline.png({ compressionLevel: 9 }).toBuffer();
+  } else if (ext === '.webp') {
+    outputBuffer = await pipeline.webp({ quality: 88 }).toBuffer();
+  } else {
+    outputBuffer = await pipeline.jpeg({ quality: 88, mozjpeg: true }).toBuffer();
   }
+
+  // Sonucu doğrudan dosyaya yaz (temp dosya / rename gerekmez)
+  fs.writeFileSync(absPath, outputBuffer);
+  return true;
 }
 
 module.exports = { watermarkListingImage, resolveLogoPath };

@@ -10,6 +10,8 @@ import FavorilerimPage from "./pages/FavorilerimPage";
 import FavoriDanismanlarPage from "./pages/FavoriDanismanlarPage";
 import GayrimenkulDanismanlarPage from "./pages/GayrimenkulDanismanlarPage";
 import SorunOneriPage from "./pages/SorunOneriPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./components/AdminLayout";
@@ -26,6 +28,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/sifremi-unuttum" element={<ForgotPasswordPage />} />
+          <Route path="/sifre-sifirla" element={<ResetPasswordPage />} />
           <Route path="/ilan/:id" element={<AdDetail />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
