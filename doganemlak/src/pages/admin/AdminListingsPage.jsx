@@ -194,7 +194,7 @@ export default function AdminListingsPage() {
                     <button
                       type="button"
                       onClick={() => handleDelete(listing._id, listing.title)}
-                      className="text-danger hover:underline font-medium"
+                      className="text-red-600 hover:text-red-700 hover:underline font-semibold"
                     >
                       Sil
                     </button>

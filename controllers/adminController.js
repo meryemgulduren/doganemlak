@@ -462,6 +462,69 @@ async function deleteAdmin(req, res) {
   }
 }
 
+/**
+ * PUT /api/admin/admins/:id
+ * Admin profilini günceller.
+ * Body: { username?, email?, first_name?, last_name?, phone?, profile_image? }
+ */
+async function updateAdmin(req, res) {
+  try {
+    const { id } = req.params;
+    const admin = await User.findOne({ _id: id, role: 'ADMIN' });
+    if (!admin) {
+      return res.status(404).json({ success: false, message: 'Admin bulunamadı.' });
+    }
+
+    const updates = {};
+    const { username, email, first_name, last_name, phone, profile_image } = req.body || {};
+
+    if (typeof username === 'string') {
+      const nextUsername = username.trim();
+      if (!nextUsername) {
+        return res.status(400).json({ success: false, message: 'Kullanıcı adı boş olamaz.' });
+      }
+      const conflict = await User.findOne({ username: nextUsername, _id: { $ne: id } }).select('_id');
+      if (conflict) {
+        return res.status(409).json({ success: false, message: 'Kullanıcı adı zaten kullanılıyor.' });
+      }
+      updates.username = nextUsername;
+    }
+
+    if (typeof email === 'string') {
+      const nextEmail = email.toLowerCase().trim();
+      if (!nextEmail) {
+        return res.status(400).json({ success: false, message: 'E-posta boş olamaz.' });
+      }
+      const conflict = await User.findOne({ email: nextEmail, _id: { $ne: id } }).select('_id');
+      if (conflict) {
+        return res.status(409).json({ success: false, message: 'E-posta zaten kullanılıyor.' });
+      }
+      updates.email = nextEmail;
+    }
+
+    if (first_name !== undefined) updates.first_name = String(first_name || '').trim() || null;
+    if (last_name !== undefined) updates.last_name = String(last_name || '').trim() || null;
+    if (phone !== undefined) updates.phone = String(phone || '').trim() || null;
+    if (profile_image !== undefined) {
+      updates.profile_image =
+        typeof profile_image === 'string' && profile_image.trim().length > 0
+          ? profile_image.trim()
+          : null;
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      id,
+      { $set: updates },
+      { new: true, runValidators: true }
+    ).select('-password_hash -favorites -favorite_consultants');
+
+    res.json({ success: true, data: toSafeUser(updated) });
+  } catch (err) {
+    console.error('Update admin error:', err);
+    res.status(500).json({ success: false, message: 'Admin güncellenirken hata oluştu.' });
+  }
+}
+
 
 module.exports = {
   getStats,
@@ -472,6 +535,7 @@ module.exports = {
   deleteListing,
   createAdmin,
   listAdmins,
+  updateAdmin,
   deleteAdmin,
 };
 

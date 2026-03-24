@@ -118,7 +118,7 @@ export default function HomePage() {
         jsonLd={buildHomeOrganizationJsonLd(siteUrl)}
       />
       <div className="max-w-[1600px] mx-auto w-full">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b-2 border-bordeaux/30">
+        <div className="mt-2 sm:mt-0 flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b-2 border-bordeaux/30">
           <h2 className="text-2xl font-extrabold text-bordeaux font-sans">
             Öne Çıkan İlanlar
           </h2>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { fetchAdminAdmins, createAdminUser, deleteAdminUser, uploadImage } from "../../api/admin";
+import { fetchAdminAdmins, createAdminUser, updateAdminUser, deleteAdminUser, uploadProfileImage } from "../../api/admin";
 
 // ── Form başlangıç değeri ─────────────────────────────────────────────────────
 const EMPTY_FORM = {
@@ -11,6 +11,14 @@ const EMPTY_FORM = {
   phone: "+90 ",
   password: "",
   confirmPassword: "",
+};
+
+const EMPTY_EDIT_FORM = {
+  first_name: "",
+  last_name: "",
+  username: "",
+  email: "",
+  phone: "+90 ",
 };
 
 // ── Alt bileşenler ────────────────────────────────────────────────────────────
@@ -72,9 +80,10 @@ function PasswordField({ label, id, value, onChange, required }) {
   );
 }
 
-function AdminCard({ admin, onDelete, deletingId }) {
+function AdminCard({ admin, onDelete, onEdit, deletingId, editingId }) {
   const fullName = [admin.first_name, admin.last_name].filter(Boolean).join(" ") || "—";
   const isDeleting = deletingId === admin._id;
+  const isEditing = editingId === admin._id;
   const photo = admin.profile_image;
 
   return (
@@ -98,14 +107,27 @@ function AdminCard({ admin, onDelete, deletingId }) {
           {admin.phone && <p className="text-xs text-muted/80 mt-0.5">📞 {admin.phone}</p>}
         </div>
       </div>
-      <button
-        type="button"
-        onClick={() => onDelete(admin._id)}
-        disabled={isDeleting}
-        className="text-xs px-3 py-1.5 rounded-lg border border-danger/30 text-danger hover:bg-danger/10 transition-colors disabled:opacity-50 flex-shrink-0"
-      >
-        {isDeleting ? "Siliniyor..." : "Sil"}
-      </button>
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <button
+          type="button"
+          onClick={() => onEdit(admin)}
+          className={`text-xs px-3 py-1.5 rounded-lg border transition-colors ${
+            isEditing
+              ? "border-primary/35 text-primary bg-primary/10"
+              : "border-border text-text-dark hover:bg-accent/40"
+          }`}
+        >
+          Düzenle
+        </button>
+        <button
+          type="button"
+          onClick={() => onDelete(admin._id)}
+          disabled={isDeleting}
+          className="text-xs px-3 py-1.5 rounded-lg border border-danger/30 text-danger hover:bg-danger/10 transition-colors disabled:opacity-50"
+        >
+          {isDeleting ? "Siliniyor..." : "Sil"}
+        </button>
+      </div>
     </div>
   );
 }
@@ -122,7 +144,13 @@ export default function AdminAddAdminPage() {
   const [success, setSuccess]       = useState(null);
   const [profileFile, setProfileFile] = useState(null);
   const [profilePreview, setProfilePreview] = useState(null);
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState(EMPTY_EDIT_FORM);
+  const [editSaving, setEditSaving] = useState(false);
+  const [editProfileFile, setEditProfileFile] = useState(null);
+  const [editProfilePreview, setEditProfilePreview] = useState(null);
   const fileInputRef = useRef(null);
+  const editFileInputRef = useRef(null);
 
   const loadAdmins = () => {
     setLoadingList(true);
@@ -144,7 +172,18 @@ export default function AdminAddAdminPage() {
     return () => URL.revokeObjectURL(url);
   }, [profileFile]);
 
+  useEffect(() => {
+    if (!editProfileFile) {
+      setEditProfilePreview(null);
+      return;
+    }
+    const url = URL.createObjectURL(editProfileFile);
+    setEditProfilePreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [editProfileFile]);
+
   const set = (key) => (val) => setForm((prev) => ({ ...prev, [key]: val }));
+  const setEdit = (key) => (val) => setEditForm((prev) => ({ ...prev, [key]: val }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,7 +202,7 @@ export default function AdminAddAdminPage() {
       const { confirmPassword, ...payload } = form;
       let profile_image = null;
       if (profileFile) {
-        profile_image = await uploadImage(profileFile);
+        profile_image = await uploadProfileImage(profileFile);
       }
       await createAdminUser({
         ...payload,
@@ -191,6 +230,56 @@ export default function AdminAddAdminPage() {
       alert(err.message || "Silinemedi.");
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const handleStartEdit = (admin) => {
+    setError(null);
+    setSuccess(null);
+    setEditingId(admin._id);
+    setEditForm({
+      first_name: admin.first_name || "",
+      last_name: admin.last_name || "",
+      username: admin.username || "",
+      email: admin.email || "",
+      phone: admin.phone || "+90 ",
+    });
+    setEditProfileFile(null);
+    setEditProfilePreview(admin.profile_image || null);
+    if (editFileInputRef.current) editFileInputRef.current.value = "";
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditForm(EMPTY_EDIT_FORM);
+    setEditProfileFile(null);
+    setEditProfilePreview(null);
+    if (editFileInputRef.current) editFileInputRef.current.value = "";
+  };
+
+  const handleSubmitEdit = async (e) => {
+    e.preventDefault();
+    if (!editingId) return;
+    setError(null);
+    setSuccess(null);
+    setEditSaving(true);
+    try {
+      let profile_image = editProfilePreview || null;
+      if (editProfileFile) {
+        profile_image = await uploadProfileImage(editProfileFile);
+      }
+
+      await updateAdminUser(editingId, {
+        ...editForm,
+        profile_image,
+      });
+      setSuccess("Admin profili güncellendi.");
+      loadAdmins();
+      handleCancelEdit();
+    } catch (err) {
+      setError(err.message || "Admin güncellenemedi.");
+    } finally {
+      setEditSaving(false);
     }
   };
 
@@ -287,6 +376,87 @@ export default function AdminAddAdminPage() {
         </form>
       </div>
 
+      {/* ── Admin Profil Düzenleme ── */}
+      {editingId && (
+        <div className="bg-surface border border-border rounded-2xl shadow-sm p-6">
+          <h3 className="text-base font-semibold text-text-dark mb-5">Admin Profili Düzenle</h3>
+          <form onSubmit={handleSubmitEdit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <InputField label="İsim" id="edit_first_name" value={editForm.first_name} onChange={setEdit("first_name")} />
+            <InputField label="Soyisim" id="edit_last_name" value={editForm.last_name} onChange={setEdit("last_name")} />
+            <InputField label="Kullanıcı Adı" id="edit_username" value={editForm.username} onChange={setEdit("username")} required />
+            <InputField label="E-posta" id="edit_email" type="email" value={editForm.email} onChange={setEdit("email")} required />
+            <InputField
+              label="Telefon"
+              id="edit_phone"
+              value={editForm.phone}
+              onChange={(val) => {
+                if (val && !val.startsWith("+90 ")) {
+                  if (val.startsWith("+90")) setEdit("phone")("+90 " + val.slice(3).trimStart());
+                  else if (val.startsWith("0")) setEdit("phone")("+90 " + val.slice(1));
+                  else setEdit("phone")("+90 " + val);
+                } else {
+                  if (val === "+9" || val === "+" || val === "") setEdit("phone")("");
+                  else setEdit("phone")(val);
+                }
+              }}
+            />
+            <div className="sm:col-span-2">
+              <p className="text-xs font-medium text-muted mb-2">Profil fotoğrafı</p>
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="w-16 h-16 rounded-full border-2 border-dashed border-border flex items-center justify-center overflow-hidden bg-accent/30 flex-shrink-0">
+                  {editProfilePreview ? (
+                    <img src={editProfilePreview} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-xs text-muted text-center px-1">Önizleme</span>
+                  )}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <input
+                    ref={editFileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/gif,image/webp"
+                    className="text-sm text-muted file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary/15 file:text-primary hover:file:bg-primary/25"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      setEditProfileFile(f || null);
+                    }}
+                  />
+                  {editProfilePreview && (
+                    <button
+                      type="button"
+                      className="text-xs text-danger hover:underline w-fit"
+                      onClick={() => {
+                        setEditProfileFile(null);
+                        setEditProfilePreview(null);
+                        if (editFileInputRef.current) editFileInputRef.current.value = "";
+                      }}
+                    >
+                      Fotoğrafı kaldır
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-2 flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="px-5 py-2.5 rounded-xl border border-border text-text-dark text-sm font-semibold hover:bg-accent/40 transition-colors"
+              >
+                Vazgeç
+              </button>
+              <button
+                type="submit"
+                disabled={editSaving}
+                className="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-60"
+              >
+                {editSaving ? "Kaydediliyor..." : "Değişiklikleri Kaydet"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
       {/* ── Mevcut Adminler ── */}
       <div>
         <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">
@@ -299,7 +469,14 @@ export default function AdminAddAdminPage() {
         ) : (
           <div className="space-y-2">
             {admins.map((admin) => (
-              <AdminCard key={admin._id} admin={admin} onDelete={handleDelete} deletingId={deletingId} />
+              <AdminCard
+                key={admin._id}
+                admin={admin}
+                onEdit={handleStartEdit}
+                onDelete={handleDelete}
+                deletingId={deletingId}
+                editingId={editingId}
+              />
             ))}
           </div>
         )}

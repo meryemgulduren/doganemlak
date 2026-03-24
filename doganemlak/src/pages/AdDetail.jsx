@@ -619,7 +619,7 @@ export default function AdDetail() {
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm"
+            className="order-first sm:order-none mt-0 sm:mt-0 self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm"
           >
             <Home className="w-4 h-4" />
             Ana Sayfa
@@ -680,7 +680,7 @@ export default function AdDetail() {
               <button
                 type="button"
                 onClick={() => openLightbox(activeImageIndex)}
-                className="px-2.5 py-1.5 rounded-lg border border-accent/60 bg-white text-primary text-sm font-medium transition-colors shrink-0 hover:bg-accent/30"
+                className="px-2.5 py-1.5 rounded-lg border border-zinc-300 bg-white text-zinc-700 text-sm font-medium transition-colors shrink-0 hover:bg-zinc-100 hover:border-zinc-400"
               >
                 {currentMedia.type === "video" ? "Videoyu Oynat" : "Büyük Fotoğraf"}
               </button>
@@ -697,8 +697,8 @@ export default function AdDetail() {
                   onClick={() => setDetailPanel(tab.id)}
                   className={`px-2.5 py-1.5 rounded-lg border text-sm font-medium transition-colors shrink-0 ${
                     detailPanel === tab.id
-                      ? "border-primary bg-primary text-white"
-                      : "border-accent/60 bg-white text-primary hover:bg-accent/30"
+                      ? "border-zinc-600 bg-zinc-600 text-white shadow-sm"
+                      : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100 hover:border-zinc-400"
                   }`}
                 >
                   {tab.label}
@@ -966,7 +966,7 @@ export default function AdDetail() {
                           : "border-primary/40 text-primary hover:bg-primary/5"
                     }`}
                   >
-                    <span aria-hidden>❤️</span>
+                    <Heart className="w-3.5 h-3.5" aria-hidden />
                     {isOwnConsultantProfile
                       ? "Danışmanı Favorile"
                       : isLoggedIn
@@ -983,10 +983,10 @@ export default function AdDetail() {
                   <img
                     src={listing.admin_id.profile_image}
                     alt=""
-                    className="w-11 h-11 rounded-full object-cover flex-shrink-0 border border-accent/30"
+                    className="w-16 h-24 rounded-lg object-cover flex-shrink-0 border border-accent/30"
                   />
                 ) : (
-                  <div className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-base flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
+                  <div className="w-16 h-24 rounded-lg flex items-center justify-center font-bold text-white text-xl flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
                     {listing.admin_id
                       ? (listing.admin_id.first_name?.[0] || listing.admin_id.username?.[0] || "D").toUpperCase()
                       : "D"}
@@ -1003,9 +1003,9 @@ export default function AdDetail() {
                   {listing.admin_id?.phone ? (
                     <a
                       href={`tel:${listing.admin_id.phone}`}
-                      className="flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                      className="flex items-center gap-1.5 text-xs font-medium text-zinc-700 hover:text-zinc-900 transition-colors"
                     >
-                      <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <svg className="w-3.5 h-3.5 flex-shrink-0 text-zinc-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                       {listing.admin_id.phone}
@@ -1017,9 +1017,9 @@ export default function AdDetail() {
                   {listing.admin_id?.email ? (
                     <a
                       href={`mailto:${listing.admin_id.email}`}
-                      className="flex items-center gap-1 text-xs text-text-dark/60 hover:text-primary transition-colors truncate"
+                      className="flex items-center gap-1.5 text-xs text-zinc-600 hover:text-zinc-900 transition-colors truncate"
                     >
-                      <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <svg className="w-3.5 h-3.5 flex-shrink-0 text-zinc-500" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                       {listing.admin_id.email}

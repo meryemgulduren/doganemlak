@@ -1,4 +1,4 @@
-import { Search, LogIn, UserPlus, X, LogOut, User, Settings, UserCircle } from "lucide-react";
+import { Search, LogIn, UserPlus, X, LogOut, User, Settings, UserCircle, Menu } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoImg from "../assets/logo.png";
@@ -17,6 +17,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileLinksOpen, setMobileLinksOpen] = useState(false);
   const [accountModalOpen, setAccountModalOpen] = useState(false);
   const [categoriesData, setCategoriesData] = useState(null);
   const searchContainerRef = useRef(null);
@@ -116,7 +117,15 @@ export default function Navbar() {
         </Link>
 
         {/* Mobil: giriş/kayıt logo ile aynı satır */}
-        <div className="order-2 sm:hidden justify-self-end">
+        <div className="order-2 sm:hidden justify-self-end flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setMobileLinksOpen(true)}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-border text-text-dark bg-surface hover:bg-accent/30 transition-colors"
+            aria-label="Hızlı bağlantı menüsü"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
           {isLoggedIn && user ? (
             <div className="relative">
               <button
@@ -234,7 +243,7 @@ export default function Navbar() {
 
         {/* Yan menüden taşınan bağlantılar + sağ butonlar */}
         <div className="order-4 col-span-2 sm:col-span-1 sm:order-none flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2 flex-shrink-0 min-w-0 w-full sm:w-auto sm:justify-self-end">
-          <div className="order-2 sm:order-1 grid grid-cols-2 gap-1 sm:flex sm:items-center sm:gap-1 lg:gap-1.5 min-w-0 w-full sm:w-auto sm:flex-none overflow-visible sm:overflow-visible border-0 sm:border-r sm:border-border/60 pr-0 sm:pr-2 lg:pr-3 mr-0 sm:mr-1">
+          <div className="order-2 sm:order-1 hidden sm:flex sm:items-center sm:gap-1 lg:gap-1.5 min-w-0 w-full sm:w-auto sm:flex-none overflow-visible sm:overflow-visible border-0 sm:border-r sm:border-border/60 pr-0 sm:pr-2 lg:pr-3 mr-0 sm:mr-1">
             <Link to="/gayrimenkul-danismanlar" className={navExtraLinkClass}>
               <span className="block">Gayrimenkul</span>
               <span className="block">Danışmanlarımız</span>
@@ -333,6 +342,58 @@ export default function Navbar() {
       onClose={() => setAccountModalOpen(false)}
       user={user}
     />
+    {mobileLinksOpen && (
+      <>
+        <div
+          className="sm:hidden fixed inset-0 z-[60] bg-text-dark/35"
+          aria-hidden
+          onClick={() => setMobileLinksOpen(false)}
+        />
+        <aside className="sm:hidden fixed right-0 top-0 z-[70] h-full w-[82%] max-w-[320px] bg-surface border-l border-border shadow-2xl p-4">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
+            <p className="text-sm font-semibold text-text-dark">Hızlı Bağlantılar</p>
+            <button
+              type="button"
+              onClick={() => setMobileLinksOpen(false)}
+              className="p-2 rounded-lg hover:bg-accent/40 text-text-dark"
+              aria-label="Menüyü kapat"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <nav className="flex flex-col gap-2">
+            <Link
+              to="/gayrimenkul-danismanlar"
+              onClick={() => setMobileLinksOpen(false)}
+              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
+            >
+              Gayrimenkul Danışmanlarımız
+            </Link>
+            <Link
+              to="/favorilerim"
+              onClick={() => setMobileLinksOpen(false)}
+              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
+            >
+              Favori İlanlar
+            </Link>
+            <Link
+              to="/favori-danismanlar"
+              onClick={() => setMobileLinksOpen(false)}
+              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
+            >
+              Favori Danışmanlar
+            </Link>
+            <Link
+              to="/sorun-oneri"
+              onClick={() => setMobileLinksOpen(false)}
+              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
+            >
+              Sorun / Öneri Bildirimi
+            </Link>
+          </nav>
+        </aside>
+      </>
+    )}
     </>
   );
 }

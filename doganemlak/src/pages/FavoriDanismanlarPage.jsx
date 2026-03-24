@@ -40,7 +40,7 @@ export default function FavoriDanismanlarPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 font-sans bg-background">
-      <div className="flex items-center justify-between gap-4 mb-6">
+      <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b-2 border-bordeaux/30">
         <h1 className="text-2xl font-extrabold text-text-dark">Favori Danışmanlarım</h1>
       </div>
 
@@ -68,10 +68,10 @@ export default function FavoriDanismanlarPage() {
                 <img
                   src={c.profile_image}
                   alt=""
-                  className="w-14 h-14 rounded-full object-cover flex-shrink-0 border border-border"
+                  className="w-16 h-24 rounded-lg object-cover flex-shrink-0 border border-border"
                 />
               ) : (
-                <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-white text-lg flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
+                <div className="w-16 h-24 rounded-lg flex items-center justify-center font-bold text-white text-xl flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
                   {(c.first_name?.[0] || c.username?.[0] || "D").toUpperCase()}
                 </div>
               )}

@@ -1,5 +1,7 @@
-const raw = import.meta.env.VITE_API_URL;
-const API_BASE = raw.startsWith('http') ? raw.replace(/\/$/, '') : `http://${raw.replace(/^\/+/, '')}`;
+const raw = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const normalizedRaw = raw.startsWith('http') ? raw : `http://${raw.replace(/^\/+/, '')}`;
+// Env bazen http://host bazen http://host/api gelebiliyor; tek noktada normalize et.
+const API_BASE = normalizedRaw.replace(/\/$/, '').replace(/\/api$/, '');
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -20,7 +22,10 @@ export function setUnauthorizedHandler(handler) {
  * 401 alındığında kayıtlı onUnauthorized (örn. logout) çağrılır.
  */
 export async function apiRequest(path, options = {}) {
-  const url = path.startsWith('http') ? path : `${API_BASE}${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  let url = path.startsWith('http') ? path : `${API_BASE}${normalizedPath}`;
+  // Eski/yanlış env veya path birleşimlerinde oluşan "/api/api" çakışmasını otomatik düzelt.
+  url = url.replace(/\/api\/api(?=\/|$)/g, '/api');
   const token = getToken();
   const headers = {
     'Content-Type': 'application/json',

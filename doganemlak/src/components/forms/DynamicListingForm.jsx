@@ -127,6 +127,11 @@ export default function DynamicListingForm({
   }, [layout]);
 
   const handleValidSubmit = (data) => {
+    if (!Array.isArray(data?.media?.images) || data.media.images.length === 0) {
+      methods.setError("media", { type: "manual", message: "Fotoğraf yükleyin" });
+      return;
+    }
+
     const {
       location,
       media,
@@ -304,15 +309,28 @@ export default function DynamicListingForm({
         <Controller
           name="media"
           render={({ field: { value, onChange } }) => (
-            <MediaUploadSection media={value} onChange={onChange} />
+            <MediaUploadSection
+              media={value}
+              onChange={(nextValue) => {
+                onChange(nextValue);
+                if (Array.isArray(nextValue?.images) && nextValue.images.length > 0) {
+                  methods.clearErrors("media");
+                }
+              }}
+            />
           )}
         />
+        {methods.formState.errors.media?.message && (
+          <p className="text-sm text-danger font-medium">
+            {methods.formState.errors.media.message}
+          </p>
+        )}
 
         <div className="flex gap-2 pt-2">
           <button
             type="submit"
             disabled={saving}
-            className="px-4 py-2 rounded-lg bg-primary text-white font-medium disabled:opacity-60"
+            className="px-4 py-2 rounded-lg bg-danger text-white font-medium hover:bg-danger/90 disabled:opacity-60 transition-colors"
           >
             {saving ? "Kaydediliyor..." : "Kaydet"}
           </button>

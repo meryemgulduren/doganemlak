@@ -16,6 +16,20 @@ export async function uploadImage(file) {
   return data.url;
 }
 
+/** Admin profil fotoğrafı yükler (watermark uygulanmaz). */
+export async function uploadProfileImage(file) {
+  const formData = new FormData();
+  formData.append('image', file);
+  const res = await fetch(`${API_BASE}/api/admin/upload/profile-image`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${getToken()}` },
+    body: formData,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || 'Yükleme başarısız.');
+  return data.url;
+}
+
 /**
  * PC'den seçilen video dosyasını sunucuya yükler.
  */
@@ -102,6 +116,13 @@ export async function fetchAdminAdmins() {
 export async function createAdminUser(body) {
   return apiRequest('/api/admin/admins', {
     method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export async function updateAdminUser(id, body) {
+  return apiRequest(`/api/admin/admins/${id}`, {
+    method: 'PUT',
     body: JSON.stringify(body),
   });
 }

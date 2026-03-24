@@ -66,6 +66,7 @@ export default function SorunOneriPage() {
       <h1 className="text-[2rem] font-bold text-text-dark mb-2">Talep / Şikayet Formu</h1>
       <p className="text-text-dark/70 text-[15px] leading-relaxed mb-6">
         Karşılaştığınız sorunları veya taleplerinizi aşağıdaki formu kullanarak bize iletebilirsiniz.
+        Önerileriniz bizim için çok kıymetli; her geri bildiriminizi dikkatle değerlendiriyoruz.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">

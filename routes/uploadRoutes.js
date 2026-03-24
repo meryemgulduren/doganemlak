@@ -94,6 +94,48 @@ router.post('/image', (req, res, next) => {
   res.json({ success: true, url });
 });
 
+// Admin profil fotoğrafı için: watermark UYGULANMAZ
+router.post('/profile-image', (req, res, next) => {
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message || 'Yükleme hatası.' });
+    }
+    next();
+  });
+}, async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: false, message: 'Dosya seçilmedi.' });
+  }
+
+  try {
+    const originalPath = req.file.path;
+    const webpFilename = req.file.filename.replace(/\.[^/.]+$/, "") + ".webp";
+    const webpPath = path.join(req.file.destination, webpFilename);
+
+    if (originalPath !== webpPath) {
+      await sharp(originalPath)
+        .webp({ quality: 85, effort: 4 })
+        .toFile(webpPath);
+      fs.unlinkSync(originalPath);
+      req.file.filename = webpFilename;
+      req.file.path = webpPath;
+    } else {
+      const tmpPath = originalPath + '.tmp.webp';
+      await sharp(originalPath)
+        .webp({ quality: 85, effort: 4 })
+        .toFile(tmpPath);
+      fs.unlinkSync(originalPath);
+      fs.renameSync(tmpPath, originalPath);
+    }
+  } catch (err) {
+    console.error('[webp_convert profile] Hata:', err.message || err);
+  }
+
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const url = `${baseUrl}/uploads/${req.file.filename}`;
+  res.json({ success: true, url });
+});
+
 router.post('/video', (req, res, next) => {
   uploadVideo.single('video')(req, res, (err) => {
     if (err) {

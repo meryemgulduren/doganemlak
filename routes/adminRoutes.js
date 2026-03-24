@@ -8,6 +8,7 @@ const {
   deleteListing,
   createAdmin,
   listAdmins,
+  updateAdmin,
   deleteAdmin,
 } = require('../controllers/adminController');
 const { authenticate } = require('../middleware/auth');
@@ -32,6 +33,7 @@ router.delete('/listings/:id', deleteListing);
 // Admin kullanıcı yönetimi
 router.get('/admins',       listAdmins);
 router.post('/admins',      createAdmin);
+router.put('/admins/:id',   updateAdmin);
 router.delete('/admins/:id', deleteAdmin);
 
 // Talep/Şikayet yönetimi

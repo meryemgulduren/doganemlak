@@ -28,8 +28,8 @@ export default function MediaUploadSection({ media, onChange }) {
     const files = Array.from(e.target.files);
     if (!files.length) return;
     
-    if (images.length + files.length > 20) {
-      setError("En fazla 20 adet fotoğraf yükleyebilirsiniz.");
+    if (images.length + files.length > 50) {
+      setError("En fazla 50 adet fotoğraf yükleyebilirsiniz.");
       return;
     }
 
@@ -104,9 +104,9 @@ export default function MediaUploadSection({ media, onChange }) {
         {/* Fotoğraflar */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-semibold text-text-dark">Fotoğraflar ({images.length}/20)</h4>
+            <h4 className="text-sm font-semibold text-text-dark">Fotoğraflar ({images.length}/50)</h4>
             <label className={`text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${
-              images.length >= 20 || imageUploading
+              images.length >= 50 || imageUploading
                 ? 'bg-accent/40 text-muted cursor-not-allowed'
                 : 'bg-accent text-primary hover:bg-primary hover:text-white'
             }`}>
@@ -116,7 +116,7 @@ export default function MediaUploadSection({ media, onChange }) {
                 accept="image/*" 
                 className="hidden" 
                 onChange={handleImageFileSelect}
-                disabled={images.length >= 20 || imageUploading}
+                disabled={images.length >= 50 || imageUploading}
               />
               {imageUploading ? "Yükleniyor..." : "Fotoğraf Seç"}
             </label>

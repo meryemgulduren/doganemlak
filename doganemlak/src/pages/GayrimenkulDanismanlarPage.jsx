@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { fetchPublicConsultants } from "../api/consultants";
 
 function consultantDisplayName(c) {
@@ -79,17 +79,17 @@ export default function GayrimenkulDanismanlarPage() {
                     {c.phone && (
                       <a
                         href={`tel:${c.phone}`}
-                        className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                        className="text-sm font-medium text-zinc-700 hover:text-zinc-900 inline-flex items-center gap-1.5 transition-colors"
                       >
-                        <span aria-hidden>📞</span> {c.phone}
+                        <Phone className="w-4 h-4 flex-shrink-0 text-zinc-500" /> {c.phone}
                       </a>
                     )}
                     {c.email && (
                       <a
                         href={`mailto:${c.email}`}
-                        className="text-sm font-medium text-text-dark/80 hover:text-primary inline-flex items-center gap-1.5 truncate"
+                        className="text-sm font-medium text-zinc-600 hover:text-zinc-900 inline-flex items-center gap-1.5 truncate transition-colors"
                       >
-                        <Mail className="w-4 h-4 flex-shrink-0" />
+                        <Mail className="w-4 h-4 flex-shrink-0 text-zinc-500" />
                         {c.email}
                       </a>
                     )}

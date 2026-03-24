@@ -1,5 +1,15 @@
 import { useFormContext, Controller } from "react-hook-form";
 
+function sanitizePriceInput(value) {
+  return String(value ?? "").replace(/\D/g, "");
+}
+
+function formatPriceForDisplay(value) {
+  const digits = sanitizePriceInput(value);
+  if (!digits) return "";
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 export default function FormField({ field }) {
   const { register, control, formState: { errors } } = useFormContext();
   const error = errors[field.id]?.message;
@@ -76,6 +86,29 @@ export default function FormField({ field }) {
             </div>
           );
         }}
+      />
+    );
+  } else if (field.id === "price") {
+    input = (
+      <Controller
+        name={field.id}
+        control={control}
+        render={({ field: priceField }) => (
+          <input
+            {...commonProps}
+            type="text"
+            inputMode="numeric"
+            placeholder={field.placeholder}
+            value={formatPriceForDisplay(priceField.value)}
+            onChange={(e) => {
+              const digitsOnly = sanitizePriceInput(e.target.value);
+              priceField.onChange(digitsOnly);
+            }}
+            onBlur={priceField.onBlur}
+            name={priceField.name}
+            ref={priceField.ref}
+          />
+        )}
       />
     );
   } else {
