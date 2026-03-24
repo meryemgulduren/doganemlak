@@ -24,6 +24,7 @@ export default function Card({ listing }) {
                  : listing.m2_net  != null ? `${listing.m2_net} m²`  : null;
   const image    = listing.media?.images?.[0] ||
     "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop";
+  const listingImageAlt = `${title || "Emlak İlanı"} - Doğan Emlak Samsun`;
 
   return (
     <Link
@@ -34,7 +35,7 @@ export default function Card({ listing }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-accent/80">
         <img
           src={image}
-          alt={title}
+          alt={listingImageAlt}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {/* Satılık / Kiralık etiketi */}

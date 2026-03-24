@@ -96,6 +96,8 @@ async function getAnalyticsSummary(req, res) {
           updatedAt: { $gte: THIRTY_DAYS_AGO() },
         }),
 
+        // Her ADMIN için: USER kayıtlarında favorite_consultants içinde bu danışmanın kaç kez geçtiğini say.
+        // Not: $expr + $in bazı ObjectId / dizi kombinasyonlarında 0 dönebiliyor; unwind + $eq daha güvenilir.
         User.aggregate([
           { $match: { role: 'ADMIN' } },
           {
@@ -104,9 +106,15 @@ async function getAnalyticsSummary(req, res) {
               let: { consultantId: '$_id' },
               pipeline: [
                 { $match: { role: 'USER' } },
+                { $unwind: { path: '$favorite_consultants', preserveNullAndEmptyArrays: false } },
                 {
                   $match: {
-                    $expr: { $in: ['$$consultantId', { $ifNull: ['$favorite_consultants', []] }] },
+                    $expr: {
+                      $eq: [
+                        { $toString: '$favorite_consultants' },
+                        { $toString: '$$consultantId' },
+                      ],
+                    },
                   },
                 },
                 { $count: 'count' },

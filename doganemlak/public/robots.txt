@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Admin ve kullanıcıya özel alanlar
+Disallow: /admin
+Disallow: /profile
+Disallow: /favorilerim
+Disallow: /favori-danismanlar
+
+Sitemap: https://www.doganemlak.com/sitemap.xml

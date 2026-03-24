@@ -183,8 +183,42 @@ function buildListingSeoDescription(listing) {
   return `${base} ${shortDescription}`.slice(0, 160);
 }
 
+function resolveAbsoluteMediaUrl(url) {
+  if (!url || typeof url !== "string") return undefined;
+  if (/^https?:\/\//i.test(url)) return url;
+  const api = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  const origin = api.replace(/\/api\/?$/, "");
+  const path = url.startsWith("/") ? url : `/${url}`;
+  return `${origin}${path}`;
+}
+
+function buildBreadcrumbListSchema({ siteUrl, listingId, listing }) {
+  const pathItems = [
+    { name: "Ana Sayfa", path: "/" },
+    { name: "İlanlar", path: "/ilanlar" },
+  ];
+  const city = (listing?.location?.city || "").trim().toLowerCase();
+  if (city === "samsun" && listing?.listing_type) {
+    const offerSlug = listing.listing_type === "KIRALIK" ? "kiralik" : "satilik";
+    const label =
+      listing.listing_type === "KIRALIK" ? "Samsun Kiralık İlanlar" : "Samsun Satılık İlanlar";
+    pathItems.push({ name: label, path: `/${offerSlug}` });
+  }
+  pathItems.push({ name: listing?.title || "İlan", path: `/ilan/${listingId}` });
+
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: pathItems.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path}`,
+    })),
+  };
+}
+
 function buildRealEstateListingSchema(listing, canonicalUrl) {
-  const imageUrl = listing?.media?.images?.[0] || undefined;
+  const imageUrl = resolveAbsoluteMediaUrl(listing?.media?.images?.[0]);
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
@@ -505,7 +539,16 @@ export default function AdDetail() {
   const canonicalUrl = `${siteUrl}/ilan/${id}`;
   const seoTitle = buildListingSeoTitle(listing);
   const seoDescription = buildListingSeoDescription(listing);
-  const seoJsonLd = buildRealEstateListingSchema(listing, canonicalUrl);
+  const listingLdFull = buildRealEstateListingSchema(listing, canonicalUrl);
+  const listingLdBody = { ...listingLdFull };
+  delete listingLdBody["@context"];
+  const breadcrumbLd = buildBreadcrumbListSchema({ siteUrl, listingId: id, listing });
+  const seoJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [listingLdBody, breadcrumbLd],
+  };
+  const ogImage = resolveAbsoluteMediaUrl(listing?.media?.images?.[0]);
+  const listingImageAlt = `${listing?.title || "Emlak İlanı"} - Doğan Emlak Samsun`;
 
   return (
     <>
@@ -514,15 +557,55 @@ export default function AdDetail() {
         description={seoDescription}
         canonical={canonicalUrl}
         jsonLd={seoJsonLd}
+        ogImage={ogImage}
       />
       <div className="min-h-screen bg-[#faf8f3] pt-6 pb-10 font-sans">
         <div className="max-w-[1280px] mx-auto px-3 sm:px-4 lg:px-6 relative">
+        <nav aria-label="Sayfa konumu" className="mb-3 text-xs sm:text-sm text-text-dark/65">
+          <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+            <li>
+              <Link to="/" className="text-primary hover:underline">
+                Ana Sayfa
+              </Link>
+            </li>
+            <li aria-hidden className="text-text-dark/40">
+              /
+            </li>
+            <li>
+              <Link to="/ilanlar" className="text-primary hover:underline">
+                İlanlar
+              </Link>
+            </li>
+            {(listing?.location?.city || "").trim().toLowerCase() === "samsun" &&
+              listing?.listing_type && (
+                <>
+                  <li aria-hidden className="text-text-dark/40">
+                    /
+                  </li>
+                  <li>
+                    <Link
+                      to={listing.listing_type === "KIRALIK" ? "/kiralik" : "/satilik"}
+                      className="text-primary hover:underline"
+                    >
+                      {listing.listing_type === "KIRALIK" ? "Samsun kiralık" : "Samsun satılık"}
+                    </Link>
+                  </li>
+                </>
+              )}
+            <li aria-hidden className="text-text-dark/40">
+              /
+            </li>
+            <li className="text-text-dark font-medium truncate max-w-[12rem] sm:max-w-md">
+              {listing.title}
+            </li>
+          </ol>
+        </nav>
         <header className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <img
               src={logoImg}
               alt="Doğan Emlak Group"
-              className="h-20 sm:h-24 w-auto object-contain shrink-0 -ml-16 sm:-ml-28 md:-ml-32 lg:-ml-36"
+              className="h-14 sm:h-24 w-auto object-contain shrink-0 ml-0 sm:-ml-28 md:-ml-32 lg:-ml-36"
             />
             <div className="min-w-0">
               <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug">
@@ -564,7 +647,7 @@ export default function AdDetail() {
               ) : (
                 <img
                   src={currentMedia.url}
-                  alt={listing.title}
+                  alt={listingImageAlt}
                   className="w-full max-h-[380px] object-cover"
                 />
               )}
@@ -1206,7 +1289,7 @@ export default function AdDetail() {
               ) : (
                 <img
                   src={mediaList[lightboxIndex].url}
-                  alt={`${listing.title} Fotoğraf ${lightboxIndex + 1}`}
+                  alt={listingImageAlt}
                   className="max-w-full max-h-full object-contain select-none rounded-lg shadow-2xl"
                 />
               )}

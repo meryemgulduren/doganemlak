@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
+import SeoListingLandingPage from "./pages/SeoListingLandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import IlanVerPage from "./pages/IlanVerPage";
@@ -34,6 +35,10 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="ilanlar" element={<HomePage />} />
+            <Route path="emlak/samsun/kiralik" element={<Navigate to="/kiralik" replace />} />
+            <Route path="emlak/samsun/satilik" element={<Navigate to="/satilik" replace />} />
+            <Route path="kiralik" element={<SeoListingLandingPage />} />
+            <Route path="satilik" element={<SeoListingLandingPage />} />
             <Route path="gayrimenkul-danismanlar" element={<GayrimenkulDanismanlarPage />} />
             <Route path="sorun-oneri" element={<SorunOneriPage />} />
             <Route

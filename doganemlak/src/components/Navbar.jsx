@@ -102,11 +102,11 @@ export default function Navbar() {
   return (
     <>
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-sm border-b border-bordeaux/12 pt-1 pb-2 shadow-sm">
-      <nav className="max-w-[1600px] mx-auto px-3 sm:px-5 lg:px-8 min-h-16 grid grid-cols-[13rem_minmax(0,1fr)_auto] sm:grid-cols-[14rem_minmax(0,1fr)_auto] items-center gap-x-3 sm:gap-x-4 gap-y-2">
+      <nav className="max-w-[1600px] mx-auto px-3 sm:px-5 lg:px-8 min-h-16 grid grid-cols-[1fr_auto] items-center gap-x-2 gap-y-2 sm:grid-cols-[14rem_minmax(0,1fr)_auto] sm:gap-x-4 sm:gap-y-2">
         {/* Logo — sabit genişlik sütunda büyütülür; arama ve sağ blokların düzeni değişmez */}
         <Link
           to="/"
-          className="flex h-16 sm:h-[4.75rem] items-center justify-center justify-self-start -ml-4 sm:-ml-6 lg:-ml-8 w-full max-w-[13rem] sm:max-w-[14rem]"
+          className="order-1 sm:order-none flex h-14 sm:h-[4.75rem] items-center justify-start sm:justify-self-start -ml-1 sm:-ml-6 lg:-ml-8 w-full max-w-[12rem] sm:max-w-[14rem]"
         >
           <img
             src={logoImg}
@@ -115,8 +115,81 @@ export default function Navbar() {
           />
         </Link>
 
+        {/* Mobil: giriş/kayıt logo ile aynı satır */}
+        <div className="order-2 sm:hidden justify-self-end">
+          {isLoggedIn && user ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setMenuOpen((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-accent text-text-dark font-medium hover:bg-bordeaux hover:text-white transition-colors"
+                aria-expanded={menuOpen}
+              >
+                <User className="w-5 h-5" />
+              </button>
+
+              {menuOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" aria-hidden onClick={() => setMenuOpen(false)} />
+                  <div className="absolute right-0 top-full mt-2 py-1.5 w-52 bg-surface border border-border rounded-xl shadow-card-hover z-50">
+                    <div className="px-3 py-2 border-b border-border text-xs text-muted truncate mb-1">
+                      {user.email}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setAccountModalOpen(true);
+                      }}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1 text-left"
+                    >
+                      <UserCircle className="w-4 h-4 flex-shrink-0" />
+                      Hesap Bilgilerim
+                    </button>
+                    {user.role === "ADMIN" && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1"
+                      >
+                        <Settings className="w-4 h-4" />
+                        Admin Panel
+                      </Link>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => { setMenuOpen(false); logout(); }}
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-danger/10 transition-colors rounded-lg mx-1"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Çıkış Yap
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-border text-text-dark text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+              >
+                <LogIn className="w-4 h-4" />
+                Giriş
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-bordeaux text-white text-sm font-semibold shadow-sm hover:bg-bordeaux/90 transition-colors"
+              >
+                <UserPlus className="w-4 h-4" />
+                Kayıt Ol
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Arama kutusu */}
-        <div className="min-w-0 w-full max-w-2xl justify-self-start pl-0 pr-2 sm:pr-4" ref={searchContainerRef}>
+        <div className="order-3 col-span-2 sm:col-span-1 sm:order-none min-w-0 w-full max-w-2xl justify-self-start pl-0 pr-2 sm:pr-4" ref={searchContainerRef}>
           <form
             onSubmit={handleFormSubmit}
             className="relative flex items-center rounded-xl border border-border bg-cream/70 pl-10 pr-4 py-2.5 min-h-[2.75rem] focus-within:ring-2 focus-within:ring-bordeaux/20 focus-within:border-bordeaux/45 focus-within:bg-surface transition-all cursor-text"
@@ -160,8 +233,8 @@ export default function Navbar() {
         </div>
 
         {/* Yan menüden taşınan bağlantılar + sağ butonlar */}
-        <div className="flex items-center justify-end gap-1 sm:gap-2 flex-shrink-0 min-w-0 justify-self-end">
-          <div className="flex items-center gap-0.5 sm:gap-1 lg:gap-1.5 min-w-0 max-w-[46vw] sm:max-w-none shrink overflow-x-auto sm:overflow-visible border-r border-border/60 pr-1.5 sm:pr-2 lg:pr-3 mr-0.5 sm:mr-1">
+        <div className="order-4 col-span-2 sm:col-span-1 sm:order-none flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2 flex-shrink-0 min-w-0 w-full sm:w-auto sm:justify-self-end">
+          <div className="order-2 sm:order-1 grid grid-cols-2 gap-1 sm:flex sm:items-center sm:gap-1 lg:gap-1.5 min-w-0 w-full sm:w-auto sm:flex-none overflow-visible sm:overflow-visible border-0 sm:border-r sm:border-border/60 pr-0 sm:pr-2 lg:pr-3 mr-0 sm:mr-1">
             <Link to="/gayrimenkul-danismanlar" className={navExtraLinkClass}>
               <span className="block">Gayrimenkul</span>
               <span className="block">Danışmanlarımız</span>
@@ -181,7 +254,7 @@ export default function Navbar() {
           </div>
 
           {isLoggedIn && user ? (
-            <div className="relative">
+            <div className="order-1 sm:order-2 relative self-end sm:self-auto hidden sm:block">
               <button
                 type="button"
                 onClick={() => setMenuOpen((prev) => !prev)}
@@ -233,7 +306,7 @@ export default function Navbar() {
               )}
             </div>
           ) : (
-            <>
+            <div className="order-1 sm:order-2 flex items-center justify-end gap-2 hidden sm:flex">
               <Link
                 to="/login"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border text-text-dark text-sm font-medium hover:border-primary hover:text-primary transition-colors"
@@ -248,7 +321,7 @@ export default function Navbar() {
                 <UserPlus className="w-4 h-4" />
                 Kayıt Ol
               </Link>
-            </>
+            </div>
           )}
         </div>
       </nav>

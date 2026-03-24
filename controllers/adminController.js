@@ -10,6 +10,7 @@
 const Listing = require('../models/Listing');
 const User = require('../models/User');
 const { mapCategoryToPropertyType } = require('../utils/listingUtils');
+const { refreshPublicSitemap } = require('../utils/sitemapUpdater');
 
 // ── Yardımcı ─────────────────────────────────────────────────────────────────
 
@@ -163,6 +164,13 @@ async function createListing(req, res) {
       .populate('features', 'key label category')
       .select('-__v')
       .lean();
+
+    // İlan eklendiğinde sitemap'i güncel tut: hata olsa da ilan kaydını bozma.
+    try {
+      await refreshPublicSitemap();
+    } catch (sitemapErr) {
+      console.error('Sitemap update error after listing create:', sitemapErr);
+    }
 
     res.status(201).json({ success: true, data: populated });
   } catch (err) {

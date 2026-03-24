@@ -1,52 +1,52 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { Filter } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
 import Seo from "../components/Seo";
+import { resolveSeoLanding } from "../constants/seoLandings";
 
-function buildHomeOrganizationJsonLd(siteUrl) {
-  const phone = import.meta.env.VITE_ORG_PHONE || undefined;
+function buildCollectionPageJsonLd({ title, description, canonicalUrl, siteUrl }) {
   return {
     "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    name: "Doğan Emlak",
-    url: siteUrl,
-    ...(phone ? { telephone: phone } : {}),
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Samsun",
-      addressCountry: "TR",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: canonicalUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Doğan Emlak",
+      url: siteUrl,
     },
-    areaServed: { "@type": "City", name: "Samsun" },
   };
 }
 
-export default function HomePage() {
-  const location = useLocation();
+export default function SeoListingLandingPage() {
+  const { pathname } = useLocation();
+  const segment = pathname.replace(/^\/+|\/+$/g, "").split("/")[0] || "";
+  // resolveSeoLanding her çağrıda yeni obje döndürür; [config] ile useEffect sonsuz döner — segment ile stabilize et
+  const config = useMemo(() => resolveSeoLanding(segment), [segment]);
+
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const filterRef = useRef(null);
-  const [searchParams] = useSearchParams();
-  const categoryParam = searchParams.get("category");
-  const listingTypeParam = searchParams.get("listing_type");
-  const subTypeParam = searchParams.get("sub_type");
-  const searchParamStr = searchParams.get("search");
+
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://www.doganemlak.com").replace(/\/$/, "");
+  const canonicalUrl = config ? `${siteUrl}/${config.offerSlug}` : siteUrl;
 
   useEffect(() => {
+    if (!config) return;
     let cancelled = false;
     setLoading(true);
     setError(null);
     fetchListings({
       page: 1,
       limit: 24,
-      category: categoryParam || undefined,
-      listing_type: listingTypeParam || undefined,
-      sub_type: subTypeParam || undefined,
-      search: searchParamStr || undefined,
+      city: config.apiCitySearch,
+      listing_type: config.listing_type,
     })
       .then((res) => {
         if (!cancelled && res.success) {
@@ -62,7 +62,7 @@ export default function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, [categoryParam, listingTypeParam, subTypeParam, searchParamStr]);
+  }, [config?.offerSlug, config?.listing_type, config?.apiCitySearch]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -99,29 +99,37 @@ export default function HomePage() {
     { id: "date_asc", label: "Tarihe göre (Önce en eski ilan)" },
   ];
 
-  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://www.doganemlak.com").replace(/\/$/, "");
-  const canonicalUrl = `${siteUrl}${location.pathname === "/" ? "/" : location.pathname}`;
-  const isIlanlarOnly = location.pathname.startsWith("/ilanlar");
-  const homeTitle = isIlanlarOnly
-    ? "Tüm İlanlar | Doğan Emlak Samsun"
-    : "Doğan Emlak Samsun | Kiralık ve Satılık Emlak İlanları";
-  const homeDescription = isIlanlarOnly
-    ? "Samsun ve çevresindeki güncel kiralık ve satılık emlak ilanları. Daire, arsa ve iş yeri seçeneklerini Doğan Emlak’ta inceleyin."
-    : "Samsun’da kiralık ve satılık daire, arsa, iş yeri ilanları. Doğan Emlak ile güvenli emlak arayışınızı kolaylaştırın.";
+  if (!config) {
+    return <Navigate to="/ilanlar" replace />;
+  }
+
+  const jsonLd = buildCollectionPageJsonLd({
+    title: config.title,
+    description: config.description,
+    canonicalUrl,
+    siteUrl,
+  });
 
   return (
     <div className="w-full px-3 sm:px-4 lg:px-6 xl:px-8 py-10 font-sans bg-background">
       <Seo
-        title={homeTitle}
-        description={homeDescription}
+        title={config.title}
+        description={config.description}
         canonical={canonicalUrl}
-        jsonLd={buildHomeOrganizationJsonLd(siteUrl)}
+        jsonLd={jsonLd}
       />
       <div className="max-w-[1600px] mx-auto w-full">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b-2 border-bordeaux/30">
-          <h2 className="text-2xl font-extrabold text-bordeaux font-sans">
-            Öne Çıkan İlanlar
-          </h2>
+        <header className="mb-6 pb-4 border-b-2 border-bordeaux/30">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-bordeaux font-sans mb-3">
+            {config.h1}
+          </h1>
+          <p className="text-text-dark/80 text-sm sm:text-base max-w-3xl leading-relaxed">
+            {config.intro}
+          </p>
+        </header>
+
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b border-border">
+          <h2 className="text-lg font-bold text-text-dark font-sans">İlan listesi</h2>
           <div className="relative" ref={filterRef}>
             <button
               type="button"
@@ -129,7 +137,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-bordeaux/25 text-text-dark font-medium hover:bg-bordeaux hover:text-white hover:border-bordeaux focus:outline-none transition-colors text-sm"
             >
               <Filter className="w-5 h-5" />
-              Filtre Seç
+              Sırala
             </button>
             {filterOpen && (
               <div className="absolute right-0 top-full mt-2 min-w-[280px] bg-white border border-border rounded-lg shadow-card z-40 overflow-hidden">
@@ -141,7 +149,7 @@ export default function HomePage() {
                   }}
                   className="w-full text-left px-4 py-2.5 text-sm text-text-dark/80 hover:bg-accent/20 border-b border-border"
                 >
-                  Filtreyi Sıfırla
+                  Sıralamayı Sıfırla
                 </button>
                 {sortOptions.map((opt) => (
                   <button
@@ -174,7 +182,7 @@ export default function HomePage() {
         {loading ? (
           <p className="text-text-dark/70 font-sans">İlanlar yükleniyor...</p>
         ) : sortedListings.length === 0 ? (
-          <p className="text-text-dark/70 font-sans">Henüz ilan bulunmuyor.</p>
+          <p className="text-text-dark/70 font-sans">Bu kriterlere uygun ilan bulunmuyor.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
             {sortedListings.map((listing) => (

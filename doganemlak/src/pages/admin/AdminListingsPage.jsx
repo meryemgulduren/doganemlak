@@ -128,8 +128,8 @@ export default function AdminListingsPage() {
         </select>
       </div>
 
-      <div className="bg-white border border-accent/40 rounded-xl overflow-hidden">
-        <table className="w-full text-sm text-left">
+      <div className="bg-white border border-accent/40 rounded-xl overflow-x-auto">
+        <table className="min-w-[680px] w-full text-sm text-left sm:min-w-0">
           <thead className="bg-accent/20 text-text-dark font-medium">
             <tr>
               <th className="px-4 py-3">İlan No</th>
