@@ -186,7 +186,7 @@ function buildListingSeoDescription(listing) {
 function resolveAbsoluteMediaUrl(url) {
   if (!url || typeof url !== "string") return undefined;
   if (/^https?:\/\//i.test(url)) return url;
-  const api = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  const api = import.meta.env.VITE_API_URL;
   const origin = api.replace(/\/api\/?$/, "");
   const path = url.startsWith("/") ? url : `/${url}`;
   return `${origin}${path}`;

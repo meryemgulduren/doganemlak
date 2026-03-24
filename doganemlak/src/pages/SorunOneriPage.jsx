@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getToken } from "../api/client";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = import.meta.env.VITE_API_URL;
 
 export default function SorunOneriPage() {
   const [type, setType] = useState("TALEP");

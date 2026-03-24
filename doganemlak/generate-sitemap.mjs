@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 
 const SITE_URL = (process.env.SITE_URL || "https://www.doganemlak.com").replace(/\/$/, "");
-const API_URL = process.env.API_URL || "http://localhost:5000/api/listings?limit=500";
+const API_URL = process.env.API_URL;
 
 function escapeXml(value = "") {
   return String(value)

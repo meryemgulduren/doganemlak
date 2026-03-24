@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 require('dotenv').config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://admin:sifre123@localhost:27017/doganemlak?authSource=admin';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 async function seedAdmin() {
   try {

@@ -17,7 +17,7 @@ const DEFAULT_ADMIN_PASSWORD = 'Admin123!';
 async function run() {
   const arg = process.argv[2]; // username veya email
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/doganemlak');
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('MongoDB bağlandı.');
 
     let user;

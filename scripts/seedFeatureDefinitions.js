@@ -60,7 +60,7 @@ const SEED_DATA = [
 
 async function run() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/doganemlak');
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('MongoDB bağlandı.');
 
     for (const item of SEED_DATA) {

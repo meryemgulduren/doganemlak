@@ -153,7 +153,7 @@ async function forgotPassword(req, res) {
     user.reset_token_expires = new Date(Date.now() + 60 * 60 * 1000); // 1 saat
     await user.save();
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = process.env.FRONTEND_URL;
     const resetUrl = `${frontendUrl}/sifre-sifirla?token=${rawToken}`;
 
     await sendResetEmail(user.email, resetUrl);

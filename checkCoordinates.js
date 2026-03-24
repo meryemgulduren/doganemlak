@@ -4,7 +4,7 @@ const Listing = require('./models/Listing');
 
 async function checkListingCoordinates() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/doganemlak');
+    await mongoose.connect(process.env.MONGODB_URI);
     const listing = await Listing.findOne().sort({ createdAt: -1 });
     if (listing) {
       console.log('Latest Listing ID:', listing._id);

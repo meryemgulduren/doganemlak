@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 async function updateAdminPassword() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/doganemlak');
+    await mongoose.connect(process.env.MONGODB_URI);
     const user = await User.findOne({ username: 'admin' });
     if (user) {
       user.password_hash = await bcrypt.hash('admin', 12);

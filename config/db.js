@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/doganemlak', {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
       // Mongoose 6+ default: no need for useNewUrlParser, useUnifiedTopology
     });
     console.log(`MongoDB bağlandı: ${conn.connection.host}`);

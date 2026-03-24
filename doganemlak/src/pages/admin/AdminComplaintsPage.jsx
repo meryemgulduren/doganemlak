@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../../api/client";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = import.meta.env.VITE_API_URL;
 
 const STATUS_LABELS = {
   BEKLEMEDE: { label: "Beklemede", cls: "bg-yellow-100 text-yellow-800" },

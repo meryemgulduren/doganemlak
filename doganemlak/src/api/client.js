@@ -1,4 +1,4 @@
-const raw = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const raw = import.meta.env.VITE_API_URL;
 const API_BASE = raw.startsWith('http') ? raw.replace(/\/$/, '') : `http://${raw.replace(/^\/+/, '')}`;
 
 export function getToken() {
