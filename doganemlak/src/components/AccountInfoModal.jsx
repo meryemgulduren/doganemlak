@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { apiRequest } from "../api/client";
 
 function formatRegisterDate(createdAt) {
   if (!createdAt) return "—";
@@ -19,6 +20,8 @@ function formatRegisterDate(createdAt) {
  * Giriş yapmış kullanıcı için kullanıcı adı, e-posta ve kayıt tarihi gösterir.
  */
 export default function AccountInfoModal({ open, onClose, user }) {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => {
@@ -42,10 +45,27 @@ export default function AccountInfoModal({ open, onClose, user }) {
   const email = user.email ?? "—";
   const registered = formatRegisterDate(user.createdAt);
 
+  const handlePasswordChangeRequest = async () => {
+    if (!user.email) return;
+    setLoading(true);
+    try {
+      const data = await apiRequest("/api/auth/forgot-password", {
+        method: "POST",
+        body: JSON.stringify({ email: user.email }),
+      });
+      alert(data.message || "E-posta adresinize şifre sıfırlama bağlantısı gönderildi.");
+      onClose();
+    } catch (err) {
+      alert(err.data?.message || err.message || "Bir hata oluştu.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const modal = (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50"
-      onClick={onClose}
+      onClick={!loading ? onClose : undefined}
       role="presentation"
     >
       <div
@@ -58,7 +78,8 @@ export default function AccountInfoModal({ open, onClose, user }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-lg text-text-dark/60 hover:bg-accent/20 hover:text-text-dark transition-colors"
+          disabled={loading}
+          className="absolute top-3 right-3 p-2 rounded-lg text-text-dark/60 hover:bg-accent/20 hover:text-text-dark transition-colors disabled:opacity-50"
           aria-label="Kapat"
         >
           <X className="w-5 h-5" />
@@ -88,8 +109,17 @@ export default function AccountInfoModal({ open, onClose, user }) {
         </dl>
         <button
           type="button"
+          onClick={handlePasswordChangeRequest}
+          disabled={loading}
+          className="mt-6 w-full py-2.5 rounded-xl border border-border text-text-dark text-sm font-medium hover:bg-bordeaux hover:text-white transition-colors hover:border-bordeaux disabled:opacity-50"
+        >
+          {loading ? "Gönderiliyor..." : "Şifremi Değiştir"}
+        </button>
+        <button
+          type="button"
           onClick={onClose}
-          className="mt-6 w-full py-2.5 rounded-xl bg-bordeaux text-white text-sm font-medium hover:bg-bordeaux/90 transition-colors"
+          disabled={loading}
+          className="mt-3 w-full py-2.5 rounded-xl bg-bordeaux text-white text-sm font-medium hover:bg-bordeaux/90 transition-colors disabled:opacity-50"
         >
           Tamam
         </button>
