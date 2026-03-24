@@ -24,11 +24,12 @@ const viewCountBuffer           = require('./utils/viewCountBuffer');
 })();
 
 
-fs.mkdirSync('uploads', { recursive: true });
+fs.mkdirSync('/uploads', { recursive: true });
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.set('trust proxy', 1);
 app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;

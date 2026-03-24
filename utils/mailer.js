@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
  */
 async function sendResetEmail(to, resetUrl) {
   const mailOptions = {
-    from: `"Doğan Emlak" <${process.env.SMTP_USER}>`,
+    from: `"Doğan Emlak" <noreply@doganemlakgroup.com>`,
     to,
     subject: 'Şifre Sıfırlama Talebi',
     html: `
