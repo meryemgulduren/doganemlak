@@ -5,11 +5,11 @@ function SuggestionRow({ label, onClick, hasNext }) {
     <button
       type="button"
       onClick={onClick}
-      className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left border-b border-text-dark/10 last:border-b-0 hover:bg-text-dark/5 transition-colors font-sans"
+      className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left border-b border-white/10 last:border-b-0 hover:bg-white/10 transition-colors font-sans"
       role="option"
     >
-      <span className="font-medium text-text-dark flex-1 truncate">{label}</span>
-      {hasNext && <ChevronRight className="w-5 h-5 text-text-dark/40 flex-shrink-0" />}
+      <span className="font-medium text-white/90 flex-1 truncate">{label}</span>
+      {hasNext && <ChevronRight className="w-5 h-5 text-white/40 flex-shrink-0" />}
     </button>
   );
 }
@@ -27,8 +27,8 @@ export default function SearchSuggestions({
   // Yükleniyorsa veya veri yoksa
   if (!categoriesData) {
     return (
-      <div className="absolute left-0 right-0 top-full mt-1 z-[100] rounded-b-xl overflow-hidden border border-t-0 border-text-dark/30 bg-white/95 backdrop-blur-sm shadow-lg font-sans">
-        <div className="px-4 py-3 text-sm text-muted">Kategoriler yükleniyor...</div>
+      <div className="absolute left-0 right-0 top-full mt-1 z-[100] rounded-b-xl overflow-hidden border border-t-0 border-white/30 bg-black/95 backdrop-blur-sm shadow-lg font-sans">
+        <div className="px-4 py-3 text-sm text-white/70">Kategoriler yükleniyor...</div>
       </div>
     );
   }
@@ -61,7 +61,7 @@ export default function SearchSuggestions({
 
   return (
     <div
-      className="absolute left-0 right-0 top-full mt-1 z-[100] rounded-b-xl overflow-hidden border border-t-0 border-text-dark/30 bg-white/95 backdrop-blur-sm shadow-lg font-sans"
+      className="absolute left-0 right-0 top-full mt-1 z-[100] rounded-b-xl overflow-hidden border border-t-0 border-white/30 bg-black/95 backdrop-blur-sm shadow-lg font-sans"
       role="listbox"
       aria-label="Arama kategorileri"
     >
@@ -83,7 +83,7 @@ export default function SearchSuggestions({
           />
         ))}
         {listToShow.length === 0 && (
-          <div className="px-4 py-3 text-sm text-muted">Alt kategori bulunamadı.</div>
+          <div className="px-4 py-3 text-sm text-white/70">Alt kategori bulunamadı.</div>
         )}
       </div>
     </div>

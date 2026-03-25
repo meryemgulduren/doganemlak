@@ -10,7 +10,7 @@ import { fetchCategories } from "../api/admin";
 const PLACEHOLDER = "Kelime veya İlan No ile Ara";
 
 const navExtraLinkClass =
-  "inline-flex flex-col items-center justify-center gap-0 px-1.5 sm:px-2 py-1 rounded-lg text-bordeaux font-semibold text-[10px] sm:text-xs lg:text-sm hover:bg-accent hover:text-bordeaux transition-colors leading-tight text-center";
+  "inline-flex flex-col items-center justify-center gap-0 px-1.5 sm:px-2 py-1 rounded-lg font-montserrat text-white font-semibold text-[10px] sm:text-xs lg:text-sm hover:bg-white/10 hover:text-white transition-colors leading-tight text-center tracking-tight";
 
 export default function Navbar() {
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -102,17 +102,17 @@ export default function Navbar() {
 
   return (
     <>
-    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-sm border-b border-bordeaux/12 pt-1 pb-2 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-white/10 pt-1 pb-2 shadow-sm">
       <nav className="max-w-[1600px] mx-auto px-3 sm:px-5 lg:px-8 min-h-16 grid grid-cols-[1fr_auto] items-center gap-x-2 gap-y-2 sm:grid-cols-[14rem_minmax(0,1fr)_auto] sm:gap-x-4 sm:gap-y-2">
         {/* Logo — sabit genişlik sütunda büyütülür; arama ve sağ blokların düzeni değişmez */}
         <Link
           to="/"
-          className="order-1 sm:order-none flex h-14 sm:h-[4.75rem] items-center justify-start sm:justify-self-start -ml-1 sm:-ml-6 lg:-ml-8 w-full max-w-[12rem] sm:max-w-[14rem]"
+          className="order-1 sm:order-none flex h-14 sm:h-[4.75rem] items-center justify-start sm:justify-self-start ml-1 sm:-ml-2 lg:-ml-4 w-full max-w-[13rem] sm:max-w-[15rem]"
         >
           <img
             src={logoImg}
             alt="Doğan Emlak"
-            className="max-h-[5.25rem] sm:max-h-[5.75rem] w-auto max-w-full object-contain object-left"
+            className="max-h-[5.5rem] sm:max-h-[6.1rem] w-auto max-w-full object-contain object-left"
           />
         </Link>
 
@@ -121,7 +121,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileLinksOpen(true)}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-border text-text-dark bg-surface hover:bg-accent/30 transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-white/15 text-white bg-black/20 hover:bg-white/10 transition-colors"
             aria-label="Hızlı bağlantı menüsü"
           >
             <Menu className="w-5 h-5" />
@@ -131,7 +131,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-accent text-text-dark font-medium hover:bg-bordeaux hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
                 aria-expanded={menuOpen}
               >
                 <User className="w-5 h-5" />
@@ -140,8 +140,8 @@ export default function Navbar() {
               {menuOpen && (
                 <>
                   <div className="fixed inset-0 z-40" aria-hidden onClick={() => setMenuOpen(false)} />
-                  <div className="absolute right-0 top-full mt-2 py-1.5 w-52 bg-surface border border-border rounded-xl shadow-card-hover z-50">
-                    <div className="px-3 py-2 border-b border-border text-xs text-muted truncate mb-1">
+                  <div className="absolute right-0 top-full mt-2 py-1.5 w-52 bg-black/95 border border-white/10 rounded-xl shadow-card-hover z-50">
+                    <div className="px-3 py-2 border-b border-white/10 text-xs text-white/70 truncate mb-1">
                       {user.email}
                     </div>
                     <button
@@ -150,7 +150,7 @@ export default function Navbar() {
                         setMenuOpen(false);
                         setAccountModalOpen(true);
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1 text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1 text-left"
                     >
                       <UserCircle className="w-4 h-4 flex-shrink-0" />
                       Hesap Bilgilerim
@@ -159,7 +159,7 @@ export default function Navbar() {
                       <Link
                         to="/admin"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1"
                       >
                         <Settings className="w-4 h-4" />
                         Admin Panel
@@ -168,7 +168,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={() => { setMenuOpen(false); logout(); }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-danger/10 transition-colors rounded-lg mx-1"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1"
                     >
                       <LogOut className="w-4 h-4" />
                       Çıkış Yap
@@ -181,14 +181,14 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 to="/login"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-border text-text-dark text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-white/15 text-white text-sm font-medium hover:border-white/30 hover:text-white transition-colors"
               >
                 <LogIn className="w-4 h-4" />
                 Giriş
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-bordeaux text-white text-sm font-semibold shadow-sm hover:bg-bordeaux/90 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-amber-200 text-text-dark text-sm font-semibold shadow-sm hover:bg-amber-300 transition-colors"
               >
                 <UserPlus className="w-4 h-4" />
                 Kayıt Ol
@@ -201,19 +201,19 @@ export default function Navbar() {
         <div className="order-3 col-span-2 sm:col-span-1 sm:order-none min-w-0 w-full max-w-2xl justify-self-start pl-0 pr-2 sm:pr-4" ref={searchContainerRef}>
           <form
             onSubmit={handleFormSubmit}
-            className="relative flex items-center rounded-xl border border-border bg-cream/70 pl-10 pr-4 py-2.5 min-h-[2.75rem] focus-within:ring-2 focus-within:ring-bordeaux/20 focus-within:border-bordeaux/45 focus-within:bg-surface transition-all cursor-text"
+            className="relative flex items-center rounded-xl border border-white/30 bg-white/12 pl-10 pr-4 py-2.5 min-h-[2.75rem] focus-within:ring-2 focus-within:ring-amber-200/30 focus-within:border-white/45 focus-within:bg-black/10 transition-all cursor-text"
             onClick={() => setSuggestionsOpen(true)}
           >
             <button type="submit" className="absolute left-3 top-1/2 -translate-y-1/2" aria-label="Ara">
-              <Search className="w-5 h-5 text-bordeaux/70 pointer-events-none" />
+              <Search className="w-5 h-5 text-white/70 pointer-events-none" />
             </button>
             {hasSelection ? (
               <>
-                <span className="flex-1 font-semibold text-text-dark truncate">{displayText}</span>
+                    <span className="flex-1 font-semibold text-white/90 truncate">{displayText}</span>
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setSelectedCategories([]); setSuggestionsOpen(true); }}
-                  className="flex-shrink-0 p-1 rounded-md text-muted hover:text-danger hover:bg-danger/10 transition-colors"
+                  className="flex-shrink-0 p-1 rounded-md text-white/70 hover:text-white hover:bg-white/10 transition-colors"
                   aria-label="Temizle"
                 >
                   <X className="w-5 h-5" />
@@ -226,7 +226,7 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setSuggestionsOpen(true)}
-                className="flex-1 min-w-0 bg-transparent text-text-dark placeholder:text-muted focus:outline-none border-none text-base"
+                className="flex-1 min-w-0 bg-transparent text-white placeholder:text-white/60 focus:outline-none border-none text-base"
                 aria-label="Arama"
               />
             )}
@@ -267,7 +267,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-accent text-text-dark font-medium hover:bg-bordeaux hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
                 aria-expanded={menuOpen}
               >
                 <User className="w-5 h-5" />
@@ -277,8 +277,8 @@ export default function Navbar() {
               {menuOpen && (
                 <>
                   <div className="fixed inset-0 z-40" aria-hidden onClick={() => setMenuOpen(false)} />
-                  <div className="absolute right-0 top-full mt-2 py-1.5 w-52 bg-surface border border-border rounded-xl shadow-card-hover z-50">
-                    <div className="px-3 py-2 border-b border-border text-xs text-muted truncate mb-1">
+                  <div className="absolute right-0 top-full mt-2 py-1.5 w-52 bg-black/95 border border-white/10 rounded-xl shadow-card-hover z-50">
+                    <div className="px-3 py-2 border-b border-white/10 text-xs text-white/70 truncate mb-1">
                       {user.email}
                     </div>
                     <button
@@ -287,7 +287,7 @@ export default function Navbar() {
                         setMenuOpen(false);
                         setAccountModalOpen(true);
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1 text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1 text-left"
                     >
                       <UserCircle className="w-4 h-4 flex-shrink-0" />
                       Hesap Bilgilerim
@@ -296,7 +296,7 @@ export default function Navbar() {
                       <Link
                         to="/admin"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-text-dark hover:bg-accent hover:text-bordeaux transition-colors rounded-lg mx-1"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1"
                       >
                         <Settings className="w-4 h-4" />
                         Admin Panel
@@ -305,7 +305,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       onClick={() => { setMenuOpen(false); logout(); }}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-danger/10 transition-colors rounded-lg mx-1"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white transition-colors rounded-lg mx-1"
                     >
                       <LogOut className="w-4 h-4" />
                       Çıkış Yap
@@ -318,14 +318,14 @@ export default function Navbar() {
             <div className="order-1 sm:order-2 flex items-center justify-end gap-2 hidden sm:flex">
               <Link
                 to="/login"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border text-text-dark text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/15 text-white text-sm font-medium hover:border-white/30 hover:text-white transition-colors"
               >
                 <LogIn className="w-4 h-4" />
                 Giriş
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-bordeaux text-white text-sm font-semibold shadow-sm hover:bg-bordeaux/90 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-200 text-text-dark text-sm font-semibold shadow-sm hover:bg-amber-300 transition-colors"
               >
                 <UserPlus className="w-4 h-4" />
                 Kayıt Ol
@@ -349,45 +349,45 @@ export default function Navbar() {
           aria-hidden
           onClick={() => setMobileLinksOpen(false)}
         />
-        <aside className="sm:hidden fixed right-0 top-0 z-[70] h-full w-[82%] max-w-[320px] bg-surface border-l border-border shadow-2xl p-4">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
-            <p className="text-sm font-semibold text-text-dark">Hızlı Bağlantılar</p>
+        <aside className="sm:hidden fixed right-0 top-0 z-[70] h-full w-[82%] max-w-[320px] bg-black/95 border-l border-white/10 shadow-2xl p-4">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+            <p className="text-sm font-semibold text-white/80">Hızlı Bağlantılar</p>
             <button
               type="button"
               onClick={() => setMobileLinksOpen(false)}
-              className="p-2 rounded-lg hover:bg-accent/40 text-text-dark"
+              className="p-2 rounded-lg hover:bg-white/10 text-white/70"
               aria-label="Menüyü kapat"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
           <nav className="flex flex-col gap-2">
-            <Link
-              to="/gayrimenkul-danismanlar"
-              onClick={() => setMobileLinksOpen(false)}
-              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
-            >
+              <Link
+                to="/gayrimenkul-danismanlar"
+                onClick={() => setMobileLinksOpen(false)}
+                className="px-3 py-2.5 rounded-lg border border-white/15 text-white font-montserrat font-semibold text-sm tracking-tight hover:bg-white/10 transition-colors"
+              >
               Gayrimenkul Danışmanlarımız
             </Link>
-            <Link
-              to="/favorilerim"
-              onClick={() => setMobileLinksOpen(false)}
-              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
-            >
+              <Link
+                to="/favorilerim"
+                onClick={() => setMobileLinksOpen(false)}
+                className="px-3 py-2.5 rounded-lg border border-white/15 text-white font-montserrat font-semibold text-sm tracking-tight hover:bg-white/10 transition-colors"
+              >
               Favori İlanlar
             </Link>
-            <Link
-              to="/favori-danismanlar"
-              onClick={() => setMobileLinksOpen(false)}
-              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
-            >
+              <Link
+                to="/favori-danismanlar"
+                onClick={() => setMobileLinksOpen(false)}
+                className="px-3 py-2.5 rounded-lg border border-white/15 text-white font-montserrat font-semibold text-sm tracking-tight hover:bg-white/10 transition-colors"
+              >
               Favori Danışmanlar
             </Link>
-            <Link
-              to="/sorun-oneri"
-              onClick={() => setMobileLinksOpen(false)}
-              className="px-3 py-2.5 rounded-lg border border-border text-text-dark font-medium hover:bg-accent/30 transition-colors"
-            >
+              <Link
+                to="/sorun-oneri"
+                onClick={() => setMobileLinksOpen(false)}
+                className="px-3 py-2.5 rounded-lg border border-white/15 text-white font-montserrat font-semibold text-sm tracking-tight hover:bg-white/10 transition-colors"
+              >
               Sorun / Öneri Bildirimi
             </Link>
           </nav>

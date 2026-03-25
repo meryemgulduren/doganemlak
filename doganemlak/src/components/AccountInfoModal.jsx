@@ -111,7 +111,7 @@ export default function AccountInfoModal({ open, onClose, user }) {
           type="button"
           onClick={handlePasswordChangeRequest}
           disabled={loading}
-          className="mt-6 w-full py-2.5 rounded-xl border border-border text-text-dark text-sm font-medium hover:bg-bordeaux hover:text-white transition-colors hover:border-bordeaux disabled:opacity-50"
+          className="mt-6 w-full py-2.5 rounded-xl border border-amber-300/80 bg-amber-100/80 text-text-dark text-sm font-medium hover:bg-amber-200/80 transition-colors hover:border-amber-300 disabled:opacity-50"
         >
           {loading ? "Gönderiliyor..." : "Şifremi Değiştir"}
         </button>
@@ -119,7 +119,7 @@ export default function AccountInfoModal({ open, onClose, user }) {
           type="button"
           onClick={onClose}
           disabled={loading}
-          className="mt-3 w-full py-2.5 rounded-xl bg-bordeaux text-white text-sm font-medium hover:bg-bordeaux/90 transition-colors disabled:opacity-50"
+          className="mt-3 w-full py-2.5 rounded-xl bg-amber-200 text-text-dark text-sm font-semibold hover:bg-amber-300 transition-colors disabled:opacity-50"
         >
           Tamam
         </button>

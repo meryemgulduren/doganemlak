@@ -39,7 +39,9 @@ export default function ForgotPasswordPage() {
         </Link>
         <form onSubmit={handleSubmit} className="w-full max-w-[30rem] flex flex-col gap-7 mt-8 md:mt-12">
           <div className="text-center mb-4">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-bordeaux mb-2">Şifremi Unuttum</h1>
+            <h1 className="font-montserrat text-3xl sm:text-4xl font-semibold text-text-dark tracking-tight mb-2">
+              Şifremi Unuttum
+            </h1>
             <p className="text-sm text-muted">
               Kayıtlı e-posta adresinizi girin, şifre sıfırlama bağlantısı göndereceğiz.
             </p>
@@ -67,12 +69,12 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="peer w-full px-4 py-3.5 text-base rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-bordeaux/20 focus:border-bordeaux transition-all"
+                  className="peer w-full px-4 py-3.5 text-base rounded-md border border-border bg-surface text-text-dark placeholder-transparent focus:outline-none focus:ring-2 focus:ring-amber-200/50 focus:border-amber-300 transition-all"
                   placeholder="E-posta Adresi"
                 />
                 <label
                   htmlFor="email"
-                  className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-bordeaux pointer-events-none"
+                  className="absolute left-4 -top-2.5 bg-surface px-1 text-xs font-medium text-muted transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-text-dark pointer-events-none"
                 >
                   E-posta Adresi
                 </label>
@@ -81,7 +83,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3.5 mt-2 text-base rounded-md bg-bordeaux text-white font-semibold hover:bg-bordeaux/90 focus:outline-none focus:ring-2 focus:ring-bordeaux/40 focus:ring-offset-2 focus:ring-offset-surface transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+                className="w-full py-3.5 mt-2 text-base rounded-md bg-amber-200 text-text-dark font-semibold hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200/60 focus:ring-offset-2 focus:ring-offset-surface transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
               >
                 {submitting ? "Gönderiliyor..." : "Sıfırlama Bağlantısı Gönder"}
               </button>
@@ -89,7 +91,7 @@ export default function ForgotPasswordPage() {
           )}
 
           <p className="text-center text-sm text-muted">
-            <Link to="/login" className="font-semibold text-bordeaux hover:text-bordeaux/80 hover:underline">
+            <Link to="/login" className="font-semibold text-black hover:text-black/80 hover:underline">
               Giriş sayfasına dön
             </Link>
           </p>

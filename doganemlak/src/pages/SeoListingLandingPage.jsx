@@ -1,10 +1,12 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Filter } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
 import Seo from "../components/Seo";
+import Pagination from "../components/Pagination";
 import { resolveSeoLanding } from "../constants/seoLandings";
+import { useListingFavorites } from "../hooks/useListingFavorites";
 
 function buildCollectionPageJsonLd({ title, description, canonicalUrl, siteUrl }) {
   return {
@@ -22,7 +24,9 @@ function buildCollectionPageJsonLd({ title, description, canonicalUrl, siteUrl }
 }
 
 export default function SeoListingLandingPage() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { isLoggedIn, isFavorite, isLoadingFavorite, toggleFavorite } = useListingFavorites();
   const segment = pathname.replace(/^\/+|\/+$/g, "").split("/")[0] || "";
   // resolveSeoLanding her çağrıda yeni obje döndürür; [config] ile useEffect sonsuz döner — segment ile stabilize et
   const config = useMemo(() => resolveSeoLanding(segment), [segment]);
@@ -30,9 +34,12 @@ export default function SeoListingLandingPage() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0, limit: 30 });
   const [sortBy, setSortBy] = useState(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const filterRef = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = Math.max(1, Number(searchParams.get("page") || 1));
 
   const siteUrl = (import.meta.env.VITE_SITE_URL || "https://www.doganemlak.com").replace(/\/$/, "");
   const canonicalUrl = config ? `${siteUrl}/${config.offerSlug}` : siteUrl;
@@ -43,14 +50,22 @@ export default function SeoListingLandingPage() {
     setLoading(true);
     setError(null);
     fetchListings({
-      page: 1,
-      limit: 24,
+      page: pageParam,
+      limit: 30,
       city: config.apiCitySearch,
       listing_type: config.listing_type,
     })
       .then((res) => {
         if (!cancelled && res.success) {
           setListings(res.data || []);
+          setPagination(
+            res.pagination || {
+              page: pageParam,
+              totalPages: 1,
+              total: 0,
+              limit: 30,
+            }
+          );
         }
       })
       .catch((err) => {
@@ -62,7 +77,7 @@ export default function SeoListingLandingPage() {
     return () => {
       cancelled = true;
     };
-  }, [config?.offerSlug, config?.listing_type, config?.apiCitySearch]);
+  }, [config?.offerSlug, config?.listing_type, config?.apiCitySearch, pageParam]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -120,7 +135,7 @@ export default function SeoListingLandingPage() {
       />
       <div className="max-w-[1600px] mx-auto w-full">
         <header className="mb-6 pb-4 border-b-2 border-bordeaux/30">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-bordeaux font-sans mb-3">
+          <h1 className="font-montserrat text-2xl sm:text-3xl font-semibold text-black tracking-tight mb-3">
             {config.h1}
           </h1>
           <p className="text-text-dark/80 text-sm sm:text-base max-w-3xl leading-relaxed">
@@ -129,12 +144,12 @@ export default function SeoListingLandingPage() {
         </header>
 
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b border-border">
-          <h2 className="text-lg font-bold text-text-dark font-sans">İlan listesi</h2>
+          <h2 className="font-montserrat text-lg font-semibold text-black tracking-tight">İlan listesi</h2>
           <div className="relative" ref={filterRef}>
             <button
               type="button"
               onClick={() => setFilterOpen((prev) => !prev)}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-bordeaux/25 text-text-dark font-medium hover:bg-bordeaux hover:text-white hover:border-bordeaux focus:outline-none transition-colors text-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-neutral-300 text-text-dark font-medium hover:bg-amber-100/75 hover:text-text-dark hover:border-amber-200/90 focus:outline-none transition-colors text-sm"
             >
               <Filter className="w-5 h-5" />
               Sırala
@@ -186,10 +201,35 @@ export default function SeoListingLandingPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
             {sortedListings.map((listing) => (
-              <Card key={listing._id} listing={listing} />
+              <Card
+                key={listing._id}
+                listing={listing}
+                isFavorite={isFavorite(listing._id)}
+                favoriteLoading={isLoadingFavorite(listing._id)}
+                onFavoriteClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (!isLoggedIn) {
+                    navigate("/login");
+                    return;
+                  }
+                  toggleFavorite(listing._id);
+                }}
+              />
             ))}
           </div>
         )}
+
+        <Pagination
+          currentPage={pagination.page || pageParam}
+          totalPages={pagination.totalPages || 1}
+          onPageChange={(p) => {
+            const next = new URLSearchParams(searchParams);
+            next.set("page", String(p));
+            setSearchParams(next);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
       </div>
     </div>
   );

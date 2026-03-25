@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Check, Home, Heart, X } from "lucide-react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
@@ -11,6 +11,7 @@ import {
   addFavorite,
   removeFavorite,
 } from "../api/listings";
+import Footer from "../components/Footer";
 import {
   fetchFavoriteConsultants,
   addFavoriteConsultant,
@@ -255,6 +256,7 @@ export default function AdDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const thumbsContainerRef = useRef(null);
   const [favoriteIds, setFavoriteIds] = useState(new Set());
   const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [favoriteConsultantIds, setFavoriteConsultantIds] = useState(new Set());
@@ -329,6 +331,16 @@ export default function AdDetail() {
     }
     return list;
   }, [listing]);
+
+  // Thumbnail şeridinde sadece fotoğraflar görünsün (video bu panelde ayrı sekmede).
+  const imageThumbs = useMemo(() => {
+    return mediaList
+      .map((m, mediaIndex) => ({ ...m, mediaIndex }))
+      .filter((m) => m.type === "image");
+  }, [mediaList]);
+
+  const activeThumbMediaIndex = imageThumbs.find((t) => t.mediaIndex === activeImageIndex)
+    ?.mediaIndex;
 
   // Lightbox Handlers
   const openLightbox = (index = 0) => {
@@ -602,13 +614,17 @@ export default function AdDetail() {
         </nav>
         <header className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-            <img
-              src={logoImg}
-              alt="Doğan Emlak Group"
-              className="h-14 sm:h-24 w-auto object-contain shrink-0 ml-0 sm:-ml-28 md:-ml-32 lg:-ml-36"
-            />
+            <div
+              className="flex items-center justify-center w-14 h-14 sm:w-24 sm:h-24 bg-black rounded-full shrink-0 ml-0 sm:-ml-28 md:-ml-32 lg:-ml-36 -translate-y-2 sm:-translate-y-3"
+            >
+              <img
+                src={logoImg}
+                alt="Doğan Emlak Group"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug">
+              <h1 className="font-montserrat text-lg sm:text-xl md:text-2xl font-semibold text-text-dark leading-snug tracking-tight">
                 {listing.title}
               </h1>
               <p className="mt-1 text-sm text-text-dark/70">
@@ -619,15 +635,15 @@ export default function AdDetail() {
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="order-first sm:order-none mt-0 sm:mt-0 self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm"
+            className="order-first sm:order-none mt-0 sm:mt-0 self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm whitespace-nowrap sm:whitespace-nowrap"
           >
             <Home className="w-4 h-4" />
             Ana Sayfa
           </button>
         </header>
 
-        <section className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-6">
-          <div className="lg:w-3/5 bg-white rounded-2xl border border-accent/60 shadow-sm p-3 sm:p-4">
+        <section className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-6 bg-white rounded-2xl border border-accent/60 shadow-sm p-3 sm:p-4">
+          <div className="lg:w-3/5">
             <div className="relative bg-secondary/10 rounded-xl overflow-hidden mb-3 group cursor-pointer" onClick={() => openLightbox(activeImageIndex)}>
               {currentMedia.type === 'video' ? (
                 <div className="relative w-full aspect-video max-h-[380px] bg-black flex items-center justify-center">
@@ -676,6 +692,69 @@ export default function AdDetail() {
                 {activeImageIndex + 1} / {mediaList.length}
               </span>
             </div>
+            {/* Thumbnail strip (ana fotoğrafın hemen altında) */}
+            {imageThumbs.length > 1 && (
+              <div className="flex items-center gap-2 mb-3 -mt-1">
+                <button
+                  type="button"
+                  onClick={() =>
+                    thumbsContainerRef.current?.scrollBy({
+                      left: -240,
+                      behavior: "smooth",
+                    })
+                  }
+                  className="inline-flex items-center justify-center rounded-lg bg-text-dark/70 text-white p-1.5 hover:bg-text-dark transition-colors"
+                  aria-label="Önceki görseller"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                <div
+                  ref={thumbsContainerRef}
+                  className="flex gap-2 overflow-x-auto px-1 py-1 rounded-lg bg-white [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                >
+                  {imageThumbs.map((m, thumbIdx) => {
+                    const isActive = m.mediaIndex === activeThumbMediaIndex;
+                    return (
+                      <button
+                        key={`thumb-${m.mediaIndex}-${thumbIdx}`}
+                        type="button"
+                        onClick={() => setActiveImageIndex(m.mediaIndex)}
+                        className={`shrink-0 w-[82px] sm:w-[92px] h-[56px] sm:h-[60px] rounded-lg overflow-hidden border transition-colors ${
+                          isActive
+                            ? "border-bordeaux/60"
+                            : "border-zinc-300 hover:border-zinc-400"
+                        } bg-white`}
+                        aria-label={
+                          `Fotoğraf ${thumbIdx + 1}`
+                        }
+                      >
+                        <img
+                          src={resolveAbsoluteMediaUrl(m.url) || m.url}
+                          alt={`${listingImageAlt} - ${thumbIdx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    thumbsContainerRef.current?.scrollBy({
+                      left: 240,
+                      behavior: "smooth",
+                    })
+                  }
+                  className="inline-flex items-center justify-center rounded-lg bg-text-dark/70 text-white p-1.5 hover:bg-text-dark transition-colors"
+                  aria-label="Sonraki görseller"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3">
               <button
                 type="button"
@@ -770,7 +849,7 @@ export default function AdDetail() {
             </div>
           </div>
 
-          <div className="lg:w-2/5 bg-surface rounded-2xl border border-border shadow-card p-4 sm:p-5">
+          <div className="lg:w-2/5 p-1 sm:p-2">
             <div className="mb-4 border-b border-border pb-3 flex items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-medium text-muted mb-1">Fiyat</div>
@@ -1326,6 +1405,7 @@ export default function AdDetail() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }

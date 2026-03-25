@@ -13,6 +13,7 @@ import GayrimenkulDanismanlarPage from "./pages/GayrimenkulDanismanlarPage";
 import SorunOneriPage from "./pages/SorunOneriPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import AboutPage from "./pages/AboutPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import AdminLayout from "./components/AdminLayout";
@@ -41,6 +42,7 @@ function App() {
             <Route path="satilik" element={<SeoListingLandingPage />} />
             <Route path="gayrimenkul-danismanlar" element={<GayrimenkulDanismanlarPage />} />
             <Route path="sorun-oneri" element={<SorunOneriPage />} />
+            <Route path="hakkimizda" element={<AboutPage />} />
             <Route
               path="favorilerim"
               element={

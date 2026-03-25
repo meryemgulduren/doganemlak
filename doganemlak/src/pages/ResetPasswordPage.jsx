@@ -47,7 +47,9 @@ export default function ResetPasswordPage() {
     return (
       <div className="min-h-screen bg-background font-sans flex items-center justify-center">
         <div className="bg-surface border border-border rounded-2xl p-8 text-center max-w-md mx-4 shadow-sm">
-          <h2 className="text-xl font-bold text-text-dark mb-3">Geçersiz Bağlantı</h2>
+          <h2 className="font-montserrat text-xl font-semibold text-black tracking-tight mb-3">
+            Geçersiz Bağlantı
+          </h2>
           <p className="text-sm text-muted mb-4">
             Şifre sıfırlama bağlantısı geçersiz veya eksik. Lütfen e-postanızdaki bağlantıyı tekrar kontrol edin.
           </p>
@@ -74,7 +76,9 @@ export default function ResetPasswordPage() {
         </Link>
         <form onSubmit={handleSubmit} className="w-full max-w-[30rem] flex flex-col gap-7 mt-8 md:mt-12">
           <div className="text-center mb-4">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-bordeaux mb-2">Yeni Şifre Belirle</h1>
+            <h1 className="font-montserrat text-3xl sm:text-4xl font-semibold text-bordeaux tracking-tight mb-2">
+              Yeni Şifre Belirle
+            </h1>
             <p className="text-sm text-muted">
               Hesabınız için yeni bir şifre belirleyin.
             </p>

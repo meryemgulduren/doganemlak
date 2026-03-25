@@ -5,7 +5,7 @@
 export default function IlanVerPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans">
-      <h1 className="text-2xl font-extrabold text-text-dark mb-4">
+      <h1 className="font-montserrat text-2xl font-semibold text-black tracking-tight mb-4">
         İlan Ver
       </h1>
       <p className="text-text-dark">

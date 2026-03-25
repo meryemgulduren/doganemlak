@@ -21,6 +21,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "Segoe UI", "Roboto", "sans-serif"],
+        montserrat: ["Montserrat", "Inter", "system-ui", "sans-serif"],
       },
       boxShadow: {
         card: "0 1px 3px 0 rgb(73 17 28 / 0.06), 0 1px 2px -1px rgb(48 35 13 / 0.05)",

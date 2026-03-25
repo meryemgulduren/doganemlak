@@ -37,7 +37,9 @@ export default function RegisterPage() {
         </Link>
         <form onSubmit={handleSubmit} className="w-full max-w-[30rem] flex flex-col gap-7 mt-8 md:mt-12">
           <div className="text-center mb-4">
-            <h1 className="text-4xl font-extrabold text-bordeaux mb-4">Kayıt Ol</h1>
+            <h1 className="font-montserrat text-4xl font-semibold text-text-dark tracking-tight mb-4">
+              Kayıt Ol
+            </h1>
           </div>
 
           {error && (
@@ -114,14 +116,14 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 mt-2 text-base rounded-md bg-bordeaux text-white font-semibold hover:bg-bordeaux/90 focus:outline-none focus:ring-2 focus:ring-bordeaux/40 focus:ring-offset-2 focus:ring-offset-surface transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
+            className="w-full py-3.5 mt-2 text-base rounded-md bg-amber-200 text-text-dark font-semibold hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200/60 focus:ring-offset-2 focus:ring-offset-surface transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
           >
             {submitting ? "Kayıt yapılıyor..." : "Kayıt Ol"}
           </button>
 
           <p className="text-center text-sm text-muted">
             Zaten hesabınız var mı?{" "}
-            <Link to="/login" className="font-semibold text-bordeaux hover:text-bordeaux/80 hover:underline">
+            <Link to="/login" className="font-semibold text-black hover:text-black/80 hover:underline">
               Giriş Yap
             </Link>
           </p>

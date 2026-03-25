@@ -6,6 +6,12 @@ function consultantDisplayName(c) {
   return [c.first_name, c.last_name].filter(Boolean).join(" ") || c.username || "—";
 }
 
+function consultantInitials(c) {
+  const first = (c.first_name?.[0] || c.username?.[0] || "D").toUpperCase();
+  const last = (c.last_name?.[0] || "").toUpperCase();
+  return last ? `${first}${last}` : first;
+}
+
 export default function GayrimenkulDanismanlarPage() {
   const [consultants, setConsultants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +42,7 @@ export default function GayrimenkulDanismanlarPage() {
       <div className="max-w-[1600px] mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b-2 border-bordeaux/30">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-text-dark">
+            <h1 className="font-montserrat text-2xl sm:text-3xl font-semibold text-black tracking-tight">
               Gayrimenkul Danışmanlarımız
             </h1>
             <p className="text-sm text-text-dark/60 mt-1 max-w-2xl">
@@ -70,8 +76,8 @@ export default function GayrimenkulDanismanlarPage() {
                       className="w-24 h-32 rounded-lg object-cover flex-shrink-0 border border-accent/30"
                     />
                   ) : (
-                    <div className="w-24 h-32 rounded-lg flex items-center justify-center font-bold text-white text-xl flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
-                      {(c.first_name?.[0] || c.username?.[0] || "D").toUpperCase()}
+                    <div className="w-24 h-32 rounded-lg flex items-center justify-center font-bold text-text-dark text-2xl leading-none flex-shrink-0 bg-gradient-to-br from-amber-100 to-yellow-200">
+                      {consultantInitials(c)}
                     </div>
                   )}
                   <div className="min-w-0 flex-1 flex flex-col justify-center gap-2">

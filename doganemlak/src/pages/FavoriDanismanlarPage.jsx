@@ -38,10 +38,18 @@ export default function FavoriDanismanlarPage() {
   const displayName = (c) =>
     [c.first_name, c.last_name].filter(Boolean).join(" ") || c.username || "—";
 
+  const consultantInitials = (c) => {
+    const first = (c.first_name?.[0] || c.username?.[0] || "D").toUpperCase();
+    const last = (c.last_name?.[0] || "").toUpperCase();
+    return last ? `${first}${last}` : first;
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-10 font-sans bg-background">
       <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b-2 border-bordeaux/30">
-        <h1 className="text-2xl font-extrabold text-text-dark">Favori Danışmanlarım</h1>
+        <h1 className="font-montserrat text-2xl sm:text-3xl font-semibold text-black tracking-tight">
+          Favori Danışmanlarım
+        </h1>
       </div>
 
       {error && (
@@ -71,8 +79,8 @@ export default function FavoriDanismanlarPage() {
                   className="w-16 h-24 rounded-lg object-cover flex-shrink-0 border border-border"
                 />
               ) : (
-                <div className="w-16 h-24 rounded-lg flex items-center justify-center font-bold text-white text-xl flex-shrink-0 bg-gradient-to-br from-bordeaux to-[#5c1520]">
-                  {(c.first_name?.[0] || c.username?.[0] || "D").toUpperCase()}
+                <div className="w-16 h-24 rounded-lg flex items-center justify-center font-bold text-text-dark text-2xl leading-none flex-shrink-0 bg-gradient-to-br from-amber-100 to-yellow-200">
+                  {consultantInitials(c)}
                 </div>
               )}
               <div className="flex-1 min-w-0 space-y-1">

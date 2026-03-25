@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import CompactTopBar from "./CompactTopBar";
+import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -19,6 +20,7 @@ export default function Layout() {
       <main className="pt-[5.5rem]">
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }

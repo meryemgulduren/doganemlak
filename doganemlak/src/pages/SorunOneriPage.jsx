@@ -63,7 +63,9 @@ export default function SorunOneriPage() {
 
   return (
     <div className="max-w-[56rem] mx-auto px-4 sm:px-6 pt-2 pb-8 font-sans bg-background">
-      <h1 className="text-[2rem] font-bold text-text-dark mb-2">Talep / Şikayet Formu</h1>
+      <h1 className="font-montserrat text-[2rem] font-semibold text-black tracking-tight mb-2">
+        Talep / Şikayet Formu
+      </h1>
       <p className="text-text-dark/70 text-[15px] leading-relaxed mb-6">
         Karşılaştığınız sorunları veya taleplerinizi aşağıdaki formu kullanarak bize iletebilirsiniz.
         Önerileriniz bizim için çok kıymetli; her geri bildiriminizi dikkatle değerlendiriyoruz.
@@ -84,8 +86,8 @@ export default function SorunOneriPage() {
                 onClick={() => setType(opt.value)}
                 className={`px-4 py-2 rounded-lg border text-[15px] font-medium transition-colors ${
                   type === opt.value
-                    ? "bg-bordeaux text-white border-bordeaux"
-                    : "bg-white text-text-dark border-border hover:bg-accent/30"
+                    ? "bg-amber-100/90 text-text-dark border-amber-300/80 hover:bg-amber-200/80 hover:border-amber-300"
+                    : "bg-white text-text-dark border-border hover:bg-amber-100/60 hover:border-amber-200/80"
                 }`}
               >
                 {opt.label}
@@ -119,7 +121,7 @@ export default function SorunOneriPage() {
             accept="image/*"
             multiple
             onChange={handleFiles}
-            className="block w-full text-base text-muted file:mr-3 file:py-2.5 file:px-5 file:rounded-lg file:border-0 file:text-base file:font-medium file:bg-bordeaux/10 file:text-bordeaux hover:file:bg-bordeaux/20 cursor-pointer"
+            className="block w-full text-base text-muted file:mr-3 file:py-2.5 file:px-5 file:rounded-lg file:border file:border-amber-200 file:text-base file:font-medium file:bg-amber-50 file:text-text-dark hover:file:bg-amber-100 cursor-pointer"
           />
           {previews.length > 0 && (
             <div className="flex gap-2 mt-3">
@@ -143,7 +145,7 @@ export default function SorunOneriPage() {
         <button
           type="submit"
           disabled={sending}
-          className="w-full py-3.5 rounded-xl bg-bordeaux text-white font-semibold text-base hover:bg-bordeaux/90 transition-colors disabled:opacity-50"
+          className="w-full py-3.5 rounded-xl bg-amber-200 text-text-dark font-semibold text-base hover:bg-amber-300 transition-colors disabled:opacity-50"
         >
           {sending ? "Gönderiliyor..." : "Gönder"}
         </button>
