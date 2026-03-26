@@ -24,11 +24,55 @@ async function list(req, res) {
     const skip  = (page - 1) * limit;
 
     const filter = { status: 'ACTIVE' };
-    if (req.query.category)      filter.category      = req.query.category;
-    if (req.query.listing_type)  filter.listing_type  = req.query.listing_type;
-    if (req.query.subType)       filter.subType       = req.query.subType;
-    if (req.query.property_type) filter.property_type = req.query.property_type;
 
+    // Basic fields
+    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count'];
+    directFields.forEach(field => {
+      if (req.query[field]) {
+        const value = req.query[field];
+        if (typeof value === 'string' && value.includes(',')) {
+          filter[field] = { $in: value.split(',').map(v => v.trim()) };
+        } else {
+          filter[field] = value;
+        }
+      }
+    });
+
+    // Range fields
+    const rangeFields = [
+      { key: 'price', min: 'min_price', max: 'max_price' },
+      { key: 'm2_brut', min: 'min_m2_brut', max: 'max_m2_brut' },
+      { key: 'm2_net', min: 'min_m2_net', max: 'max_m2_net' },
+      { key: 'open_area_m2', min: 'min_open_area_m2', max: 'max_open_area_m2' },
+      { key: 'floor_number', min: 'min_floor', max: 'max_floor' },
+      { key: 'total_floors', min: 'min_total_floors', max: 'max_total_floors' },
+      { key: 'bathroom_count', min: 'min_bathrooms', max: 'max_bathrooms' },
+      { key: 'dues', min: 'min_dues', max: 'max_dues' },
+    ];
+
+    rangeFields.forEach(({ key, min, max }) => {
+      if (req.query[min] || req.query[max]) {
+        filter[key] = {};
+        if (req.query[min]) filter[key].$gte = Number(req.query[min]);
+        if (req.query[max]) filter[key].$lte = Number(req.query[max]);
+      }
+    });
+
+    // Boolean fields
+    const booleanFields = ['balcony', 'furnished', 'in_site', 'credit_eligible'];
+    booleanFields.forEach(field => {
+      if (req.query[field] !== undefined) {
+        filter[field] = req.query[field] === 'true';
+      }
+    });
+
+    // Facade (Array field)
+    if (req.query.facade) {
+      const facades = req.query.facade.split(',').map(v => v.trim());
+      filter.facade = { $in: facades };
+    }
+
+    // Search
     if (req.query.search) {
       const searchTerm = req.query.search.trim();
       const numSearch = Number(searchTerm);
@@ -39,15 +83,10 @@ async function list(req, res) {
       }
     }
 
-    // text index kullanır — RegExp'e göre daha hızlı, index'e uygun
-    if (req.query.city) filter.$text = { $search: req.query.city.trim() };
-
-    if (req.query.minPrice) {
-      filter.price = { ...filter.price, $gte: Number(req.query.minPrice) };
-    }
-    if (req.query.maxPrice) {
-      filter.price = { ...filter.price, $lte: Number(req.query.maxPrice) };
-    }
+    // Location
+    if (req.query.city) filter['location.city'] = req.query.city;
+    if (req.query.district) filter['location.district'] = req.query.district;
+    if (req.query.neighborhood) filter['location.neighborhood'] = req.query.neighborhood;
 
     const [listings, total] = await Promise.all([
       Listing.find(filter)

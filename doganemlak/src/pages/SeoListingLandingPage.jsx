@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useLocation, Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import { Filter } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
 import Seo from "../components/Seo";
 import Pagination from "../components/Pagination";
 import { resolveSeoLanding } from "../constants/seoLandings";
 import { useListingFavorites } from "../hooks/useListingFavorites";
+import FilterSidebar from "../components/FilterSidebar";
 
 function buildCollectionPageJsonLd({ title, description, canonicalUrl, siteUrl }) {
   return {
@@ -28,7 +29,6 @@ export default function SeoListingLandingPage() {
   const { pathname } = useLocation();
   const { isLoggedIn, isFavorite, isLoadingFavorite, toggleFavorite } = useListingFavorites();
   const segment = pathname.replace(/^\/+|\/+$/g, "").split("/")[0] || "";
-  // resolveSeoLanding her çağrıda yeni obje döndürür; [config] ile useEffect sonsuz döner — segment ile stabilize et
   const config = useMemo(() => resolveSeoLanding(segment), [segment]);
 
   const [listings, setListings] = useState([]);
@@ -49,12 +49,17 @@ export default function SeoListingLandingPage() {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetchListings({
+
+    // Config parametrelerini URL parametreleriyle birleştir
+    const params = {
+      ...Object.fromEntries(searchParams.entries()),
+      city: searchParams.get("city") || config.apiCitySearch,
+      listing_type: searchParams.get("listing_type") || config.listing_type,
       page: pageParam,
       limit: 30,
-      city: config.apiCitySearch,
-      listing_type: config.listing_type,
-    })
+    };
+
+    fetchListings(params)
       .then((res) => {
         if (!cancelled && res.success) {
           setListings(res.data || []);
@@ -77,7 +82,7 @@ export default function SeoListingLandingPage() {
     return () => {
       cancelled = true;
     };
-  }, [config?.offerSlug, config?.listing_type, config?.apiCitySearch, pageParam]);
+  }, [config?.offerSlug, searchParams, pageParam]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -134,7 +139,7 @@ export default function SeoListingLandingPage() {
         jsonLd={jsonLd}
       />
       <div className="max-w-[1600px] mx-auto w-full">
-        <header className="mb-6 pb-4 border-b-2 border-bordeaux/30">
+        <header className="mb-6 pb-4 border-b-2 border-amber-300">
           <h1 className="font-montserrat text-2xl sm:text-3xl font-semibold text-black tracking-tight mb-3">
             {config.h1}
           </h1>
@@ -143,93 +148,121 @@ export default function SeoListingLandingPage() {
           </p>
         </header>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b border-border">
-          <h2 className="font-montserrat text-lg font-semibold text-black tracking-tight">İlan listesi</h2>
-          <div className="relative" ref={filterRef}>
-            <button
-              type="button"
-              onClick={() => setFilterOpen((prev) => !prev)}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-neutral-300 text-text-dark font-medium hover:bg-amber-100/75 hover:text-text-dark hover:border-amber-200/90 focus:outline-none transition-colors text-sm"
-            >
-              <Filter className="w-5 h-5" />
-              Sırala
-            </button>
-            {filterOpen && (
-              <div className="absolute right-0 top-full mt-2 min-w-[280px] bg-white border border-border rounded-lg shadow-card z-40 overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSortBy(null);
-                    setFilterOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-2.5 text-sm text-text-dark/80 hover:bg-accent/20 border-b border-border"
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar */}
+          <FilterSidebar className="hidden lg:block lg:shrink-0" totalCount={pagination.total} />
+
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-2 border-b border-border">
+              <h2 className="font-montserrat text-lg font-semibold text-black tracking-tight">İlan listesi</h2>
+              
+              <div className="shrink-0 flex items-center gap-2">
+                {/* Mobil Filtre Butonu */}
+                <button 
+                  onClick={() => alert("Filtreleme şimdilik geniş ekranlarda aktiftir.")}
+                  className="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-300 bg-amber-100 text-xs font-medium"
                 >
-                  Sıralamayı Sıfırla
+                  <SlidersHorizontal className="w-4 h-4" />
+                  Filtrele
                 </button>
-                {sortOptions.map((opt) => (
+
+                <div className="relative" ref={filterRef}>
                   <button
-                    key={opt.id}
                     type="button"
-                    onClick={() => {
-                      setSortBy(opt.id);
-                      setFilterOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 text-sm border-b border-border last:border-b-0 transition-colors ${
-                      sortBy === opt.id
-                        ? "text-bordeaux font-semibold bg-accent/35"
-                        : "text-primary hover:bg-accent/20"
-                    }`}
+                    onClick={() => setFilterOpen((prev) => !prev)}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-neutral-300 text-text-dark font-medium hover:bg-amber-100/75 hover:text-text-dark hover:border-amber-200/90 focus:outline-none transition-colors text-sm"
                   >
-                    {opt.label}
+                    <SlidersHorizontal className="w-5 h-5" />
+                    Sırala
                   </button>
+                  {filterOpen && (
+                    <div className="absolute right-0 top-full mt-2 min-w-[280px] bg-white border border-border rounded-lg shadow-card z-40 overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSortBy(null);
+                          setFilterOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2.5 text-sm text-text-dark/80 hover:bg-accent/20 border-b border-border"
+                      >
+                        Sıralamayı Sıfırla
+                      </button>
+                      {sortOptions.map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            setSortBy(opt.id);
+                            setFilterOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm border-b border-border last:border-b-0 transition-colors ${
+                            sortBy === opt.id
+                              ? "text-black font-semibold bg-accent/35"
+                              : "text-primary hover:bg-accent/20"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {error && (
+              <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm">
+                {error}
+              </div>
+            )}
+
+            {loading ? (
+              <p className="text-text-dark/70 font-sans">İlanlar yükleniyor...</p>
+            ) : sortedListings.length === 0 ? (
+              <div className="py-12 text-center bg-neutral-50 rounded-2xl border border-dashed border-neutral-300 font-sans">
+                <p className="text-text-dark/70">Bu kriterlere uygun ilan bulunmuyor.</p>
+                <button 
+                   onClick={() => setSearchParams({})}
+                   className="mt-4 text-amber-600 font-semibold hover:underline"
+                >
+                  Filtreleri Temizle
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+                {sortedListings.map((listing) => (
+                  <Card
+                    key={listing._id}
+                    listing={listing}
+                    isFavorite={isFavorite(listing._id)}
+                    favoriteLoading={isLoadingFavorite(listing._id)}
+                    onFavoriteClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (!isLoggedIn) {
+                        navigate("/login");
+                        return;
+                      }
+                      toggleFavorite(listing._id);
+                    }}
+                  />
                 ))}
               </div>
             )}
+
+            <Pagination
+              currentPage={pagination.page || pageParam}
+              totalPages={pagination.totalPages || 1}
+              onPageChange={(p) => {
+                const next = new URLSearchParams(searchParams);
+                next.set("page", String(p));
+                setSearchParams(next);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
           </div>
         </div>
-
-        {error && (
-          <div className="mb-4 px-4 py-3 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm">
-            {error}
-          </div>
-        )}
-
-        {loading ? (
-          <p className="text-text-dark/70 font-sans">İlanlar yükleniyor...</p>
-        ) : sortedListings.length === 0 ? (
-          <p className="text-text-dark/70 font-sans">Bu kriterlere uygun ilan bulunmuyor.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
-            {sortedListings.map((listing) => (
-              <Card
-                key={listing._id}
-                listing={listing}
-                isFavorite={isFavorite(listing._id)}
-                favoriteLoading={isLoadingFavorite(listing._id)}
-                onFavoriteClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  if (!isLoggedIn) {
-                    navigate("/login");
-                    return;
-                  }
-                  toggleFavorite(listing._id);
-                }}
-              />
-            ))}
-          </div>
-        )}
-
-        <Pagination
-          currentPage={pagination.page || pageParam}
-          totalPages={pagination.totalPages || 1}
-          onPageChange={(p) => {
-            const next = new URLSearchParams(searchParams);
-            next.set("page", String(p));
-            setSearchParams(next);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        />
       </div>
     </div>
   );
