@@ -410,6 +410,7 @@ async function createAdmin(req, res) {
       phone:      phone?.trim()       || null,
       profile_image: profileUrl,
       role: 'ADMIN',
+      created_by: req.user._id,
     });
 
     res.status(201).json({ success: true, data: toSafeUser(admin) });
@@ -427,6 +428,7 @@ async function listAdmins(req, res) {
   try {
     const admins = await User.find({ role: 'ADMIN' })
       .select('-password_hash -favorites -favorite_consultants')
+      .populate('created_by', 'username first_name last_name')
       .sort({ createdAt: -1 })
       .lean();
 

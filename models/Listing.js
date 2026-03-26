@@ -55,6 +55,14 @@ const listingSchema = new mongoose.Schema(
     has_tenant: { type: String, default: null },
     ground_survey: { type: String, default: null },
     commercial_features: { type: [String], default: [] },
+    zoning_status: { type: String, default: null },
+    ada_no: { type: String, default: null },
+    parsel_no: { type: String, default: null },
+    pafta_no: { type: String, default: null },
+    kaks_emsal: { type: String, default: null },
+    gabari: { type: String, default: null },
+    title_deed_status: { type: String, default: null },
+    swap_option: { type: String, default: null },
 
     /**
      * Kategori-özgü tüm ek alanlar bu esnek Map'te tutulur.

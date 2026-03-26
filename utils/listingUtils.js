@@ -31,6 +31,14 @@ const SPEC_TO_FIELD_MAP = {
   has_tenant: 'has_tenant',
   ground_survey: 'ground_survey',
   commercial_features: 'commercial_features',
+  zoning_status: 'zoning_status',
+  ada_no: 'ada_no',
+  parsel_no: 'parsel_no',
+  pafta_no: 'pafta_no',
+  kaks_emsal: 'kaks_emsal',
+  gabari: 'gabari',
+  title_deed_status: 'title_deed_status',
+  swap_option: 'swap_option',
 };
 
 /**

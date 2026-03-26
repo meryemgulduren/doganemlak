@@ -26,7 +26,7 @@ async function list(req, res) {
     const filter = { status: 'ACTIVE' };
 
     // Basic fields
-    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count'];
+    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count', 'admin_id', 'swap_option', 'pafta_no', 'ada_no', 'parsel_no', 'kaks_emsal', 'gabari'];
     directFields.forEach(field => {
       if (req.query[field]) {
         const value = req.query[field];

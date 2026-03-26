@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema(
     /** Şifre sıfırlama token'ı (SHA-256 hash olarak saklanır) */
     reset_token:         { type: String, default: null },
     reset_token_expires: { type: Date, default: null },
+    created_by:          { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

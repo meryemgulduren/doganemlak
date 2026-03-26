@@ -5,7 +5,7 @@ function testFilter(query) {
     const filter = { status: 'ACTIVE' };
 
     // Basic fields
-    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count'];
+    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count', 'admin_id', 'swap_option', 'pafta_no', 'ada_no', 'parsel_no', 'kaks_emsal', 'gabari'];
     directFields.forEach(field => {
       if (query[field]) {
         const value = query[field];
@@ -82,7 +82,10 @@ const q1 = {
     city: "Istanbul",
     district: "Kadikoy",
     balcony: "true",
-    min_m2_brut: "100"
+    min_m2_brut: "100",
+    category: "ARSA",
+    zoning_status: "Konut",
+    admin_id: "65f0f63192f847e9809ffa01"
 };
 console.log("Q1 Filter:", JSON.stringify(testFilter(q1), null, 2));
 

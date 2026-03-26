@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ChevronDown, ChevronUp, Search, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Search, X, User } from "lucide-react";
 import samsunData from "../data/samsun-geo.json";
+import { fetchPublicConsultants } from "../api/consultants";
 
 const ROOM_COUNT_OPTIONS = ["1+0", "1+1", "2+1", "3+1", "4+1", "4+2", "5+1", "5+2", "6+1", "6+2", "7+2", "8+2", "9+2", "9+ üstü"];
 const BUILDING_AGE_OPTIONS = ["0", "1-5", "6-10", "11-15", "16-20", "21-25", "26-30", "31 ve üzeri"];
@@ -30,6 +31,11 @@ const LISTING_TYPE_OPTIONS = [
   { value: "SATILIK", label: "Satılık" },
   { value: "KIRALIK", label: "Kiralık" }
 ];
+const ZONING_STATUS_OPTIONS = ["Konut", "Ticari", "Sanayi", "Turizm", "Eğitim", "Sağlık", "Bağ & Bahçe", "Tarla", "İmarsız"];
+const TITLE_DEED_OPTIONS = ["Kat Mülkiyeti", "Kat İrtifakı", "Arsa Tapusu"];
+const SWAP_OPTIONS = ["Evet", "Hayır"];
+const GABARI_OPTIONS = ["Serbest", "6.50", "9.50", "12.50", "15.50", "18.50", "21.50", "24.50"];
+const KAKS_OPTIONS = ["0.10", "0.20", "0.30", "0.40", "0.50", "0.75", "1.00", "1.50", "2.00", "Serbest"];
 
 export default function FilterSidebar({ className = "", totalCount = 0 }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -62,7 +68,58 @@ export default function FilterSidebar({ className = "", totalCount = 0 }) {
     balcony: searchParams.get("balcony") === "true",
     furnished: searchParams.get("furnished") === "true",
     credit_eligible: searchParams.get("credit_eligible") === "true",
+    admin_id: searchParams.get("admin_id") || "",
+    zoning_status: searchParams.get("zoning_status") || "",
+    title_deed_status: searchParams.get("title_deed_status") || "",
+    swap_option: searchParams.get("swap_option") || "",
+    ada_no: searchParams.get("ada_no") || "",
+    parsel_no: searchParams.get("parsel_no") || "",
+    pafta_no: searchParams.get("pafta_no") || "",
+    kaks_emsal: searchParams.get("kaks_emsal") || "",
+    gabari: searchParams.get("gabari") || "",
   });
+
+  const [consultants, setConsultants] = useState([]);
+  const [previewCount, setPreviewCount] = useState(totalCount);
+  const [loadingCount, setLoadingCount] = useState(false);
+
+  useEffect(() => {
+    fetchPublicConsultants().then(res => {
+      if (res.success) setConsultants(res.data || []);
+    });
+  }, []);
+
+  // Real-time count update
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      setLoadingCount(true);
+      try {
+        const params = new URLSearchParams();
+        Object.entries(filters).forEach(([key, value]) => {
+          if (Array.isArray(value)) {
+            if (value.length > 0) params.set(key, value.join(","));
+          } else if (typeof value === "boolean") {
+            if (value) params.set(key, "true");
+          } else if (value) {
+            if (key === "minPrice") params.set("min_price", value);
+            else if (key === "maxPrice") params.set("max_price", value);
+            else params.set(key, value);
+          }
+        });
+        params.set("limit", "1");
+        const res = await fetch(`/api/listings?${params.toString()}`).then(r => r.json());
+        if (res.success) {
+          setPreviewCount(res.pagination.total);
+        }
+      } catch (err) {
+        console.error("Count fetch error:", err);
+      } finally {
+        setLoadingCount(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [filters]);
 
   const toggleExpand = (section) => {
     setExpanded((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -117,6 +174,15 @@ export default function FilterSidebar({ className = "", totalCount = 0 }) {
       balcony: false,
       furnished: false,
       credit_eligible: false,
+      admin_id: "",
+      zoning_status: "",
+      title_deed_status: "",
+      swap_option: "",
+      ada_no: "",
+      parsel_no: "",
+      pafta_no: "",
+      kaks_emsal: "",
+      gabari: "",
     });
     setSearchParams({});
   };
@@ -154,6 +220,29 @@ export default function FilterSidebar({ className = "", totalCount = 0 }) {
                 onChange={(e) => {
                   updateFilter('category', e.target.value);
                   updateFilter('subType', '');
+                  // Clear details when category changes
+                  setFilters(prev => ({
+                    ...prev,
+                    category: e.target.value,
+                    subType: '',
+                    room_count: [],
+                    building_age: "",
+                    heating_type: "",
+                    floor_number: "",
+                    total_floors: "",
+                    bathroom_count: "",
+                    using_status: "",
+                    balcony: false,
+                    furnished: false,
+                    zoning_status: "",
+                    title_deed_status: "",
+                    swap_option: "",
+                    ada_no: "",
+                    parsel_no: "",
+                    pafta_no: "",
+                    kaks_emsal: "",
+                    gabari: "",
+                  }));
                 }}
                 className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
               >
@@ -289,140 +378,234 @@ export default function FilterSidebar({ className = "", totalCount = 0 }) {
           )}
         </div>
 
-        {/* Gayrimenkul Detayları */}
+        {/* Danışman Filtresi (Her zaman görünür) */}
         <div className="p-5">
-          <button 
-            onClick={() => toggleExpand('details')}
-            className="w-full flex items-center justify-between text-[13px] font-bold text-neutral-800 mb-3 hover:text-black transition-colors"
+           <button 
+            className="w-full flex items-center justify-between text-[13px] font-bold text-neutral-800 mb-3"
+            disabled
           >
-            Gayrimenkul Özellikleri
-            {expanded.details ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            Danışman
+            <User className="w-4 h-4 text-neutral-400" />
           </button>
-          {expanded.details && (
-            <div className="space-y-5 mt-1">
-              <div>
-                <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-2 block">Oda Sayısı</label>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                  {ROOM_COUNT_OPTIONS.map(opt => (
-                    <label key={opt} className="flex items-center gap-2 text-[13px] text-neutral-600 hover:text-black cursor-pointer group">
-                      <input 
-                        type="checkbox" 
-                        checked={filters.room_count.includes(opt)}
-                        onChange={(e) => {
-                          const next = e.target.checked 
-                            ? [...filters.room_count, opt]
-                            : filters.room_count.filter(c => c !== opt);
-                          updateFilter('room_count', next);
-                        }}
-                        className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
-                      />
-                      <span className="group-hover:translate-x-0.5 transition-transform">{opt}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4">
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Bina Yaşı</label>
-                  <select 
-                    value={filters.building_age}
-                    onChange={(e) => updateFilter('building_age', e.target.value)}
-                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
-                  >
-                    <option value="">Belirtilmemiş</option>
-                    {BUILDING_AGE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Isıtma</label>
-                  <select 
-                    value={filters.heating_type}
-                    onChange={(e) => updateFilter('heating_type', e.target.value)}
-                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
-                  >
-                    <option value="">Belirtilmemiş</option>
-                    {HEATING_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                  </select>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Kullanım Durumu</label>
-                  <select 
-                    value={filters.using_status}
-                    onChange={(e) => updateFilter('using_status', e.target.value)}
-                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
-                  >
-                    <option value="">Belirtilmemiş</option>
-                    {USING_STATUS_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Bulunduğu Kat</label>
-                  <input 
-                    type="number" 
-                    placeholder="Eğ. 3"
-                    value={filters.floor_number}
-                    onChange={(e) => updateFilter('floor_number', e.target.value)}
-                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Banyo Sayısı</label>
-                  <input 
-                    type="number" 
-                    placeholder="Eğ. 2"
-                    value={filters.bathroom_count}
-                    onChange={(e) => updateFilter('bathroom_count', e.target.value)}
-                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3 pt-3 border-t border-neutral-50">
-                <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    checked={filters.balcony}
-                    onChange={(e) => updateFilter('balcony', e.target.checked)}
-                    className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
-                  />
-                  <span className="group-hover:text-black transition-colors">Balkon Var</span>
-                </label>
-                <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    checked={filters.furnished}
-                    onChange={(e) => updateFilter('furnished', e.target.checked)}
-                    className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
-                  />
-                  <span className="group-hover:text-black transition-colors">Eşyalı</span>
-                </label>
-                <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
-                  <input 
-                    type="checkbox" 
-                    checked={filters.credit_eligible}
-                    onChange={(e) => updateFilter('credit_eligible', e.target.checked)}
-                    className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
-                  />
-                  <span className="group-hover:text-black transition-colors">Krediye Uygun</span>
-                </label>
-              </div>
-            </div>
-          )}
+          <select 
+            value={filters.admin_id} 
+            onChange={(e) => updateFilter('admin_id', e.target.value)}
+            className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+          >
+            <option value="">Tüm Danışmanlar</option>
+            {consultants.map(c => (
+              <option key={c._id} value={c._id}>
+                {c.first_name || c.last_name ? `${c.first_name || ''} ${c.last_name || ''}`.trim() : c.username}
+              </option>
+            ))}
+          </select>
         </div>
+
+        {/* Gayrimenkul Detayları (DAİRE/KONUT) */}
+        {filters.category === "KONUT" && (
+          <div className="p-5">
+            <button 
+              onClick={() => toggleExpand('details')}
+              className="w-full flex items-center justify-between text-[13px] font-bold text-neutral-800 mb-3 hover:text-black transition-colors"
+            >
+              Konut Özellikleri
+              {expanded.details ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+            {expanded.details && (
+              <div className="space-y-5 mt-1">
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider mb-2 block">Oda Sayısı</label>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                    {ROOM_COUNT_OPTIONS.map(opt => (
+                      <label key={opt} className="flex items-center gap-2 text-[13px] text-neutral-600 hover:text-black cursor-pointer group">
+                        <input 
+                          type="checkbox" 
+                          checked={filters.room_count.includes(opt)}
+                          onChange={(e) => {
+                            const next = e.target.checked 
+                              ? [...filters.room_count, opt]
+                              : filters.room_count.filter(c => c !== opt);
+                            updateFilter('room_count', next);
+                          }}
+                          className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
+                        />
+                        <span className="group-hover:translate-x-0.5 transition-transform">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Bina Yaşı</label>
+                    <select 
+                      value={filters.building_age}
+                      onChange={(e) => updateFilter('building_age', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    >
+                      <option value="">Belirtilmemiş</option>
+                      {BUILDING_AGE_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Isıtma</label>
+                    <select 
+                      value={filters.heating_type}
+                      onChange={(e) => updateFilter('heating_type', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    >
+                      <option value="">Belirtilmemiş</option>
+                      {HEATING_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Bulunduğu Kat</label>
+                    <input 
+                      type="number" 
+                      placeholder="Eğ. 3"
+                      value={filters.floor_number}
+                      onChange={(e) => updateFilter('floor_number', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Banyo Sayısı</label>
+                    <input 
+                      type="number" 
+                      placeholder="Eğ. 2"
+                      value={filters.bathroom_count}
+                      onChange={(e) => updateFilter('bathroom_count', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3 pt-3 border-t border-neutral-50">
+                  <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={filters.balcony}
+                      onChange={(e) => updateFilter('balcony', e.target.checked)}
+                      className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
+                    />
+                    <span className="group-hover:text-black transition-colors">Balkon Var</span>
+                  </label>
+                  <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={filters.furnished}
+                      onChange={(e) => updateFilter('furnished', e.target.checked)}
+                      className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
+                    />
+                    <span className="group-hover:text-black transition-colors">Eşyalı</span>
+                  </label>
+                  <label className="flex items-center gap-3 text-[13px] font-medium text-neutral-700 cursor-pointer group">
+                    <input 
+                      type="checkbox" 
+                      checked={filters.credit_eligible}
+                      onChange={(e) => updateFilter('credit_eligible', e.target.checked)}
+                      className="w-4 h-4 rounded border-neutral-300 text-amber-500 focus:ring-amber-500 transition-all"
+                    />
+                    <span className="group-hover:text-black transition-colors">Krediye Uygun</span>
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Arsa Özellikleri (ARSA) */}
+        {filters.category === "ARSA" && (
+          <div className="p-5">
+            <button 
+              onClick={() => toggleExpand('details')}
+              className="w-full flex items-center justify-between text-[13px] font-bold text-neutral-800 mb-3 hover:text-black transition-colors"
+            >
+              Arsa Özellikleri
+              {expanded.details ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+            {expanded.details && (
+              <div className="space-y-4 mt-1">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">İmar Durumu</label>
+                  <select 
+                    value={filters.zoning_status}
+                    onChange={(e) => updateFilter('zoning_status', e.target.value)}
+                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                  >
+                    <option value="">Seçiniz</option>
+                    {ZONING_STATUS_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Tapu Durumu</label>
+                  <select 
+                    value={filters.title_deed_status}
+                    onChange={(e) => updateFilter('title_deed_status', e.target.value)}
+                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                  >
+                    <option value="">Seçiniz</option>
+                    {TITLE_DEED_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Ada No</label>
+                    <input 
+                      type="text" 
+                      value={filters.ada_no}
+                      onChange={(e) => updateFilter('ada_no', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Parsel No</label>
+                    <input 
+                      type="text" 
+                      value={filters.parsel_no}
+                      onChange={(e) => updateFilter('parsel_no', e.target.value)}
+                      className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block">Takaslı</label>
+                  <select 
+                    value={filters.swap_option}
+                    onChange={(e) => updateFilter('swap_option', e.target.value)}
+                    className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 outline-none transition-all bg-white"
+                  >
+                    <option value="">Seçiniz</option>
+                    {SWAP_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="p-5 bg-white border-t border-neutral-100 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] relative z-10">
         <button 
           onClick={handleApply}
-          className="w-full bg-amber-400 hover:bg-amber-500 text-black font-bold py-3.5 rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98] hover:shadow-lg hover:shadow-amber-200"
+          disabled={loadingCount}
+          className="w-full bg-amber-400 hover:bg-amber-500 text-black font-bold py-3.5 rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98] hover:shadow-lg hover:shadow-amber-200 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {totalCount > 0 ? `${totalCount} İlanı Göster` : "Sonuçları Göster"}
+          {loadingCount ? (
+            <span className="flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+              Hesaplanıyor...
+            </span>
+          ) : (
+            previewCount > 0 ? `${previewCount} İlanı Göster` : "Sonuçları Göster"
+          )}
         </button>
       </div>
     </aside>
