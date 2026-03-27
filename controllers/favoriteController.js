@@ -72,4 +72,60 @@ async function remove(req, res) {
   }
 }
 
-module.exports = { list, add, remove };
+/**
+ * POST /api/favorites/sync
+ * Misafir favorilerini kullanıcı hesabına aktarır.
+ * Body: { listingIds: [id1, id2, ...] }
+ */
+async function sync(req, res) {
+  try {
+    const { listingIds } = req.body;
+    const userId = req.user._id;
+
+    if (!Array.isArray(listingIds) || listingIds.length === 0) {
+      return res.json({ success: true, message: 'Senkronize edilecek ilan yok.' });
+    }
+
+    // Geçerli ve aktif olan ilanları filtrele
+    const validListings = await Listing.find({
+      _id: { $in: listingIds },
+      status: 'ACTIVE',
+    }).select('_id');
+
+    const validIds = validListings.map((l) => l._id.toString());
+    if (validIds.length === 0) {
+      return res.json({ success: true, message: 'Geçerli ilan bulunamadı.' });
+    }
+
+    // Kullanıcının mevcut favorilerini al
+    const user = await User.findById(userId).select('favorites');
+    const existingIds = new Set(user.favorites.map((id) => id.toString()));
+
+    // Sadece yeni olanları ekle
+    const newIds = validIds.filter((id) => !existingIds.has(id));
+
+    if (newIds.length > 0) {
+      await User.updateOne(
+        { _id: userId },
+        { $addToSet: { favorites: { $each: newIds } } }
+      );
+
+      // İlanların favori sayılarını artır
+      await Listing.updateMany(
+        { _id: { $in: newIds } },
+        { $inc: { favorite_count: 1 } }
+      );
+    }
+
+    res.json({
+      success: true,
+      message: `${newIds.length} ilan senkronize edildi.`,
+      data: { syncedCount: newIds.length },
+    });
+  } catch (err) {
+    console.error('Favorite sync error:', err);
+    res.status(500).json({ success: false, message: 'Senkronizasyon sırasında hata oluştu.' });
+  }
+}
+
+module.exports = { list, add, remove, sync };

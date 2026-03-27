@@ -216,10 +216,11 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* 1. Üst Satır (KPI Cards) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <KpiCard label="Toplam İlan" value={ov.total ?? stats?.total_listings} />
         <KpiCard label="Aktif İlan" value={ov.active ?? stats?.active_listings} />
         <KpiCard label="Satıldı" value={ov.sold} />
+        <KpiCard label="Toplam Görüntülenme" value={ov.totalViews ?? stats?.total_views} />
         <KpiCard label="Kullanıcı Sayısı" value={ov.totalUsers ?? stats?.total_users} />
       </div>
 

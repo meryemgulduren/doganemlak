@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Heart } from "lucide-react";
 import { fetchPublicConsultants } from "../api/consultants";
+import { useFavorites } from "../context/FavoriteContext";
 
 function consultantDisplayName(c) {
   return [c.first_name, c.last_name].filter(Boolean).join(" ") || c.username || "—";
@@ -16,6 +17,7 @@ export default function GayrimenkulDanismanlarPage() {
   const [consultants, setConsultants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isConsultantFavorite, toggleConsultantFavorite, isLoadingConsultantFavorite } = useFavorites();
 
   useEffect(() => {
     let cancelled = false;
@@ -66,8 +68,25 @@ export default function GayrimenkulDanismanlarPage() {
             {consultants.map((c) => (
               <div
                 key={c._id}
-                className="rounded-2xl border border-border bg-surface shadow-sm p-4 flex flex-col gap-3"
+                className="rounded-2xl border border-border bg-surface shadow-sm p-4 flex flex-col gap-3 relative group"
               >
+                <button
+                  onClick={() => toggleConsultantFavorite(c._id)}
+                  disabled={isLoadingConsultantFavorite(c._id)}
+                  className={`absolute top-3 right-3 p-2 rounded-full border bg-white/80 shadow-sm transition-all duration-300 hover:scale-110 active:scale-95 ${
+                    isConsultantFavorite(c._id)
+                      ? "text-bordeaux border-bordeaux/20 bg-bordeaux/5"
+                      : "text-zinc-400 border-border hover:text-zinc-600"
+                  } ${isLoadingConsultantFavorite(c._id) ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                  title={isConsultantFavorite(c._id) ? "Favorilerden Çıkar" : "Favorilere Ekle"}
+                >
+                  <Heart
+                    className={`w-5 h-5 transition-colors ${
+                      isConsultantFavorite(c._id) ? "fill-current" : ""
+                    }`}
+                  />
+                </button>
+
                 <div className="flex items-stretch gap-3">
                   {c.profile_image ? (
                     <img

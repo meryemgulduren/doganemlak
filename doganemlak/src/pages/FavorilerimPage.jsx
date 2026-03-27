@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchFavorites } from "../api/listings";
+import { fetchFavorites, fetchListings } from "../api/listings";
 import Card from "../components/Card";
+import { useAuth } from "../context/AuthContext";
 import { useListingFavorites } from "../hooks/useListingFavorites";
 
 export default function FavorilerimPage() {
@@ -9,12 +10,25 @@ export default function FavorilerimPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const location = useLocation();
-  const { isLoadingFavorite, toggleFavorite } = useListingFavorites();
+  const { isLoggedIn } = useAuth();
+  const { favoriteIds, isLoadingFavorite, toggleFavorite } = useListingFavorites();
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetchFavorites()
+
+    const idsArray = Array.from(favoriteIds);
+    if (idsArray.length === 0 && !isLoggedIn) {
+      setListings([]);
+      setLoading(false);
+      return;
+    }
+
+    const fetchPromise = isLoggedIn
+      ? fetchFavorites()
+      : fetchListings({ ids: idsArray });
+
+    fetchPromise
       .then((res) => {
         if (!cancelled && res.success) {
           setListings(Array.isArray(res.data) ? res.data : []);
@@ -27,7 +41,7 @@ export default function FavorilerimPage() {
         if (!cancelled) setLoading(false);
       });
     return () => { cancelled = true; };
-  }, []);
+  }, [isLoggedIn, favoriteIds.size]);
 
   const filteredListings = useMemo(() => {
     const params = new URLSearchParams(location.search);

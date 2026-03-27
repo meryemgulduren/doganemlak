@@ -1,38 +1,50 @@
 import { useEffect, useState } from "react";
-import { fetchFavoriteConsultants, removeFavoriteConsultant } from "../api/consultants";
+import { fetchFavoriteConsultants, fetchPublicConsultants } from "../api/consultants";
+import { useAuth } from "../context/AuthContext";
+import { useFavorites } from "../context/FavoriteContext";
 
 export default function FavoriDanismanlarPage() {
   const [consultants, setConsultants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [removingId, setRemovingId] = useState(null);
-
-  const load = () => {
-    setLoading(true);
-    setError(null);
-    fetchFavoriteConsultants()
-      .then((res) => {
-        if (res.success && Array.isArray(res.data)) setConsultants(res.data);
-        else setConsultants([]);
-      })
-      .catch((err) => setError(err.message || "Liste yüklenemedi."))
-      .finally(() => setLoading(false));
-  };
+  const { isLoggedIn } = useAuth();
+  const { consultantFavoriteIds, toggleConsultantFavorite, isLoadingConsultantFavorite } = useFavorites();
 
   useEffect(() => {
-    load();
-  }, []);
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    const idsArray = Array.from(consultantFavoriteIds);
+    if (idsArray.length === 0 && !isLoggedIn) {
+      setConsultants([]);
+      setLoading(false);
+      return;
+    }
+
+    const fetchPromise = isLoggedIn
+      ? fetchFavoriteConsultants()
+      : fetchPublicConsultants(idsArray);
+
+    fetchPromise
+      .then((res) => {
+        if (!cancelled && res.success) {
+          setConsultants(Array.isArray(res.data) ? res.data : []);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message || "Favori danışmanlar yüklenemedi.");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, [isLoggedIn, consultantFavoriteIds.size]);
 
   const handleRemove = async (id) => {
-    setRemovingId(id);
-    try {
-      await removeFavoriteConsultant(id);
-      setConsultants((prev) => prev.filter((c) => c._id !== id));
-    } catch (e) {
-      setError(e.message || "Kaldırılamadı.");
-    } finally {
-      setRemovingId(null);
-    }
+    await toggleConsultantFavorite(id);
+    // State will be updated by the useEffect dependency on consultantFavoriteIds.size
   };
 
   const displayName = (c) =>
@@ -98,11 +110,11 @@ export default function FavoriDanismanlarPage() {
               </div>
               <button
                 type="button"
-                disabled={removingId === c._id}
+                disabled={isLoadingConsultantFavorite(c._id)}
                 onClick={() => handleRemove(c._id)}
                 className="text-sm px-3 py-1.5 rounded-lg border border-danger/40 text-danger hover:bg-danger/10 disabled:opacity-50"
               >
-                {removingId === c._id ? "…" : "Favoriden çıkar"}
+                {isLoadingConsultantFavorite(c._id) ? "…" : "Favoriden çıkar"}
               </button>
             </li>
           ))}

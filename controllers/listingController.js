@@ -26,6 +26,14 @@ async function list(req, res) {
     const filter = { status: 'ACTIVE' };
     const andClauses = [];
 
+    // Support for multiple specific IDs (useful for Guest Favorites)
+    if (req.query.ids) {
+      const ids = req.query.ids.split(',').map(id => id.trim()).filter(Boolean);
+      if (ids.length > 0) {
+        filter._id = { $in: ids };
+      }
+    }
+
     // Basic fields
     const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'has_tenant', 'zoning_status', 'building_age', 'room_count', 'admin_id', 'kaks_emsal', 'gabari'];
     directFields.forEach(field => {

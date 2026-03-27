@@ -244,10 +244,6 @@ export default function HomePage() {
                     onFavoriteClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      if (!isLoggedIn) {
-                        navigate("/login");
-                        return;
-                      }
                       toggleFavorite(listing._id);
                     }}
                   />

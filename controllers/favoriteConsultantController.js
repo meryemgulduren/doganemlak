@@ -77,4 +77,57 @@ async function remove(req, res) {
   }
 }
 
-module.exports = { list, add, remove };
+/**
+ * POST /api/favorite-consultants/sync
+ * Misafir favori danışmanlarını kullanıcı hesabına aktarır.
+ * Body: { consultantIds: [id1, id2, ...] }
+ */
+async function sync(req, res) {
+  try {
+    const { consultantIds } = req.body;
+    const userId = req.user._id;
+
+    if (!Array.isArray(consultantIds) || consultantIds.length === 0) {
+      return res.json({ success: true, message: 'Senkronize edilecek danışman yok.' });
+    }
+
+    // Geçerli ve ADMIN olan kullanıcıları filtrele
+    const validConsultants = await User.find({
+      _id: { $in: consultantIds },
+      role: 'ADMIN',
+    }).select('_id');
+
+    const validIds = validConsultants.map((c) => c._id.toString());
+    if (validIds.length === 0) {
+      return res.json({ success: true, message: 'Geçerli danışman bulunamadı.' });
+    }
+
+    // Kullanıcının kendisini favoriye eklemesini engelle
+    const filteredIds = validIds.filter((id) => id !== userId.toString());
+
+    // Kullanıcının mevcut favorilerini al
+    const user = await User.findById(userId).select('favorite_consultants');
+    const existingIds = new Set(user.favorite_consultants.map((id) => id.toString()));
+
+    // Sadece yeni olanları ekle
+    const newIds = filteredIds.filter((id) => !existingIds.has(id));
+
+    if (newIds.length > 0) {
+      await User.updateOne(
+        { _id: userId },
+        { $addToSet: { favorite_consultants: { $each: newIds } } }
+      );
+    }
+
+    res.json({
+      success: true,
+      message: `${newIds.length} danışman senkronize edildi.`,
+      data: { syncedCount: newIds.length },
+    });
+  } catch (err) {
+    console.error('Favorite consultant sync error:', err);
+    res.status(500).json({ success: false, message: 'Senkronizasyon sırasında hata oluştu.' });
+  }
+}
+
+module.exports = { list, add, remove, sync };

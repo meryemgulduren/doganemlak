@@ -43,8 +43,9 @@ async function getAnalyticsSummary(req, res) {
                     total:   { $sum: 1 },
                     active:  { $sum: { $cond: [{ $eq: ['$status', 'ACTIVE'] }, 1, 0] } },
                     sold:    { $sum: { $cond: [{ $eq: ['$status', 'SOLD'] },   1, 0] } },
-                    passive: { $sum: { $cond: [{ $eq: ['$status', 'PASSIVE'] },1, 0] } },
-                    pending: { $sum: { $cond: [{ $eq: ['$status', 'PENDING'] },1, 0] } },
+                    passive: { $sum: { $cond: [{ $eq: ['$status', 'PASSIVE'] }, 1, 0] } },
+                    pending: { $sum: { $cond: [{ $eq: ['$status', 'PENDING'] }, 1, 0] } },
+                    totalViews: { $sum: '$view_count' },
                   },
                 },
               ],
@@ -155,7 +156,7 @@ async function getAnalyticsSummary(req, res) {
       ]);
 
     const facets = aggregationResult[0] ?? {};
-    const overview = facets.overview?.[0] ?? { total: 0, active: 0, sold: 0, passive: 0, pending: 0 };
+    const overview = facets.overview?.[0] ?? { total: 0, active: 0, sold: 0, passive: 0, pending: 0, totalViews: 0 };
     const priceStats = facets.priceStats?.[0] ?? { min: 0, max: 0, avg: 0 };
 
     res.json({

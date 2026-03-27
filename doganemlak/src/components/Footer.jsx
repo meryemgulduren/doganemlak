@@ -3,7 +3,7 @@ import logoImg from "../assets/logo.png";
 import sahibindenLogo from "../assets/sahibinden.png";
 import emlakjetLogo from "../assets/emlakjet.png";
 import hepsiemlakLogo from "../assets/hepsiemlak.png";
-import { Instagram, Phone, MessageCircle, Heart } from "lucide-react";
+import { Instagram, Phone, MessageCircle, Heart, MapPin } from "lucide-react";
 import okImg from "../assets/ok.png";
 
 export default function Footer() {
@@ -165,6 +165,26 @@ export default function Footer() {
                 <Heart className="w-4 h-4 text-red-600" fill="currentColor" />
                 Yeni ilanlardan ilk sizin haberiniz olması için WhatsApp grubumuza
                 katılmayı unutmayın
+              </div>
+
+              {/* Bizimle Tanışın / Adres */}
+              <div className="mt-6 pt-6 border-t border-border/50">
+                <h3 className="font-montserrat text-base font-semibold text-text-dark tracking-tight flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-bordeaux" />
+                  Bizimle Tanışın
+                </h3>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Tepecik+mahallesi+Gebi+caddesi+310/b+no:20+İLKADIM/SAMSUN+DOĞAN+EMLAK+GROUP"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 block text-sm text-muted hover:text-bordeaux transition-colors leading-relaxed"
+                >
+                  Tepecik mahallesi Gebi caddesi 310/b no:20
+                  <br />
+                  İLKADIM / SAMSUN
+                  <br />
+                  <span className="font-bold text-text-dark">DOĞAN EMLAK GROUP</span>
+                </a>
               </div>
             </div>
           </div>

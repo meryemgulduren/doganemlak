@@ -45,15 +45,23 @@ function generateListingNo() {
  */
 async function getStats(req, res) {
   try {
-    const [totalUsers, totalListings, activeListings] = await Promise.all([
+    const [totalUsers, totalListings, activeListings, totalViewsResult] = await Promise.all([
       User.countDocuments(),
       Listing.countDocuments(),
       Listing.countDocuments({ status: 'ACTIVE' }),
+      Listing.aggregate([{ $group: { _id: null, total: { $sum: '$view_count' } } }]),
     ]);
+
+    const totalViews = totalViewsResult[0]?.total || 0;
 
     res.json({
       success: true,
-      data: { total_users: totalUsers, total_listings: totalListings, active_listings: activeListings },
+      data: {
+        total_users: totalUsers,
+        total_listings: totalListings,
+        active_listings: activeListings,
+        total_views: totalViews,
+      },
     });
   } catch (err) {
     console.error('Admin stats error:', err);

@@ -23,6 +23,13 @@ export async function createReview(listingId, { comment_text, rating }) {
   });
 }
 
+export async function syncFavorites(listingIds) {
+  return apiRequest('/api/favorites/sync', {
+    method: 'POST',
+    body: JSON.stringify({ listingIds }),
+  });
+}
+
 export async function fetchListings(params = {}) {
   const search = new URLSearchParams();
   
@@ -31,6 +38,11 @@ export async function fetchListings(params = {}) {
       search.set(key, value);
     }
   });
+
+  // Support for bulk IDs fetch
+  if (params.ids && Array.isArray(params.ids)) {
+    search.set('ids', params.ids.join(','));
+  }
 
   const qs = search.toString();
   return apiRequest(`/api/listings${qs ? `?${qs}` : ''}`);
