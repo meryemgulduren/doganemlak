@@ -3,7 +3,7 @@ import logoImg from "../assets/logo.png";
 import sahibindenLogo from "../assets/sahibinden.png";
 import emlakjetLogo from "../assets/emlakjet.png";
 import hepsiemlakLogo from "../assets/hepsiemlak.png";
-import { Instagram, Phone, MessageCircle, Heart, MapPin } from "lucide-react";
+import { Instagram, Phone, MessageCircle, Heart } from "lucide-react";
 import okImg from "../assets/ok.png";
 
 export default function Footer() {
@@ -92,9 +92,13 @@ export default function Footer() {
               inceleyin, ihtiyacınıza uygun seçeneklere hızlıca ulaşın.
             </p>
 
-            <div className="mt-4 flex items-center gap-2 font-montserrat text-lg font-semibold text-red-600 tracking-tight">
-              <MapPin className="w-5 h-5" />
-              <span>Doğru Yatırımın En Güvenilir Adresi</span>
+            <div className="mt-4 flex items-center text-[#F4C542] tracking-tight">
+              <span
+                className="text-lg sm:text-xl font-extrabold italic leading-tight"
+                style={{ fontFamily: '"Georgia","Times New Roman",serif' }}
+              >
+                HAYALDE KALMASIN BİZ GERÇEKLEŞTİRELİM
+              </span>
             </div>
 
             <div className="mt-6 text-xs text-muted">

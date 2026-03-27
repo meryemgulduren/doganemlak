@@ -123,6 +123,21 @@ async function getMe(req, res) {
 }
 
 /**
+ * DELETE /api/auth/me
+ * Header: Authorization: Bearer <token>
+ * Giriş yapan kullanıcının hesabını kalıcı olarak siler.
+ */
+async function deleteMe(req, res) {
+  try {
+    await User.findByIdAndDelete(req.user._id);
+    res.json({ success: true, message: 'Hesabınız kalıcı olarak silindi.' });
+  } catch (err) {
+    console.error('DeleteMe error:', err);
+    res.status(500).json({ success: false, message: 'Hesap silinirken hata oluştu.' });
+  }
+}
+
+/**
  * POST /api/auth/forgot-password
  * Body: { email }
  *
@@ -211,4 +226,4 @@ async function resetPassword(req, res) {
   }
 }
 
-module.exports = { register, login, getMe, forgotPassword, resetPassword };
+module.exports = { register, login, getMe, deleteMe, forgotPassword, resetPassword };

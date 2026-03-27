@@ -24,9 +24,10 @@ async function list(req, res) {
     const skip  = (page - 1) * limit;
 
     const filter = { status: 'ACTIVE' };
+    const andClauses = [];
 
     // Basic fields
-    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'zoning_status', 'title_deed_status', 'heating_type', 'building_age', 'room_count', 'admin_id', 'swap_option', 'pafta_no', 'ada_no', 'parsel_no', 'kaks_emsal', 'gabari'];
+    const directFields = ['category', 'listing_type', 'subType', 'property_type', 'currency', 'using_status', 'property_condition', 'has_tenant', 'zoning_status', 'building_age', 'room_count', 'admin_id', 'kaks_emsal', 'gabari'];
     directFields.forEach(field => {
       if (req.query[field]) {
         const value = req.query[field];
@@ -35,6 +36,132 @@ async function list(req, res) {
         } else {
           filter[field] = value;
         }
+      }
+    });
+
+    // Alt tip alias desteği: filtredeki değer ile DB'deki farklı kaydı birlikte eşleştir.
+    if (req.query.subType) {
+      const raw = String(req.query.subType).trim();
+      const aliasMap = {
+        DEPO: ['DEPO', 'DEPO_ANTREPO'],
+        DEPO_ANTREPO: ['DEPO_ANTREPO', 'DEPO'],
+        DUKKAN: ['DUKKAN', 'DUKKAN_MAGAZA'],
+        DUKKAN_MAGAZA: ['DUKKAN_MAGAZA', 'DUKKAN'],
+        OFIS: ['OFIS', 'BURO_OFIS'],
+        BURO_OFIS: ['BURO_OFIS', 'OFIS'],
+        RESIDENCE: ['RESIDENCE', 'REZIDANS'],
+        REZIDANS: ['REZIDANS', 'RESIDENCE'],
+      };
+      if (aliasMap[raw]) {
+        filter.subType = { $in: aliasMap[raw] };
+      }
+    }
+
+    // Tapu / takas: hem düz kolonda hem specifications Map içinde tutulabiliyor; ikisini de eşleştir.
+    if (req.query.title_deed_status) {
+      const raw = String(req.query.title_deed_status).trim();
+      const parts = raw.includes(',')
+        ? raw.split(',').map((v) => v.trim()).filter(Boolean)
+        : [raw];
+      if (parts.length === 1) {
+        andClauses.push({
+          $or: [
+            { title_deed_status: parts[0] },
+            { 'specifications.title_deed_status': parts[0] },
+          ],
+        });
+      } else if (parts.length > 1) {
+        andClauses.push({
+          $or: [
+            { title_deed_status: { $in: parts } },
+            { 'specifications.title_deed_status': { $in: parts } },
+          ],
+        });
+      }
+    }
+
+    if (req.query.swap_option) {
+      let v = String(req.query.swap_option).trim();
+      if (v === 'true') v = 'Evet';
+      if (v === 'false') v = 'Hayır';
+      andClauses.push({
+        $or: [{ swap_option: v }, { 'specifications.swap_option': v }],
+      });
+    }
+
+    // Isıtma: düz kolon veya specifications (çoklu seçim virgülle)
+    if (req.query.heating_type) {
+      const raw = String(req.query.heating_type).trim();
+      const parts = raw.includes(',')
+        ? raw.split(',').map((v) => v.trim()).filter(Boolean)
+        : [raw];
+      if (parts.length === 1) {
+        andClauses.push({
+          $or: [
+            { heating_type: parts[0] },
+            { 'specifications.heating_type': parts[0] },
+          ],
+        });
+      } else if (parts.length > 1) {
+        andClauses.push({
+          $or: [
+            { heating_type: { $in: parts } },
+            { 'specifications.heating_type': { $in: parts } },
+          ],
+        });
+      }
+    }
+
+    if (req.query.apartment_count) {
+      const raw = String(req.query.apartment_count).trim();
+      const parts = raw.includes(',')
+        ? raw.split(',').map((v) => v.trim()).filter(Boolean)
+        : [raw];
+      andClauses.push({
+        'specifications.apartment_count': parts.length > 1 ? { $in: parts } : parts[0],
+      });
+    }
+
+    if (req.query.ground_survey) {
+      const raw = String(req.query.ground_survey).trim();
+      const parts = raw.includes(',')
+        ? raw.split(',').map((v) => v.trim()).filter(Boolean)
+        : [raw];
+      andClauses.push({
+        $or: [
+          { ground_survey: parts.length > 1 ? { $in: parts } : parts[0] },
+          { 'specifications.ground_survey': parts.length > 1 ? { $in: parts } : parts[0] },
+        ],
+      });
+    }
+
+    if (req.query.bina_type) {
+      const raw = String(req.query.bina_type).trim();
+      const parts = raw.includes(',')
+        ? raw.split(',').map((v) => v.trim()).filter(Boolean)
+        : [raw];
+      andClauses.push({
+        $or: [
+          { bina_type: parts.length > 1 ? { $in: parts } : parts[0] },
+          { 'specifications.bina_type': parts.length > 1 ? { $in: parts } : parts[0] },
+        ],
+      });
+    }
+
+    // Daire filtresindeki bazı alanlar specifications altında tutuluyor.
+    const specArrayFields = [
+      { queryKey: 'kitchen_type', path: 'specifications.kitchen_type' },
+      { queryKey: 'elevator', path: 'specifications.elevator' },
+      { queryKey: 'parking', path: 'specifications.parking' },
+    ];
+    specArrayFields.forEach(({ queryKey, path }) => {
+      if (!req.query[queryKey]) return;
+      const values = String(req.query[queryKey])
+        .split(',')
+        .map(v => v.trim())
+        .filter(Boolean);
+      if (values.length > 0) {
+        andClauses.push({ [path]: { $in: values } });
       }
     });
 
@@ -55,6 +182,54 @@ async function list(req, res) {
         filter[key] = {};
         if (req.query[min]) filter[key].$gte = Number(req.query[min]);
         if (req.query[max]) filter[key].$lte = Number(req.query[max]);
+      }
+    });
+
+    // Arsa numerik metin alanları (ada/parsel) için min-max aralık filtresi
+    const textNumericRangeFields = [
+      { field: 'ada_no', min: 'min_ada_no', max: 'max_ada_no' },
+      { field: 'parsel_no', min: 'min_parsel_no', max: 'max_parsel_no' },
+    ];
+    textNumericRangeFields.forEach(({ field, min, max }) => {
+      if (!req.query[min] && !req.query[max]) return;
+      const minN = req.query[min] !== undefined && req.query[min] !== '' ? Number(req.query[min]) : null;
+      const maxN = req.query[max] !== undefined && req.query[max] !== '' ? Number(req.query[max]) : null;
+      if ((minN != null && Number.isNaN(minN)) || (maxN != null && Number.isNaN(maxN))) return;
+
+      const convertedField = {
+        $convert: { input: `$${field}`, to: 'double', onError: null, onNull: null },
+      };
+      const exprParts = [{ $ne: [convertedField, null] }];
+      if (minN != null) exprParts.push({ $gte: [convertedField, minN] });
+      if (maxN != null) exprParts.push({ $lte: [convertedField, maxN] });
+      andClauses.push({ $expr: { $and: exprParts } });
+    });
+
+    // Numeric multi-select alanları
+    const numericMultiFields = ['floor_number', 'total_floors', 'bathroom_count'];
+    numericMultiFields.forEach((field) => {
+      if (!req.query[field]) return;
+      const rawValues = String(req.query[field]).split(',').map(v => v.trim()).filter(Boolean);
+      if (rawValues.length === 0) return;
+
+      // "6 Üzeri" veya "20+" gibi değerleri aralık filtresine çevir
+      const numericIn = [];
+      rawValues.forEach((token) => {
+        if (/^\d+\+$/.test(token)) {
+          const minN = Number(token.replace('+', ''));
+          if (!Number.isNaN(minN)) andClauses.push({ [field]: { $gte: minN } });
+          return;
+        }
+        if (token.toLowerCase().includes('üzeri')) {
+          const only = token.match(/\d+/);
+          if (only) andClauses.push({ [field]: { $gte: Number(only[0]) } });
+          return;
+        }
+        const n = Number(token);
+        if (!Number.isNaN(n)) numericIn.push(n);
+      });
+      if (numericIn.length > 0) {
+        andClauses.push({ [field]: { $in: numericIn } });
       }
     });
 
@@ -88,14 +263,16 @@ async function list(req, res) {
     if (req.query.district) filter['location.district'] = req.query.district;
     if (req.query.neighborhood) filter['location.neighborhood'] = req.query.neighborhood;
 
+    const finalFilter = andClauses.length ? { ...filter, $and: andClauses } : filter;
+
     const [listings, total] = await Promise.all([
-      Listing.find(filter)
+      Listing.find(finalFilter)
         .sort({ listing_date: -1 })
         .skip(skip)
         .limit(limit)
         .select('-__v')
         .lean(),
-      Listing.countDocuments(filter),
+      Listing.countDocuments(finalFilter),
     ]);
 
     res.json({

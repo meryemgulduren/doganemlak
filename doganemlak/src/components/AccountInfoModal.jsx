@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { apiRequest } from "../api/client";
+import { useAuth } from "../context/AuthContext";
 
 function formatRegisterDate(createdAt) {
   if (!createdAt) return "—";
@@ -21,6 +22,8 @@ function formatRegisterDate(createdAt) {
  */
 export default function AccountInfoModal({ open, onClose, user }) {
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const { logout } = useAuth();
 
   useEffect(() => {
     if (!open) return;
@@ -62,10 +65,28 @@ export default function AccountInfoModal({ open, onClose, user }) {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm("Hesabınızı silmek istediğinize emin misiniz?");
+    if (!confirmed) return;
+
+    setDeleteLoading(true);
+    try {
+      const data = await apiRequest("/api/auth/me", { method: "DELETE" });
+      alert(data.message || "Hesabınız kalıcı olarak silindi.");
+      logout();
+      onClose();
+      window.location.href = "/";
+    } catch (err) {
+      alert(err.data?.message || err.message || "Hesap silinirken bir hata oluştu.");
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
   const modal = (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50"
-      onClick={!loading ? onClose : undefined}
+      onClick={!loading && !deleteLoading ? onClose : undefined}
       role="presentation"
     >
       <div
@@ -78,7 +99,7 @@ export default function AccountInfoModal({ open, onClose, user }) {
         <button
           type="button"
           onClick={onClose}
-          disabled={loading}
+          disabled={loading || deleteLoading}
           className="absolute top-3 right-3 p-2 rounded-lg text-text-dark/60 hover:bg-accent/20 hover:text-text-dark transition-colors disabled:opacity-50"
           aria-label="Kapat"
         >
@@ -110,15 +131,23 @@ export default function AccountInfoModal({ open, onClose, user }) {
         <button
           type="button"
           onClick={handlePasswordChangeRequest}
-          disabled={loading}
+          disabled={loading || deleteLoading}
           className="mt-6 w-full py-2.5 rounded-xl border border-amber-300/80 bg-amber-100/80 text-text-dark text-sm font-medium hover:bg-amber-200/80 transition-colors hover:border-amber-300 disabled:opacity-50"
         >
           {loading ? "Gönderiliyor..." : "Şifremi Değiştir"}
         </button>
         <button
           type="button"
+          onClick={handleDeleteAccount}
+          disabled={loading || deleteLoading}
+          className="mt-3 w-full py-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition-colors disabled:opacity-50"
+        >
+          {deleteLoading ? "Siliniyor..." : "Hesabımı Sil"}
+        </button>
+        <button
+          type="button"
           onClick={onClose}
-          disabled={loading}
+          disabled={loading || deleteLoading}
           className="mt-3 w-full py-2.5 rounded-xl bg-amber-200 text-text-dark text-sm font-semibold hover:bg-amber-300 transition-colors disabled:opacity-50"
         >
           Tamam

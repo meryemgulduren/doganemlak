@@ -2,49 +2,151 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.doganemlak.com/</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.doganemlak.com/ilanlar</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.doganemlak.com/kiralik</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.doganemlak.com/satilik</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.doganemlak.com/gayrimenkul-danismanlar</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.doganemlak.com/ilan/69c4f97c91babddc5cb6f867</loc>
+    <loc>https://www.doganemlak.com/ilan/69c5e616f0dcdbf6089a4881</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e5adf0dcdbf6089a4825</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e21f6cf7406764545329</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e19d6cf7406764545308</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e39e6cf7406764545596</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e2816cf7406764545371</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5ce21ac25eb39f7eb1dd5</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e24e6cf7406764545361</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e1f66cf7406764545319</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c5e16a6cf74067645452f8</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c4e7c82b775edda35d669c</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69c3acd8e8815b76c51025fe</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69b0470084e8ecbdf396b2a7</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69b0b9b407997de0b60106d9</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69b0bd0a07997de0b6010825</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69ac7bf9d76e1439c2a50bad</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69b0bc7b07997de0b60107f5</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.doganemlak.com/ilan/69ac7fd8d76e1439c2a50c64</loc>
     <lastmod>2026-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.doganemlak.com/ilan/69c04e7fae3961cadc555b49</loc>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://www.doganemlak.com/ilan/69b0bb4c07997de0b601076d</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.doganemlak.com/ilan/69b6d71d85cb8491b937f71f</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://www.doganemlak.com/ilan/69afdcae8dbce3917eea43e3</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

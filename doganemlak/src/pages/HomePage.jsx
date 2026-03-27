@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useSearchParams, useLocation, useNavigate } from "react-router-dom";
-import { SlidersHorizontal, TurkishLira } from "lucide-react";
+import { SlidersHorizontal, TurkishLira, X } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
 import Seo from "../components/Seo";
@@ -34,6 +34,7 @@ export default function HomePage() {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0, limit: 30 });
   const [sortBy, setSortBy] = useState(null);
+  const [listingFilterOpen, setListingFilterOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const filterRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -131,7 +132,9 @@ export default function HomePage() {
       <div className="max-w-[1600px] mx-auto w-full">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
-          <FilterSidebar className="hidden lg:block lg:shrink-0" totalCount={pagination.total} />
+          {listingFilterOpen && (
+            <FilterSidebar className="hidden lg:block lg:shrink-0" totalCount={pagination.total} />
+          )}
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
@@ -140,13 +143,22 @@ export default function HomePage() {
                 {isIlanlarOnly ? "Tüm İlanlar" : "Öne Çıkan İlanlar"}
               </h2>
               <div className="shrink-0 flex items-center gap-2">
-                {/* Mobil Filtre Butonu (Gelecekte Drawer eklenebilir) */}
-                <button 
-                  onClick={() => alert("Filtreleme şimdilik geniş ekranlarda aktiftir.")}
-                  className="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-300 bg-amber-100 text-xs font-medium"
+                <button
+                  type="button"
+                  onClick={() => setListingFilterOpen(true)}
+                  className="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-300 bg-amber-100 text-xs font-semibold text-black hover:bg-amber-200 transition-colors"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                   Filtrele
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => setListingFilterOpen((prev) => !prev)}
+                  className="hidden lg:inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-amber-300 bg-amber-100 text-sm font-semibold text-black hover:bg-amber-200 transition-colors"
+                >
+                  <SlidersHorizontal className="w-4.5 h-4.5" />
+                  {listingFilterOpen ? "Filtreyi Kapat" : "İlanları Filtrele"}
                 </button>
 
                 <div className="relative" ref={filterRef}>
@@ -215,7 +227,13 @@ export default function HomePage() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
+              <div
+                className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 ${
+                  listingFilterOpen
+                    ? "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+                    : "lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5"
+                }`}
+              >
                 {sortedListings.map((listing) => (
                   <Card
                     key={listing._id}
@@ -250,6 +268,31 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {listingFilterOpen && (
+        <div className="lg:hidden fixed inset-0 z-[120]">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/45"
+            onClick={() => setListingFilterOpen(false)}
+            aria-label="Filtre panelini kapat"
+          />
+          <div className="absolute right-0 top-0 h-full w-[92%] max-w-[420px] bg-white shadow-2xl border-l border-neutral-200 p-3 overflow-y-auto">
+            <div className="flex items-center justify-between mb-3 px-1">
+              <p className="text-sm font-semibold text-neutral-900">İlanları Filtrele</p>
+              <button
+                type="button"
+                onClick={() => setListingFilterOpen(false)}
+                className="p-2 rounded-lg border border-neutral-200 text-neutral-700 hover:bg-neutral-100"
+                aria-label="Kapat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <FilterSidebar totalCount={pagination.total} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

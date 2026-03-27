@@ -144,7 +144,14 @@ export default function AdminListingsPage() {
             {listings.length > 0 ? (
               listings.map((listing) => (
                 <tr key={listing._id} className="border-t border-accent/30 hover:bg-black/[0.02]">
-                  <td className="px-4 py-2 font-medium">{listing.listing_no}</td>
+                  <td className="px-4 py-2 font-medium">
+                    <Link
+                      to={`/ilan/${listing._id}`}
+                      className="text-primary hover:underline"
+                    >
+                      {listing.listing_no}
+                    </Link>
+                  </td>
                   <td className="px-4 py-2 max-w-[200px] truncate" title={listing.title}>{listing.title}</td>
                   <td className="px-4 py-2">{listing.listing_type}</td>
                   <td className="px-4 py-2">
