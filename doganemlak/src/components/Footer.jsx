@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SAMSUN_NAV_LINKS } from "../constants/samsunNavLinks";
 import logoImg from "../assets/logo.png";
 import sahibindenLogo from "../assets/sahibinden.png";
 import emlakjetLogo from "../assets/emlakjet.png";
@@ -64,32 +65,13 @@ export default function Footer() {
 
               <nav
                 aria-label="Samsun ilan kategorileri"
-                className="w-full flex flex-col gap-1 pt-4 border-t border-border/50 text-sm font-semibold text-text-dark tracking-wide"
+                className="hidden sm:flex w-full flex-col gap-1 pt-4 border-t border-border/50 text-sm font-semibold text-text-dark tracking-wide"
               >
-                <Link to="/kiralik" className="hover:underline">
-                  SAMSUN KİRALIK KONUTLAR
-                </Link>
-                <Link to="/satilik" className="hover:underline">
-                  SAMSUN SATILIK KONUTLAR
-                </Link>
-                <Link
-                  to="/ilanlar?category=IS_YERI&city=Samsun"
-                  className="hover:underline"
-                >
-                  SAMSUN İŞ YERLERİ
-                </Link>
-                <Link
-                  to="/ilanlar?category=ARSA&city=Samsun"
-                  className="hover:underline"
-                >
-                  SAMSUN ARSALAR
-                </Link>
-                <Link
-                  to="/ilanlar?category=BINA&city=Samsun"
-                  className="hover:underline"
-                >
-                  SAMSUN BİNALAR
-                </Link>
+                {SAMSUN_NAV_LINKS.map(({ to, label }) => (
+                  <Link key={to} to={to} className="hover:underline">
+                    {label}
+                  </Link>
+                ))}
               </nav>
             </div>
 

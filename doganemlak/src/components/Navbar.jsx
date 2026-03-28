@@ -6,6 +6,7 @@ import SearchSuggestions from "./SearchSuggestions";
 import AccountInfoModal from "./AccountInfoModal";
 import { useAuth } from "../context/AuthContext";
 import { fetchCategories } from "../api/admin";
+import { SAMSUN_NAV_LINKS } from "../constants/samsunNavLinks";
 
 const PLACEHOLDER = "Kelime veya İlan No ile Ara";
 
@@ -390,6 +391,22 @@ export default function Navbar() {
               >
               Sorun / Öneri Bildirimi
             </Link>
+            <div
+              className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2"
+              role="group"
+              aria-label="Samsun ilan kategorileri"
+            >
+              {SAMSUN_NAV_LINKS.map(({ to, label }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  onClick={() => setMobileLinksOpen(false)}
+                  className="px-3 py-2.5 rounded-lg border border-white/15 text-white font-montserrat font-semibold text-[11px] tracking-wide hover:bg-white/10 transition-colors leading-snug"
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
           </nav>
         </aside>
       </>

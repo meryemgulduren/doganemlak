@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useLocation, Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 import { fetchListings } from "../api/listings";
 import Card from "../components/Card";
 import Seo from "../components/Seo";
@@ -36,6 +36,7 @@ export default function SeoListingLandingPage() {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0, limit: 30 });
   const [sortBy, setSortBy] = useState(null);
+  const [mobileListingFilterOpen, setMobileListingFilterOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const filterRef = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -159,9 +160,10 @@ export default function SeoListingLandingPage() {
               
               <div className="shrink-0 flex items-center gap-2">
                 {/* Mobil Filtre Butonu */}
-                <button 
-                  onClick={() => alert("Filtreleme şimdilik geniş ekranlarda aktiftir.")}
-                  className="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-300 bg-amber-100 text-xs font-medium"
+                <button
+                  type="button"
+                  onClick={() => setMobileListingFilterOpen(true)}
+                  className="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-amber-300 bg-amber-100 text-xs font-semibold text-black hover:bg-amber-200 transition-colors"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                   Filtrele
@@ -264,6 +266,31 @@ export default function SeoListingLandingPage() {
           </div>
         </div>
       </div>
+
+      {mobileListingFilterOpen && (
+        <div className="lg:hidden fixed inset-0 z-[120]">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/45"
+            onClick={() => setMobileListingFilterOpen(false)}
+            aria-label="Filtre panelini kapat"
+          />
+          <div className="absolute right-0 top-0 h-full w-[92%] max-w-[420px] bg-white shadow-2xl border-l border-neutral-200 p-3 overflow-y-auto">
+            <div className="flex items-center justify-between mb-3 px-1">
+              <p className="text-sm font-semibold text-neutral-900">İlanları Filtrele</p>
+              <button
+                type="button"
+                onClick={() => setMobileListingFilterOpen(false)}
+                className="p-2 rounded-lg border border-neutral-200 text-neutral-700 hover:bg-neutral-100"
+                aria-label="Kapat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <FilterSidebar totalCount={pagination.total} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
