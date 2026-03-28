@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Check, Home, Heart, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, Home, Heart, SquarePen, X } from "lucide-react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import logoImg from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
@@ -140,6 +140,9 @@ const ARSA_DETAIL_GROUPS = [
 ];
 
 function formatPrice(price, currency = "TRY", listingType = "SATILIK") {
+  if (price == null || price === "" || (typeof price === "number" && !Number.isFinite(price))) {
+    return "Fiyat sorunuz";
+  }
   const formatted = new Intl.NumberFormat("tr-TR").format(price);
   const suffix = currency === "TRY" ? " TL" : ` ${currency}`;
   return listingType === "KIRALIK" ? `${formatted}${suffix}/ay` : `${formatted}${suffix}`;
@@ -230,7 +233,11 @@ function buildRealEstateListingSchema(listing, canonicalUrl) {
     image: imageUrl,
     offers: {
       "@type": "Offer",
-      price: Number(listing?.price || 0),
+      ...(listing?.price != null &&
+      listing.price !== "" &&
+      Number.isFinite(Number(listing.price))
+        ? { price: Number(listing.price) }
+        : {}),
       priceCurrency: listing?.currency || "TRY",
       availability:
         listing?.status === "SOLD"
@@ -632,14 +639,25 @@ export default function AdDetail() {
               </p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="order-first sm:order-none mt-0 sm:mt-0 self-end sm:self-start shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm whitespace-nowrap sm:whitespace-nowrap"
-          >
-            <Home className="w-4 h-4" />
-            Ana Sayfa
-          </button>
+          <div className="order-first sm:order-none mt-0 sm:mt-0 self-end sm:self-start shrink-0 flex flex-wrap items-center justify-end gap-2">
+            {user?.role === "ADMIN" && listing._id ? (
+              <Link
+                to={`/admin/ilan-duzenle/${listing._id}`}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-primary text-primary text-xs sm:text-sm bg-white/90 hover:bg-primary hover:text-white transition-colors shadow-sm whitespace-nowrap"
+              >
+                <SquarePen className="w-4 h-4 shrink-0" />
+                Düzenle
+              </Link>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-text-dark/40 text-text-dark text-xs sm:text-sm bg-white/80 hover:bg-text-dark hover:text-background transition-colors shadow-sm whitespace-nowrap"
+            >
+              <Home className="w-4 h-4" />
+              Ana Sayfa
+            </button>
+          </div>
         </header>
 
         <section className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-6 bg-white rounded-2xl border border-accent/60 shadow-sm p-3 sm:p-4">

@@ -22,7 +22,7 @@ const listingSchema = new mongoose.Schema(
     listing_no: { type: Number, required: true, unique: true },
     title: { type: String, required: true },
     description: { type: String, default: '' },
-    price: { type: Number, required: true },
+    price: { type: Number, default: null },
     currency: { type: String, enum: ['TRY', 'USD', 'EUR'], default: 'TRY' },
     listing_date: { type: Date, default: Date.now },
     listing_type: { type: String, enum: ['SATILIK', 'KIRALIK'], required: true },

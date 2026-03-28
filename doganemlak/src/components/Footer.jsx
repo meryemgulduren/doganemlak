@@ -33,33 +33,39 @@ export default function Footer() {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-              <Link
-                to="/"
-                className="inline-flex items-center justify-center w-24 h-24 p-0 bg-black rounded-full sm:w-28 sm:h-28 sm:p-0"
-              >
-                <img
-                  src={logoImg}
-                  alt="Doğan Emlak Group"
-                  className="h-full w-full object-contain max-w-full"
-                />
-              </Link>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+                <Link
+                  to="/"
+                  className="inline-flex items-center justify-center w-24 h-24 p-0 bg-black rounded-full sm:w-28 sm:h-28 sm:p-0"
+                >
+                  <img
+                    src={logoImg}
+                    alt="Doğan Emlak Group"
+                    className="h-full w-full object-contain max-w-full"
+                  />
+                </Link>
 
-              <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-text-dark">
-                <Link to="/hakkimizda" className="hover:underline">
-                  Hakkımızda
-                </Link>
-                <Link to="/gayrimenkul-danismanlar" className="hover:underline">
-                  Danışmanlarımız
-                </Link>
-                <Link to="/sorun-oneri" className="hover:underline">
-                  Talep / Şikayet
-                </Link>
-                <Link to="/ilanlar" className="hover:underline">
-                  İlanlar
-                </Link>
-              </nav>
-              <div className="mt-2 text-sm font-medium text-text-dark flex flex-col gap-1">
+                <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-text-dark">
+                  <Link to="/hakkimizda" className="hover:underline">
+                    Hakkımızda
+                  </Link>
+                  <Link to="/gayrimenkul-danismanlar" className="hover:underline">
+                    Danışmanlarımız
+                  </Link>
+                  <Link to="/sorun-oneri" className="hover:underline">
+                    Talep / Şikayet
+                  </Link>
+                  <Link to="/ilanlar" className="hover:underline">
+                    İlanlar
+                  </Link>
+                </nav>
+              </div>
+
+              <nav
+                aria-label="Samsun ilan kategorileri"
+                className="w-full flex flex-col gap-1 pt-4 border-t border-border/50 text-sm font-semibold text-text-dark tracking-wide"
+              >
                 <Link to="/kiralik" className="hover:underline">
                   SAMSUN KİRALIK KONUTLAR
                 </Link>
@@ -84,7 +90,7 @@ export default function Footer() {
                 >
                   SAMSUN BİNALAR
                 </Link>
-              </div>
+              </nav>
             </div>
 
             <p className="mt-6 text-sm text-muted max-w-2xl leading-relaxed">

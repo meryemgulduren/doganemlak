@@ -3,6 +3,9 @@ import { ChevronLeft, ChevronRight, MapPin, Maximize2, BedDouble, Heart } from "
 import { Link } from "react-router-dom";
 
 function formatPrice(price, currency = "TRY", listingType = "SATILIK") {
+  if (price == null || price === "" || (typeof price === "number" && !Number.isFinite(price))) {
+    return "Fiyat sorunuz";
+  }
   const formatted = new Intl.NumberFormat("tr-TR").format(price);
   const suffix = currency === "TRY" ? " ₺" : ` ${currency}`;
   return listingType === "KIRALIK" ? `${formatted}${suffix}/ay` : `${formatted}${suffix}`;

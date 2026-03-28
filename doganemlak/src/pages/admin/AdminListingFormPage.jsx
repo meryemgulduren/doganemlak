@@ -309,19 +309,6 @@ export default function AdminListingFormPage() {
               setSaving(true);
               setError(null);
 
-              const priceNumber = Number(core?.price);
-              const hasValidPrice =
-                core?.price != null &&
-                String(core.price).trim() !== "" &&
-                Number.isFinite(priceNumber) &&
-                priceNumber > 0;
-
-              if (!hasValidPrice) {
-                setError("İlan fiyatı zorunludur. Fiyat girilmeden ilan oluşturulamaz.");
-                setSaving(false);
-                return;
-              }
-
               const payload = {
                 ...core,
                 category,

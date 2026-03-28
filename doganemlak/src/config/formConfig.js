@@ -34,7 +34,7 @@ export const fieldDefinitions = {
     label: "Fiyat",
     type: "number",
     section: "price_area",
-    required: true,
+    required: false,
   },
   m2_brut: {
     id: "m2_brut",
@@ -316,13 +316,13 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "zoning_status",
       "arsa_m2",
       "title_deed_status",
       "swap_option",
     ],
     optionalFields: [
+      "price",
       "ada_no",
       "parsel_no",
       "pafta_no",
@@ -336,13 +336,13 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "zoning_status",
       "arsa_m2",
       "title_deed_status",
       "swap_option",
     ],
     optionalFields: [
+      "price",
       "ada_no",
       "parsel_no",
       "pafta_no",
@@ -356,7 +356,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "total_floors",
       "apartment_count",
       "bina_heating_type",
@@ -370,6 +369,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "credit_eligible",
       "registry_number",
       "neighborhood",
@@ -380,7 +380,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "total_floors",
       "apartment_count",
       "bina_heating_type",
@@ -394,6 +393,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "credit_eligible",
       "registry_number",
       "neighborhood",
@@ -404,7 +404,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_brut",
       "m2_net",
       "room_count",
@@ -421,6 +420,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "balcony",
       "furnished",
       "in_site",
@@ -437,7 +437,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_brut",
       "m2_net",
       "open_area_m2",
@@ -453,6 +452,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "balcony",
       "furnished",
       "in_site",
@@ -468,7 +468,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_brut",
       "m2_net",
       "open_area_m2",
@@ -483,6 +482,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "balcony",
       "furnished",
       "in_site",
@@ -497,7 +497,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_net",
       "room_count",
       "building_age",
@@ -511,6 +510,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "dues",
       "floor_number",
       "credit_eligible",
@@ -524,7 +524,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_net",
       "room_count",
       "building_age",
@@ -537,6 +536,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "dues",
       "floor_number",
       "credit_eligible",
@@ -550,7 +550,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_net",
       "room_count",
       "building_age",
@@ -564,6 +563,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "dues",
       "floor_number",
       "credit_eligible",
@@ -578,7 +578,6 @@ export const categoryLayouts = {
     requiredFields: [
       "title",
       "description",
-      "price",
       "m2_brut",
       "m2_net",
       "building_age",
@@ -594,6 +593,7 @@ export const categoryLayouts = {
       "district",
     ],
     optionalFields: [
+      "price",
       "ground_survey",
       "credit_eligible",
       "registry_number",
@@ -603,8 +603,8 @@ export const categoryLayouts = {
   },
   // Diğer kombinasyonlar için genel fallback
   default: {
-    requiredFields: ["title", "description", "price", "city", "district"],
-    optionalFields: ["m2_brut", "m2_net", "open_area_m2", "room_count", "building_age", "floor_number", "total_floors", "address_details"],
+    requiredFields: ["title", "description", "city", "district"],
+    optionalFields: ["price", "m2_brut", "m2_net", "open_area_m2", "room_count", "building_age", "floor_number", "total_floors", "address_details"],
   },
 };
 

@@ -37,6 +37,13 @@ function generateListingNo() {
   return Number(`${Date.now().toString().slice(-9)}${Math.floor(Math.random() * 10)}`);
 }
 
+/** Boş veya geçersiz fiyat → null; geçerli sayı → number */
+function normalizeListingPrice(value) {
+  if (value === undefined || value === null || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
 // ── Controller Fonksiyonları ──────────────────────────────────────────────────
 
 /**
@@ -149,7 +156,7 @@ async function createListing(req, res) {
       listing_no: generateListingNo(),
       title: body.title || 'Başlıksız',
       description: body.description ?? '',
-      price: body.price ?? 0,
+      price: normalizeListingPrice(body.price),
       currency: body.currency || 'TRY',
       listing_type: listingType,
       listingType,
@@ -284,6 +291,8 @@ async function updateListing(req, res) {
         };
       } else if (key === 'features' && Array.isArray(body[key])) {
         $set.features = body[key];
+      } else if (key === 'price') {
+        $set.price = normalizeListingPrice(body.price);
       } else {
         $set[key] = body[key];
       }
